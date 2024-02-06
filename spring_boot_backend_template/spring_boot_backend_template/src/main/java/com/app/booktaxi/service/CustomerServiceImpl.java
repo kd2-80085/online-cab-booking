@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.booktaxi.customexception.ResourceNotFoundException;
 import com.app.booktaxi.dao.CustomerDao;
 import com.app.booktaxi.dto.AuthDTO;
 import com.app.booktaxi.dto.CustomerDTO;
@@ -34,13 +35,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public CustomerRespDTO doLogin(AuthDTO auth) {
 		Customer customer = custDao.findByEmailAndPassword
-				(auth.getEmail(), auth.getPassword());
-				// Returns the value in case of non empty Optional
-				// OR throws supplied exception
-				//.orElseThrow(() -> new ResourceNotFoundException("Invalid email or password!!!!"));
-		// emp ent--> dto
+				(auth.getEmail(), auth.getPassword())
+				.orElseThrow(()-> new ResourceNotFoundException("Invalid Email or Password"));
+				
+				
 		return mapper.map(customer, CustomerRespDTO.class);
-		//return null;
 	}
 	
 }

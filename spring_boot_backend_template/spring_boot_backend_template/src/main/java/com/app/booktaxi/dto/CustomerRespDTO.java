@@ -21,7 +21,7 @@ public class CustomerRespDTO {
 	
 	private String password;
 	
-	private int mobile;
+	private String mobile;
 
 	@Override
 	public String toString() {

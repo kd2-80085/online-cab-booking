@@ -15,7 +15,7 @@ import lombok.Setter;
  */
 
 @Entity
-@Table(name = "feedback")
+@Table(name = "feedbacks")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -3,6 +3,7 @@ package com.app.booktaxi.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
 /*
@@ -20,11 +22,12 @@ registration_no          taxi_type (sedan)           location
  */
 
 @Entity
-@Table(name = "car")
+@Table(name = "cars")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"driver","owner"})
 public class Car extends BaseEntity {
 
 	@Column(length = 25)
@@ -33,8 +36,9 @@ public class Car extends BaseEntity {
 	@Column(length = 25)
 	private String company;
 	
-	@Column(name = "owner_id")
-	private int ownerId;
+	@ManyToOne
+	@JoinColumn(name = "owner_id")
+	private Owner owner;
 	
 	@Column(name = "seating_capacity")
 	private int seatingCapacity;
@@ -54,14 +58,6 @@ public class Car extends BaseEntity {
 	
 	@Column(length = 100)
 	private String location;
-
-	@Override
-	public String toString() {
-		return "Car [id"+getId()+" ,model=" + model + ", company=" + company + ", ownerId=" + ownerId + ", seatingCapacity="
-				+ seatingCapacity + ", status=" + status + ", driver=" + driver + ", registrationNo=" + registrationNo
-				+ ", taxiType=" + taxiType + ", location=" + location + "]";
-	}
-	
 	
 	
 }

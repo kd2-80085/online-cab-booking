@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /*
  * booking
@@ -18,16 +19,17 @@ import lombok.Setter;
 distance   pickup_time       pick_up_location      drop_location
  */
 @Entity
-@Table(name = "booking")
+@Table(name = "bookings")
 @Getter
 @Setter
-public class Booking extends BaseEntity {
+@ToString(exclude = "customer",callSuper = true)
+public class Booking extends BaseEntity{
 	
 	@Column(name = "booking_date_time")
 	private LocalDateTime bookingDateTime;
 	
 	@ManyToOne
-	@JoinColumn(name = "customer_id", nullable = false)
+	@JoinColumn(name = "customer_id")
 	private Customer customer;
 	
 	@Column(name = "car_id")
@@ -36,8 +38,13 @@ public class Booking extends BaseEntity {
 	@Column(length = 25,name ="booking_status")
 	private String bookingStatus;
 	
-	@Column(name = "driver_id")
-	private int driverId;
+	@ManyToOne
+	@JoinColumn(name = "trip_id")
+	private Trip trip;
+	
+	@ManyToOne
+	@JoinColumn(name = "driver_id")
+	private Driver driver;
 	
 	@Column(length = 25, name = "booking_type")
 	private String bookingType;
@@ -59,5 +66,5 @@ public class Booking extends BaseEntity {
 	
 	@Column(length = 100,name = "drop_location")
 	private String dropLocation;
-	
+
 }

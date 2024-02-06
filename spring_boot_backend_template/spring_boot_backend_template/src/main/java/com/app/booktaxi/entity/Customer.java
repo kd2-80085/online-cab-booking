@@ -20,7 +20,7 @@ id       name     email     password     mob.    booking_id
  */
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -40,13 +40,6 @@ public class Customer extends BaseEntity {
 	
 	@Column(length = 13)
 	private String mobile;
-	
-	public Customer(String name,String email,String password,String mobile) {
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.mobile = mobile; 
-	}
 
 	@OneToMany(mappedBy = "customer",cascade= CascadeType.ALL, orphanRemoval = true)
 	private List<Booking> bookings = new ArrayList<>();
@@ -59,6 +52,13 @@ public class Customer extends BaseEntity {
 	public void removeBookings(Booking b) {
 		this.bookings.remove(b);
 		b.setCustomer(null);
+	}
+	
+	public Customer(String name,String email,String password,String mobile) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.mobile = mobile; 
 	}
 	
 	@Override

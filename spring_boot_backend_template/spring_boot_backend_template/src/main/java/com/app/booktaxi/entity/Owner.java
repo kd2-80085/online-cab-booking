@@ -1,13 +1,19 @@
 package com.app.booktaxi.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /*
  * owner
@@ -15,13 +21,14 @@ import lombok.Setter;
  */
 
 @Entity
-@Table(name = "owner")
+@Table(name = "owners")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Owner extends BaseEntity {
-
+@ToString(exclude = "cars")
+public class Owner extends BaseEntity{
+	
 	@Column(length = 25)
 	private String name;
 	
@@ -31,23 +38,13 @@ public class Owner extends BaseEntity {
 	@Column(length = 12)
 	private String password;
 	
-	@Column(length = 13)
+	@Column(name = "mobile")
 	private String mobile;
 	
-	@Column(name = "booking_id")
-	private int bookingId;
-	
-	@Column(name = "car_id")
-	private int carId;
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Car> cars = new ArrayList<>();
 	
 	@Column(length = 25,name = "is_driver")
 	private String isDriver;
 
-	@Override
-	public String toString() {
-		return "Owner [id=" +getId()+ ", name=" + name + ", email=" + email + ", password=" + password + ", mobile=" + mobile
-				+ ", bookingId=" + bookingId + ", isDriver=" + isDriver + "]";
-	}
-	
-	
 }

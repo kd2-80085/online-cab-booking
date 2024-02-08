@@ -47,4 +47,14 @@ public class Owner extends BaseEntity{
 	@Column(length = 25,name = "is_driver")
 	private String isDriver;
 
+	
+	public void addCar(Car c) {
+		this.cars.add(c);
+		c.setOwner(this);
+	}
+	
+	public void removeCar (Car c) {
+		this.cars.remove(c);
+		c.setOwner(null);
+	}
 }

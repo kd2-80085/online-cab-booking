@@ -5,9 +5,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-<<<<<<< Updated upstream
-@MappedSuperclass
-=======
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,7 +14,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
->>>>>>> Stashed changes
 public class BaseEntity {
 
 	@Id

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,27 +27,41 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "cars")
+@ToString(exclude = "cars",callSuper = true)
 public class Owner extends BaseEntity{
 	
-	@Column(length = 25)
-	private String name;
+	@Column(length = 50)
+	private String firstName;
 	
-	@Column(length = 25)
+	@Column(length = 50)
+	private String lastName;
+	
+	@Column(length = 50)
 	private String email;
 	
-	@Column(length = 12)
+	@Column(length = 80)
 	private String password;
 	
-	@Column(name = "mobile")
+	@Column(name = "mobile",length = 10)
 	private String mobile;
+	
+	@Lob
+	private byte[] image;
+	
+	@Column(length = 15)
+	private String status;
 	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Car> cars = new ArrayList<>();
 	
-	@Column(length = 25,name = "is_driver")
-	private String isDriver;
+	@Column(name = "is_driver")
+	private boolean isDriver;
 
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+=======
+=======
+>>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 	
 	public void addCar(Car c) {
 		this.cars.add(c);
@@ -57,4 +72,16 @@ public class Owner extends BaseEntity{
 		this.cars.remove(c);
 		c.setOwner(null);
 	}
+<<<<<<< HEAD
+	
+	public boolean getIsDriver() {
+		return this.isDriver;
+	}
+	
+	public void setIsDriver(boolean isDriver) {
+		this.isDriver = isDriver;
+	}
+>>>>>>> Stashed changes
+=======
+>>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 }

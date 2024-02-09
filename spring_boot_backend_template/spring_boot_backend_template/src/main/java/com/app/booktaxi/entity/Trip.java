@@ -32,17 +32,34 @@ id     cust_id    booking_id     trip_status
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = {"customers","bookings","car"},callSuper = true)
 public class Trip extends BaseEntity {
 
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+	@Column(name = "customer_id")
+	private int customerId;
+=======
+	@ManyToMany(mappedBy = "trips")
+	private Set<Customer> customers = new HashSet<>();
+>>>>>>> Stashed changes
+=======
 	@ManyToMany(mappedBy = "trips")
 	private Set<Customer> customer=new HashSet<>();
+>>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 	
 	@OneToMany(mappedBy = "trip",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Booking> bookings = new ArrayList<>();
 	
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+=======
+	@ManyToOne
+	@JoinColumn(name = "car_id",nullable = false)
+=======
 	@ManyToOne
 	@JoinColumn(name = "car_id")
+>>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 	private Car car;
 	
 	@Column(name = "start_time")
@@ -51,6 +68,10 @@ public class Trip extends BaseEntity {
 	@Column(name = "end_time")
 	private LocalDateTime endTime;
 	
+<<<<<<< HEAD
+>>>>>>> Stashed changes
+=======
+>>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 	@Column(length = 25,name = "tripStatus")
 	private String tripStatus;
 	

@@ -33,22 +33,33 @@ public class Booking extends BaseEntity{
 	private LocalDateTime bookingDateTime;
 	
 	@ManyToOne
-	@JoinColumn(name = "customer_id")
+	@JoinColumn(name = "customer_id",nullable = false)
 	private Customer customer;
 	
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+	@Column(name = "car_id")
+	private int carId;
+=======
+	@ManyToOne
+	@JoinColumn(name = "car_id",nullable = false)
+	private Car car;
+>>>>>>> Stashed changes
+=======
 	@ManyToOne
 	@JoinColumn(name = "car_id")
 	private Car car;
+>>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 	
 	@Column(length = 25,name ="booking_status")
 	private String bookingStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "trip_id")
+	@JoinColumn(name = "trip_id",nullable = false)
 	private Trip trip;
 	
 	@ManyToOne
-	@JoinColumn(name = "driver_id")
+	@JoinColumn(name = "driver_id",nullable = false)
 	private Driver driver;
 	
 	@Column(length = 25, name = "booking_type")
@@ -60,8 +71,7 @@ public class Booking extends BaseEntity{
 	@Column(length = 25, name = "taxi_type")
 	private String taxiType;
 	
-	@Column(length = 100)
-	private String distance;
+	private float distance;
 	
 	@Column(name = "pickup_time")
 	private LocalDateTime pickupTime;

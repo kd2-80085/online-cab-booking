@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /*
  * admin       
@@ -20,24 +21,22 @@ id       name     email     password     mob.
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true)
 public class Admin extends BaseEntity {
 
-	@Column(length = 25)
-	private String name;
+	@Column(length = 50)
+	private String firstName;
 	
-	@Column(length = 25)
+	@Column(length = 50)
+	private String lastName;
+	
+	@Column(length = 50)
 	private String email;
 	
-	@Column(length = 12)
+	@Column(length = 80)
 	private String password;
 	
-	@Column(length = 13)
+	@Column(length = 10)
 	private String mobile;
-
-	@Override
-	public String toString() {
-		return "Admin [id=" +getId()+ ", name=" + name + ", email=" + email + ", password=" + password + ", mobile=" + mobile + "]";
-	}
-
 	
 }

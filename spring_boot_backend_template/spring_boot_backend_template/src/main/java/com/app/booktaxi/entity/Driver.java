@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,20 +29,30 @@ id      name     email     password     mob.     liscence-no.    rating
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"car","feedbacks","bookings"})
+@ToString(exclude = {"car","feedbacks","bookings"},callSuper = true)
 public class Driver extends BaseEntity{
 
-	@Column(length = 25)
-	private String name;
+	@Column(length = 50)
+	private String firstName;
 	
-	@Column(length = 25)
+	@Column(length = 50)
+	private String lastName;
+	
+	@Column(length = 50)
 	private String email;
 	
-	@Column(length = 12)
+	@Column(length = 80)
 	private String password;
-	
-	@Column(name = "mobile", length = 13)
+
+	@Column(name = "mobile", length = 10)
 	private String mobile;
+	
+
+	@Lob
+	private byte[] image;
+	
+	@Column(length = 15)
+	private String status;
 	
 	@OneToMany(mappedBy = "driver",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Booking> bookings = new ArrayList<>();
@@ -72,7 +83,7 @@ public class Driver extends BaseEntity{
 		this.feedbacks.add(f);
 		f.setDriver(this);
 	}
-	
+
 	public void removeFeedback(Feedback f) {
 		this.feedbacks.remove(f);
 		f.setDriver(null);

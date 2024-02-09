@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
@@ -34,10 +33,10 @@ import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Feedback;
 import com.app.booktaxi.entity.Payment;
 
+
 @Service
 @Transactional
 public class AdminServiceImpl implements AdminService {
-
 
 	@Autowired
 	private BookingDao bookingDao;
@@ -56,37 +55,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private ModelMapper mapper;
-	
-//	@Override
-//	public List<BookingRespDTO> getTripsByCustomer(int pageNumber, int pageSize) {
-//		
-//		// Creates a PageRequest(imple class of Pageable : i/f for pagination) based
-//		// upon page no n size
-//		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-//		// fetches the Page of Emps --> getContent() --> List<Emp>
-//		List<Employee> empList = empDao.findAll(pageable).getContent();
-//		return empList.stream().map(emp -> mapper.map(emp, EmpRespDTO.class)).collect(Collectors.toList());
-//	}
 
-
-	@Override
-	public List<BookingRespDTO> getTripsByCustomer(int pageNumber, int pageSize,Long customerId) {
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		// fetches the Page of Emps --> getContent() --> List<Emp>
-		Customer cust=new Customer();
-		cust.setId(customerId);
-		
-		List<Booking> bookingList = bookingDao.findAllByCustomer(cust)
-				.orElseThrow(()-> new ResourceNotFoundException("Bookings Not found"));
-		
-		System.out.println(bookingList);
-//		List<Booking> bookingList = bookingDao.findByCustomer(customerId,pageable)
-//				.orElseThrow(()-> new ResourceNotFoundException("Bookings Not found"));
-//		return bookingList.stream().map(booking -> mapper.map(booking, BookingRespDTO.class))
-//				.collect(Collectors.toList());
-		return null;
-		
-	}
+	@Autowired
+	private CustomerDao customerDao;
 
 	@Override
 	public List<CarRespDTO> getAllCarsDetails(int pageNumber, int pageSize) {
@@ -147,8 +118,29 @@ public class AdminServiceImpl implements AdminService {
 	    }
 	}
 
-	
-	
-	
+	@Override
+	public List<BookingRespDTO> getTripsByCustomer(int pageNumber, int pageSize, Long customerId) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
+		Customer customer = customerDao.findById(customerId)
+				.orElseThrow(() -> new ResourceNotFoundException("Customer Not found"));
+
+		List<Booking> bookingList = bookingDao.findByCustomer(customer, pageable)
+				.orElseThrow(() -> new ResourceNotFoundException("Bookings Not found"));
+
+		List<BookingRespDTO> bookingRespDTOList = bookingList.stream().map(booking -> {
+			BookingRespDTO bookDto = mapper.map(booking, BookingRespDTO.class);
+
+			bookDto.setCarId(booking.getCar().getId());
+			bookDto.setCustomerId(booking.getCustomer().getId());
+			bookDto.setDriverId(booking.getDriver().getId());
+			bookDto.setTripId(booking.getTrip().getId());
+			//bookDto.setPaymentId(booking.getPayment().getId());
+
+			return bookDto;
+		}).collect(Collectors.toList());
+
+		return bookingRespDTOList;
+	}
 
 }

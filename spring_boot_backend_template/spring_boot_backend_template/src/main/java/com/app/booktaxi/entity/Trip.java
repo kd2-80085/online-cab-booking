@@ -32,17 +32,17 @@ id     cust_id    booking_id     trip_status
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = {"customers","bookings","car"},callSuper = true)
 public class Trip extends BaseEntity {
 
 	@ManyToMany(mappedBy = "trips")
-	private Set<Customer> customer=new HashSet<>();
-	
+	private Set<Customer> customers = new HashSet<>();
+
 	@OneToMany(mappedBy = "trip",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Booking> bookings = new ArrayList<>();
 	
 	@ManyToOne
-	@JoinColumn(name = "car_id")
+	@JoinColumn(name = "car_id",nullable = false)
 	private Car car;
 	
 	@Column(name = "start_time")

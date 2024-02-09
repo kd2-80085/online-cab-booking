@@ -14,4 +14,6 @@ public interface BookingDao extends JpaRepository<Booking, Long>{
 	//Optional<List<Booking>> findByCustomer(Pageable pageable);
 	Optional<List<Booking>> findAllByCustomer(Customer cust);
 
+	Optional<List<Booking>> findByCustomer(Customer cust, Pageable pageable);
+
 }

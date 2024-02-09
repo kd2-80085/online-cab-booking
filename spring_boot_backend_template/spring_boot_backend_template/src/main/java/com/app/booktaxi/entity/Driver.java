@@ -29,6 +29,7 @@ id      name     email     password     mob.     liscence-no.    rating
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 @ToString(exclude = {"car","feedbacks","bookings"},callSuper = true)
 public class Driver extends BaseEntity{
 
@@ -47,6 +48,7 @@ public class Driver extends BaseEntity{
 	@Column(name = "mobile", length = 10)
 	private String mobile;
 	
+
 	@Lob
 	private byte[] image;
 	

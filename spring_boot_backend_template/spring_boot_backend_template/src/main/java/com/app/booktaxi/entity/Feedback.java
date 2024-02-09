@@ -20,11 +20,23 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+<<<<<<< Updated upstream
+=======
+@ToString(exclude = {"booking","driver"},callSuper = true)
+>>>>>>> Stashed changes
 public class Feedback extends BaseEntity {
-
-	@Column(name = "customer_id")
-	private int customerId;
 	
+<<<<<<< Updated upstream
+=======
+	@ManyToOne
+	@JoinColumn(name = "driver_id",nullable = false)
+	private Driver driver;
+	
+	@OneToOne
+	@JoinColumn(name = "booking_id",nullable = false)
+	private Booking booking;
+	
+>>>>>>> Stashed changes
 	@Column(length = 50)
 	private String feedback;
 	

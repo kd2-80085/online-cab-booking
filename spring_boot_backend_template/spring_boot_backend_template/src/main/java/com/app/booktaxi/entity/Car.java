@@ -27,7 +27,11 @@ registration_no          taxi_type (sedan)           location
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+<<<<<<< Updated upstream
 @ToString(exclude = {"driver","owner"})
+=======
+@ToString(exclude = {"driver","owner","trips","bookings"},callSuper = true)
+>>>>>>> Stashed changes
 public class Car extends BaseEntity {
 
 	@Column(length = 25)
@@ -37,7 +41,7 @@ public class Car extends BaseEntity {
 	private String company;
 	
 	@ManyToOne
-	@JoinColumn(name = "owner_id")
+	@JoinColumn(name = "owner_id",nullable = false)
 	private Owner owner;
 	
 	@Column(name = "seating_capacity")

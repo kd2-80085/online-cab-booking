@@ -10,4 +10,6 @@ public interface CustomerDao extends JpaRepository<Customer, Long> {
 
 	Optional<Customer> findByEmailAndPassword(String email, String password);
 
+	Optional<Customer> getByEmail(String email);
+
 }

@@ -33,7 +33,6 @@ registration_no          taxi_type (sedan)           location
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @ToString(exclude = {"driver","owner","trips","bookings"},callSuper = true)
 public class Car extends BaseEntity {
 

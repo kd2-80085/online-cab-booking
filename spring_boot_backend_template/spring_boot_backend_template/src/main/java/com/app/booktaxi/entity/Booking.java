@@ -27,7 +27,6 @@ distance   pickup_time       pick_up_location      drop_location
 @Getter
 @Setter
 @ToString(exclude = {"customer","car","trip","driver","payment","feedbacks"},callSuper = true)
-
 public class Booking extends BaseEntity{
 	
 	@Column(name = "booking_date_time")
@@ -39,7 +38,6 @@ public class Booking extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "car_id",nullable = false)
-
 	private Car car;
 	
 	@Column(length = 25,name ="booking_status")
@@ -76,5 +74,4 @@ public class Booking extends BaseEntity{
 	@OneToOne(mappedBy = "booking",cascade = CascadeType.ALL,orphanRemoval = true)
 	private Feedback feedbacks;
 
-	
 }

@@ -1,10 +1,16 @@
 package com.app.booktaxi.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,11 +33,15 @@ registration_no          taxi_type (sedan)           location
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 @ToString(exclude = {"driver","owner"})
 =======
 @ToString(exclude = {"driver","owner","trips","bookings"},callSuper = true)
 >>>>>>> Stashed changes
+=======
+@ToString(exclude = {"driver","owner","trips","bookings"})
+>>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 public class Car extends BaseEntity {
 
 	@Column(length = 25)
@@ -39,6 +49,12 @@ public class Car extends BaseEntity {
 	
 	@Column(length = 25)
 	private String company;
+	
+	@Lob
+	private byte[] image;
+	
+	@OneToMany(mappedBy = "car",cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Booking> bookings = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "owner_id",nullable = false)
@@ -49,6 +65,9 @@ public class Car extends BaseEntity {
 	
 	@Column(length = 25)
 	private String status;
+	
+	@OneToMany(mappedBy = "car",cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Trip> trips = new ArrayList<Trip>();
 	
 	@OneToOne
 	@JoinColumn(name="driver_id",nullable = false)
@@ -63,5 +82,24 @@ public class Car extends BaseEntity {
 	@Column(length = 100)
 	private String location;
 	
+	public void addBooking(Booking b) {
+		this.bookings.add(b);
+		b.setCar(this);
+	}
+	
+	public void removeBooking(Booking b) {
+		this.bookings.remove(b);
+		b.setCar(null);
+	}
+	
+	public void addTrip(Trip t) {
+		this.trips.add(t);
+		t.setCar(this);
+	}
+	
+public void removeTrio(Trip t) {
+		this.trips.remove(t);
+		t.setCar(null);
+	}
 	
 }

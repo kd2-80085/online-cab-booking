@@ -57,8 +57,11 @@ public class Owner extends BaseEntity{
 	@Column(name = "is_driver")
 	private boolean isDriver;
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 	
 	public void addCar(Car c) {
 		this.cars.add(c);
@@ -69,6 +72,7 @@ public class Owner extends BaseEntity{
 		this.cars.remove(c);
 		c.setOwner(null);
 	}
+<<<<<<< HEAD
 	
 	public boolean getIsDriver() {
 		return this.isDriver;
@@ -78,4 +82,6 @@ public class Owner extends BaseEntity{
 		this.isDriver = isDriver;
 	}
 >>>>>>> Stashed changes
+=======
+>>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 }

@@ -29,11 +29,15 @@ id      name     email     password     mob.     liscence-no.    rating
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 @ToString(exclude = "car")
 =======
 @ToString(exclude = {"car","feedbacks","bookings"},callSuper = true)
 >>>>>>> Stashed changes
+=======
+@ToString(exclude = {"car","feedbacks","bookings"})
+>>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 public class Driver extends BaseEntity{
 
 	@Column(length = 50)
@@ -66,6 +70,31 @@ public class Driver extends BaseEntity{
 	@Column(name = "rating")
 	private int rating;
 
-	@OneToOne(mappedBy = "driver")
+	@OneToOne(mappedBy = "driver",cascade = CascadeType.ALL,orphanRemoval = true)
 	private Car car;
+	
+	@OneToMany(mappedBy = "driver",cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Feedback> feedbacks = new ArrayList<Feedback>();
+	
+	public void addBooking(Booking b) {
+		this.bookings.add(b);
+		b.setDriver(this);
+	}
+	
+	public void removeBooking(Booking b) {
+		this.bookings.remove(b);
+		b.setDriver(null);
+	}
+	
+	public void addFeedback(Feedback f) {
+		this.feedbacks.add(f);
+		f.setDriver(this);
+	}
+	
+	public void removeFeedback(Feedback f) {
+		this.feedbacks.remove(f);
+		f.setDriver(null);
+	}
+	
+	
 }

@@ -24,19 +24,9 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 @ToString(exclude = {"booking","driver"},callSuper = true)
->>>>>>> Stashed changes
-=======
-@ToString(exclude = {"booking","driver"})
->>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 public class Feedback extends BaseEntity {
 	
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 	@ManyToOne
 	@JoinColumn(name = "driver_id",nullable = false)
 	private Driver driver;
@@ -45,17 +35,6 @@ public class Feedback extends BaseEntity {
 	@JoinColumn(name = "booking_id",nullable = false)
 	private Booking booking;
 	
->>>>>>> Stashed changes
-=======
-	@ManyToOne
-	@JoinColumn(name = "driver_id")
-	private Driver driver;
-	
-	@OneToOne
-	@JoinColumn(name = "booking_id")
-	private Booking booking;
-	
->>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 	@Column(length = 50)
 	private String feedback;
 	

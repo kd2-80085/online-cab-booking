@@ -29,15 +29,7 @@ id      name     email     password     mob.     liscence-no.    rating
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-@ToString(exclude = "car")
-=======
 @ToString(exclude = {"car","feedbacks","bookings"},callSuper = true)
->>>>>>> Stashed changes
-=======
-@ToString(exclude = {"car","feedbacks","bookings"})
->>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 public class Driver extends BaseEntity{
 
 	@Column(length = 50)

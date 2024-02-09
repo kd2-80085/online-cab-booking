@@ -6,9 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import lombok.Setter;
+import lombok.ToString;
 
 @MappedSuperclass
 @Setter
+@ToString
 public class BaseEntity {
 
 	@Id
@@ -18,5 +20,6 @@ public class BaseEntity {
 	public Long getId() {
 		return id;
 	}
+	
 
 }

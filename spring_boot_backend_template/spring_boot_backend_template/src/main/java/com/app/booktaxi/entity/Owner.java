@@ -41,10 +41,23 @@ public class Owner extends BaseEntity{
 	@Column(name = "mobile")
 	private String mobile;
 	
+	@Column(length = 25)
+	private String status;
+	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Car> cars = new ArrayList<>();
 	
 	@Column(length = 25,name = "is_driver")
 	private String isDriver;
 
+	
+	public void addCar(Car c) {
+		this.cars.add(c);
+		c.setOwner(this);
+	}
+	
+	public void removeCar (Car c) {
+		this.cars.remove(c);
+		c.setOwner(null);
+	}
 }

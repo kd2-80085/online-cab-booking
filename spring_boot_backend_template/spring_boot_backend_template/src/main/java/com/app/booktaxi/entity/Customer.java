@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 import java.util.Set;
 
@@ -32,11 +34,9 @@ id       name     email     password     mob.    booking_id
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"bookings","trips"})
+@ToString(exclude = {"bookings","trips"},callSuper = true)
 public class Customer extends BaseEntity {
 	
-	
-
 	@Column(length = 25)
 	private String name;
 	
@@ -49,11 +49,13 @@ public class Customer extends BaseEntity {
 	@Column(length = 13)
 	private String mobile;
 
+	
 	@OneToMany(mappedBy = "customer",cascade= CascadeType.ALL, orphanRemoval = true)
 	private List<Booking> bookings = new ArrayList<>();
-
+     
+	
 	@ManyToMany
-    @JoinTable(name = "Employee_Project", joinColumns = @JoinColumn(name="customer_id",nullable = false),inverseJoinColumns = @JoinColumn(name="trip_id",nullable = false))
+    @JoinTable(name = "customer_trips", joinColumns = @JoinColumn(name="customer_id",nullable = false),inverseJoinColumns = @JoinColumn(name="trip_id",nullable = false))
     private Set<Trip> trips = new HashSet<>();
 	
 	public void addBookings(Booking b)	

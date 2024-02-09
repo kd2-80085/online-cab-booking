@@ -18,8 +18,19 @@ public class HomeController {
 	@Autowired
 	private CustomerService custService;
 	
+	
+	
+	
+	
+	
+	
 	@PostMapping
 	public ResponseEntity<?>  customerLogin(@RequestBody AuthDTO auth) {
+		
+		
+		
+		
+		
 		return ResponseEntity.ok(custService.doLogin(auth));
 	}
 	

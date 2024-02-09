@@ -1,11 +1,15 @@
 package com.app.booktaxi.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -22,7 +26,9 @@ distance   pickup_time       pick_up_location      drop_location
 @Table(name = "bookings")
 @Getter
 @Setter
-@ToString(exclude = "customer",callSuper = true)
+@ToString(exclude = {"customer","car","trip","driver","payment","feedbacks"},callSuper = true)
+//@ToString(callSuper = true)
+
 public class Booking extends BaseEntity{
 	
 	@Column(name = "booking_date_time")
@@ -32,8 +38,9 @@ public class Booking extends BaseEntity{
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 	
-	@Column(name = "car_id")
-	private int carId;
+	@ManyToOne
+	@JoinColumn(name = "car_id")
+	private Car car;
 	
 	@Column(length = 25,name ="booking_status")
 	private String bookingStatus;
@@ -49,8 +56,8 @@ public class Booking extends BaseEntity{
 	@Column(length = 25, name = "booking_type")
 	private String bookingType;
 	
-	@Column(name = "payment_id")
-	private int paymentId;
+	@OneToOne(mappedBy = "booking",cascade = CascadeType.ALL,orphanRemoval = true)
+	private Payment payment;
 	
 	@Column(length = 25, name = "taxi_type")
 	private String taxiType;
@@ -66,5 +73,9 @@ public class Booking extends BaseEntity{
 	
 	@Column(length = 100,name = "drop_location")
 	private String dropLocation;
+	
+	@OneToOne(mappedBy = "booking",cascade = CascadeType.ALL,orphanRemoval = true)
+	private Feedback feedbacks;
 
+	
 }

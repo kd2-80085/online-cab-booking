@@ -15,7 +15,7 @@ id       name     email     password     mob.
  */
 
 @Entity
-@Table(name = "admin")
+@Table(name = "admins")
 @Getter
 @Setter
 @NoArgsConstructor

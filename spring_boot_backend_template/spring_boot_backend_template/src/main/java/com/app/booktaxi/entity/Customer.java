@@ -1,18 +1,25 @@
 package com.app.booktaxi.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.util.List;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /*
  * customer
@@ -20,11 +27,12 @@ id       name     email     password     mob.    booking_id
  */
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"bookings","trips"})
 public class Customer extends BaseEntity {
 	
 	
@@ -40,18 +48,16 @@ public class Customer extends BaseEntity {
 	
 	@Column(length = 13)
 	private String mobile;
-	
-	public Customer(String name,String email,String password,String mobile) {
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.mobile = mobile; 
-	}
 
 	@OneToMany(mappedBy = "customer",cascade= CascadeType.ALL, orphanRemoval = true)
 	private List<Booking> bookings = new ArrayList<>();
 
-	public void addBookings(Booking b)	{
+	@ManyToMany
+    @JoinTable(name = "customer_trips", joinColumns = @JoinColumn(name="customer_id",nullable = false),inverseJoinColumns = @JoinColumn(name="trip_id",nullable = false))
+    private Set<Trip> trips = new HashSet<>();
+	
+	public void addBookings(Booking b)	
+	{
 		this.bookings.add(b);
 		b.setCustomer(this);
 	}
@@ -61,12 +67,12 @@ public class Customer extends BaseEntity {
 		b.setCustomer(null);
 	}
 	
-	@Override
-	public String toString() {
-		return "Customer [id=" +getId()+ ", name=" + name + ", email=" + email + ", password=" + password + ", mobile=" + mobile
-				+ ", bookings=" + bookings + "]";
+	public Customer(String name,String email,String password,String mobile) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.mobile = mobile; 
 	}
-	
 	
 	
 }

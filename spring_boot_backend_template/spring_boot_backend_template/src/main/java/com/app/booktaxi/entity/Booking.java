@@ -36,20 +36,9 @@ public class Booking extends BaseEntity{
 	@JoinColumn(name = "customer_id",nullable = false)
 	private Customer customer;
 	
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-	@Column(name = "car_id")
-	private int carId;
-=======
 	@ManyToOne
 	@JoinColumn(name = "car_id",nullable = false)
 	private Car car;
->>>>>>> Stashed changes
-=======
-	@ManyToOne
-	@JoinColumn(name = "car_id")
-	private Car car;
->>>>>>> 72f23b89119c9dbc68dc7d4b59f469a1843b3a50
 	
 	@Column(length = 25,name ="booking_status")
 	private String bookingStatus;

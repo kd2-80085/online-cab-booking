@@ -27,7 +27,6 @@ distance   pickup_time       pick_up_location      drop_location
 @Getter
 @Setter
 @ToString(exclude = {"customer","car","trip","driver","payment","feedbacks"},callSuper = true)
-//@ToString(callSuper = true)
 
 public class Booking extends BaseEntity{
 	
@@ -35,22 +34,23 @@ public class Booking extends BaseEntity{
 	private LocalDateTime bookingDateTime;
 	
 	@ManyToOne
-	@JoinColumn(name = "customer_id")
+	@JoinColumn(name = "customer_id",nullable = false)
 	private Customer customer;
 	
 	@ManyToOne
-	@JoinColumn(name = "car_id")
+	@JoinColumn(name = "car_id",nullable = false)
+
 	private Car car;
 	
 	@Column(length = 25,name ="booking_status")
 	private String bookingStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "trip_id")
+	@JoinColumn(name = "trip_id",nullable = false)
 	private Trip trip;
 	
 	@ManyToOne
-	@JoinColumn(name = "driver_id")
+	@JoinColumn(name = "driver_id",nullable = false)
 	private Driver driver;
 	
 	@Column(length = 25, name = "booking_type")
@@ -62,8 +62,7 @@ public class Booking extends BaseEntity{
 	@Column(length = 25, name = "taxi_type")
 	private String taxiType;
 	
-	@Column(length = 100)
-	private String distance;
+	private float distance;
 	
 	@Column(name = "pickup_time")
 	private LocalDateTime pickupTime;

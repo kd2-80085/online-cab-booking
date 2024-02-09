@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -37,17 +38,25 @@ id       name     email     password     mob.    booking_id
 @ToString(exclude = {"bookings","trips"},callSuper = true)
 public class Customer extends BaseEntity {
 	
-	@Column(length = 25)
-	private String name;
+
+	@Column(length = 50)
+	private String firstName;
 	
-	@Column(length = 35)
+	@Column(length = 50)
+	private String lastName;
+
+	
+	@Column(length = 50)
 	private String email;
 	
-	@Column(length = 12)
+	@Column(length = 80)
 	private String password;
 	
-	@Column(length = 13)
+	@Column(length = 10)
 	private String mobile;
+	
+	@Lob
+	private byte[] image;
 
 	
 	@OneToMany(mappedBy = "customer",cascade= CascadeType.ALL, orphanRemoval = true)
@@ -69,8 +78,9 @@ public class Customer extends BaseEntity {
 		b.setCustomer(null);
 	}
 	
-	public Customer(String name,String email,String password,String mobile) {
-		this.name = name;
+	public Customer(String firstName,String lastName,String email,String password,String mobile) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.mobile = mobile; 

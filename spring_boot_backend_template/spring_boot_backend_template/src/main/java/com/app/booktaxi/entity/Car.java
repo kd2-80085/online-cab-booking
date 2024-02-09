@@ -33,7 +33,8 @@ registration_no          taxi_type (sedan)           location
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"driver","owner","trips","bookings"})
+
+@ToString(exclude = {"driver","owner","trips","bookings"},callSuper = true)
 public class Car extends BaseEntity {
 
 	@Column(length = 25)
@@ -49,7 +50,7 @@ public class Car extends BaseEntity {
 	private List<Booking> bookings = new ArrayList<>();
 	
 	@ManyToOne
-	@JoinColumn(name = "owner_id")
+	@JoinColumn(name = "owner_id",nullable = false)
 	private Owner owner;
 	
 	@Column(name = "seating_capacity")

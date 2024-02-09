@@ -24,11 +24,17 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"booking","driver"})
-public class Feedback extends BaseEntity {
 
-	@Column(name = "customer_id")
-	private int customerId;
+@ToString(exclude = {"booking","driver"},callSuper = true)
+public class Feedback extends BaseEntity {
+	
+	@ManyToOne
+	@JoinColumn(name = "driver_id",nullable = false)
+	private Driver driver;
+	
+	@OneToOne
+	@JoinColumn(name = "booking_id",nullable = false)
+	private Booking booking;
 	
 	@ManyToOne
 	@JoinColumn(name = "driver_id")

@@ -1,13 +1,13 @@
 package com.app.booktaxi.service;
 
-import com.app.booktaxi.dto.AuthDTO;
-import com.app.booktaxi.dto.CustomerDTO;
+import com.app.booktaxi.dto.CustomerSigninDTO;
+import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.CustomerRespDTO;
 
 public interface CustomerService {
 
-	CustomerDTO addNewCustomer(CustomerDTO c);
+	CustomerSignupDTO addNewCustomer(CustomerSignupDTO c);
 
-	CustomerRespDTO doLogin(AuthDTO auth);
+	CustomerRespDTO doLogin(CustomerSigninDTO auth);
 
 }

@@ -54,15 +54,13 @@ public class Customer extends BaseEntity {
 	
 	@Column(length = 10)
 	private String mobile;
-	
+
 	@Lob
 	private byte[] image;
-
 	
 	@OneToMany(mappedBy = "customer",cascade= CascadeType.ALL, orphanRemoval = true)
 	private List<Booking> bookings = new ArrayList<>();
-     
-	
+   
 	@ManyToMany
     @JoinTable(name = "customer_trips", joinColumns = @JoinColumn(name="customer_id",nullable = false),inverseJoinColumns = @JoinColumn(name="trip_id",nullable = false))
     private Set<Trip> trips = new HashSet<>();

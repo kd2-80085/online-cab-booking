@@ -2,10 +2,10 @@ package com.app.booktaxi.dto;
 
 import java.time.LocalDateTime;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.OneToOne;
-
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Payment;
@@ -15,8 +15,8 @@ import lombok.*;
 
 @Getter
 @Setter
-public class BookingRespDTO {
 
+public class BookingRespDTO {
 	private Long id;
 
 	private LocalDateTime bookingDateTime;
@@ -49,9 +49,5 @@ public class BookingRespDTO {
 				+ distance + ", pickupTime=" + pickupTime + ", pickUpLocation=" + pickUpLocation + ", dropLocation="
 				+ dropLocation + "]";
 	}
-
-	
-
-	
 
 }

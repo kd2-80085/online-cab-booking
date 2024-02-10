@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
+<<<<<<< HEAD
+=======
+import com.app.booktaxi.dto.AuthDTO;
+>>>>>>> 6c4a7478be2bb938ad9f6856eaf78618625244e1
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
@@ -33,6 +37,18 @@ import com.app.booktaxi.service.OwnerService;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+<<<<<<< HEAD
+=======
+	  
+  	@Autowired
+	private AdminService adminService;
+
+	@Autowired
+	private OwnerService ownerService;
+
+	@Autowired
+	private CarService carService;
+>>>>>>> 6c4a7478be2bb938ad9f6856eaf78618625244e1
 	  
   	@Autowired
 	private AdminService adminService;

@@ -19,5 +19,9 @@ public interface AdminService {
 
 	PaymentRespDTO getPaymentByParticularBooking(Long bookingId, Long paymentId);
 
+<<<<<<< HEAD
 	List<FeedbackRespDTO> getDriverFeedback(int pageNumber, int pageSize, @NotNull Long driverId);
+=======
+	FeedbackRespDTO getDriverFeedback(@NotNull Long driverId);
+>>>>>>> 6c4a7478be2bb938ad9f6856eaf78618625244e1
 }

@@ -26,6 +26,25 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(exclude = {"booking","driver"},callSuper = true)
 public class Feedback extends BaseEntity {
+<<<<<<< HEAD
+=======
+	
+	@ManyToOne
+	@JoinColumn(name = "driver_id",nullable = false)
+	private Driver driver;
+	
+	@OneToOne
+	@JoinColumn(name = "booking_id",nullable = false)
+	private Booking booking;
+	
+	@ManyToOne
+	@JoinColumn(name = "driver_id")
+	private Driver driver;
+	
+	@OneToOne
+	@JoinColumn(name = "booking_id")
+	private Booking booking;
+>>>>>>> 6c4a7478be2bb938ad9f6856eaf78618625244e1
 	
 	@ManyToOne
 	@JoinColumn(name = "driver_id",nullable = false)

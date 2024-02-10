@@ -50,13 +50,12 @@ public class Owner extends BaseEntity{
 	
 	@Column(length = 15)
 	private String status;
-	
+  
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Car> cars = new ArrayList<>();
 	
 	@Column(name = "is_driver")
 	private boolean isDriver;
-
 	
 	public void addCar(Car c) {
 		this.cars.add(c);
@@ -67,7 +66,7 @@ public class Owner extends BaseEntity{
 		this.cars.remove(c);
 		c.setOwner(null);
 	}
-	
+  
 	public boolean getIsDriver() {
 		return this.isDriver;
 	}

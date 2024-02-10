@@ -43,10 +43,11 @@ public class Driver extends BaseEntity{
 	
 	@Column(length = 80)
 	private String password;
-	
+
 	@Column(name = "mobile", length = 10)
 	private String mobile;
 	
+
 	@Lob
 	private byte[] image;
 	
@@ -82,7 +83,7 @@ public class Driver extends BaseEntity{
 		this.feedbacks.add(f);
 		f.setDriver(this);
 	}
-	
+
 	public void removeFeedback(Feedback f) {
 		this.feedbacks.remove(f);
 		f.setDriver(null);

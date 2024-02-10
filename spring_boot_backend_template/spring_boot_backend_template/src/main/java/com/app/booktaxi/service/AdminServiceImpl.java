@@ -20,6 +20,7 @@ import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.CustomerDao;
 import com.app.booktaxi.dao.DriverDao;
+import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dao.PaymentDao;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;

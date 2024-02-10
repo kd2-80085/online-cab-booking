@@ -35,22 +35,6 @@ public class Feedback extends BaseEntity {
 	@JoinColumn(name = "booking_id",nullable = false)
 	private Booking booking;
 	
-	@ManyToOne
-	@JoinColumn(name = "driver_id")
-	private Driver driver;
-	
-	@OneToOne
-	@JoinColumn(name = "booking_id")
-	private Booking booking;
-	
-	@ManyToOne
-	@JoinColumn(name = "driver_id")
-	private Driver driver;
-	
-	@OneToOne
-	@JoinColumn(name = "booking_id")
-	private Booking booking;
-	
 	@Column(length = 50)
 	private String feedback;
 	

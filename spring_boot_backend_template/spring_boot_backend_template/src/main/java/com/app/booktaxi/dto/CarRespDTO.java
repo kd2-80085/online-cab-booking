@@ -1,7 +1,5 @@
 package com.app.booktaxi.dto;
 
-import java.util.Arrays;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,11 +13,15 @@ public class CarRespDTO {
 	
 	private String company;
 	
-	private byte[] image;
+	//private byte[] image;
+	
+	private Long ownerId;
 	
 	private int seatingCapacity;
 	
 	private String status;
+	
+	private Long driverId;
 	
 	private String registrationNo;
 	
@@ -29,11 +31,10 @@ public class CarRespDTO {
 
 	@Override
 	public String toString() {
-		return "CarRespDTO [id=" + id + ", model=" + model + ", company=" + company + ", image="
-				+ Arrays.toString(image) + ", seatingCapacity=" + seatingCapacity + ", status=" + status
+		return "CarRespDTO [id=" + id + ", model=" + model + ", company=" + company + ", ownerId=" + ownerId
+				+ ", seatingCapacity=" + seatingCapacity + ", status=" + status + ", driverId=" + driverId
 				+ ", registrationNo=" + registrationNo + ", taxiType=" + taxiType + ", location=" + location + "]";
 	}
-	
 	
 	
 }

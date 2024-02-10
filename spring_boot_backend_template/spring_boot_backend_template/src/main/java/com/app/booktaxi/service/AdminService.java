@@ -11,9 +11,6 @@ import com.app.booktaxi.dto.FeedbackRespDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
 
 public interface AdminService {
-
-	
-
 	List<BookingRespDTO> getTripsByCustomer(int pageNumber, int pageSize, Long customerId);
 
 	List<CarRespDTO> getAllCarsDetails(int pageNumber, int pageSize);
@@ -22,6 +19,5 @@ public interface AdminService {
 
 	PaymentRespDTO getPaymentByParticularBooking(Long bookingId, Long paymentId);
 
-	FeedbackRespDTO getDriverFeedback(@NotNull Long driverId);
-
+	List<FeedbackRespDTO> getDriverFeedback(int pageNumber, int pageSize, @NotNull Long driverId);
 }

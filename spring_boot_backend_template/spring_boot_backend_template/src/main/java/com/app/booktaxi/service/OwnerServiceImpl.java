@@ -26,7 +26,6 @@ public class OwnerServiceImpl implements OwnerService {
 		if (updatedOwner != null)
 			return "Owner Approved Successfully " + updatedOwner;
 		return null;
-
 	}
 
 }

@@ -1,5 +1,10 @@
 package com.app.booktaxi.dto;
 
+import java.util.Arrays;
+
+import com.app.booktaxi.entity.Driver;
+import com.app.booktaxi.entity.Owner;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +33,10 @@ public class CarRespDTO {
 	private String taxiType;
 	
 	private String location;
+
+	private Long ownerId;
+	
+	private Long driverId;
 
 	@Override
 	public String toString() {

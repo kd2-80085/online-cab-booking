@@ -44,11 +44,10 @@ public class AdminController {
 
 	@Autowired
 	private CarService carService;
-	
+
 	@Autowired
 	private DriverService driverService;
 
-	  
 	  //URL : http://localhost:8080/admin/cars
 		  	//Method  : GET
 		  	//req params  : pageNumber : def val 0, optional
@@ -100,7 +99,7 @@ public class AdminController {
 			  return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		  return new ResponseEntity<>(bookingPayment, HttpStatus.OK);
 	  }
-	 
+
 	//URL : http://localhost:8080//drivers/feedbacks/{driverId}
 	  	//Method  : GET
 	  	//req params  : pageNumber : def val 0, optional
@@ -164,7 +163,7 @@ public class AdminController {
 		return new ResponseEntity<>(message, HttpStatus.OK);
 
 	}
-	
+
 	// approve Driver
 	//URL : http://localhost:8080/admin/drivers/driverId
 	// Method : put

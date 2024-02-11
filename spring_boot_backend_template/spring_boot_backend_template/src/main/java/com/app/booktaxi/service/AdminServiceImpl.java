@@ -91,8 +91,8 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public PaymentRespDTO getPaymentByParticularBooking(Long bookingId, Long paymentId) {
-	    Optional<Payment> paymentDetails = paymentDao.findById(paymentId);
-
+	    //Optional<Payment> paymentDetails = paymentDao.findById(paymentId);
+		Optional<Payment> paymentDetails = paymentDao.findById(paymentId);
 	    if (paymentDetails.isPresent()) {
 	        Payment payment = paymentDetails.get();
 	        PaymentRespDTO paymentDto = mapper.map(payment, PaymentRespDTO.class);
@@ -103,20 +103,36 @@ public class AdminServiceImpl implements AdminService {
 	        // For example, you can throw an exception or return a default DTO
 	        return new PaymentRespDTO(); // Return a default DTO or handle it accordingly
 	    }
+	    //keep it as it is
+//	    Payment paymentDetails = paymentDao.findById(paymentId).orElseThrow(() -> 
+//		new ResourceNotFoundException("Payment Not Found")
+//			);
+//		if(paymentDetails==null) {
+//			PaymentRespDTO paymentDto = mapper.map(paymentDetails, PaymentRespDTO.class);
+//			return paymentDto;
+//		}
+//		else {
+//			return new PaymentRespDTO();
+//		}
 	}
 
 	@Override
-	public FeedbackRespDTO getDriverFeedback(@NotNull Long driverId) {
-		Optional<Feedback> feedbackDetails = feedbackDao.findById(driverId);
-
-	    if (feedbackDetails.isPresent()) {
-	    	Feedback feedback = feedbackDetails.get();
-	    	FeedbackRespDTO feedbackDto = mapper.map(feedback, FeedbackRespDTO.class);
-	    	feedbackDto.setDriverId(driverId);
-	        return feedbackDto;
-	    } else {
-	        return new FeedbackRespDTO(); // Return a default DTO or handle it accordingly
-	    }
+	public List<FeedbackRespDTO> getDriverFeedback(int pageNumber, int pageSize, Long driverId) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		
+		Driver driver = driverDao.findById(driverId)
+				.orElseThrow(() -> new ResourceNotFoundException("Driver Not Found"));
+		
+		List<Feedback> feedbackList = feedbackDao.findByDriver(driver, pageable)
+				.orElseThrow(() -> new ResourceNotFoundException("Feedbacks Not Found"));
+		
+		List<FeedbackRespDTO> feedbackRespDTOList = feedbackList.stream().map(feedback -> {
+			FeedbackRespDTO feedbackDto = mapper.map(feedback, FeedbackRespDTO.class);
+			feedbackDto.setDriverId(driverId);
+			return feedbackDto;
+		}).collect(Collectors.toList());
+		
+		return feedbackRespDTOList;
 	}
 
 	@Override

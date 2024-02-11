@@ -19,13 +19,9 @@ public class BookingReqDTO
 	
 	private Long driverId;
 	
-	private String bookingStatus;
-	
 	private String bookingType;
 
 	private String taxiType;
-
-	private String distance;
 
 	private LocalDateTime pickupTime;
 

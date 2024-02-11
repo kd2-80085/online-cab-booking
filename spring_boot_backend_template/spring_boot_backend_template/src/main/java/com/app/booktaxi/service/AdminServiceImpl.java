@@ -96,7 +96,6 @@ public class AdminServiceImpl implements AdminService {
 	    if (paymentDetails.isPresent()) {
 	        Payment payment = paymentDetails.get();
 	        PaymentRespDTO paymentDto = mapper.map(payment, PaymentRespDTO.class);
-	        paymentDto.setBookingId(bookingId);
 	        return paymentDto;
 	    } else {
 	        // Handle the case when payment with the given paymentId is not found
@@ -123,7 +122,7 @@ public class AdminServiceImpl implements AdminService {
 		Driver driver = driverDao.findById(driverId)
 				.orElseThrow(() -> new ResourceNotFoundException("Driver Not Found"));
 		
-		List<Feedback> feedbackList = feedbackDao.findByDriver(driver, pageable)
+		List<Feedback> feedbackList = feedbackDao.findAllByDriver(driver, pageable)
 				.orElseThrow(() -> new ResourceNotFoundException("Feedbacks Not Found"));
 		
 		List<FeedbackRespDTO> feedbackRespDTOList = feedbackList.stream().map(feedback -> {

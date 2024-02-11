@@ -22,12 +22,15 @@ import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.CustomerDao;
 import com.app.booktaxi.dao.FeedbackDao;
+import com.app.booktaxi.dao.PaymentDao;
 import com.app.booktaxi.dto.CustomerSigninDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
+import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
+import com.app.booktaxi.dto.CustomerPaymentRespDTO;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dto.BookingReqDTO;
 import com.app.booktaxi.dto.CustomerRespDTO;
@@ -35,6 +38,7 @@ import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Feedback;
+import com.app.booktaxi.entity.Payment;
 import com.app.booktaxi.entity.Driver;
 
 @Service
@@ -43,6 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerDao custDao;
+
 	@Autowired
 	private CarDao carDao;
 
@@ -56,14 +61,11 @@ public class CustomerServiceImpl implements CustomerService {
 	private BookingDao bookingDao;
 
 	@Autowired
-	private BookingDao bookingDao;
-	
-	@Autowired
 	private FeedbackDao feedDao;
 	
 	@Autowired
-	private CarDao carDao;
-	
+	private PaymentDao payDao;
+
 	@Autowired
 	private ModelMapper mapper;
 
@@ -72,7 +74,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public CustomerSignupDTO addNewCustomer(CustomerSignupDTO c) {
-		System.out.println(c);
+		//System.out.println(c);
 		Customer customer = mapper.map(c, Customer.class);
 		customer.setPassword(encoder.encode(customer.getPassword()));
 		return mapper.map(custDao.save(customer), CustomerSignupDTO.class);
@@ -82,9 +84,8 @@ public class CustomerServiceImpl implements CustomerService {
 	public CustomerRespDTO doLogin(CustomerSigninDTO auth) {
 		Customer customer = custDao.getByEmail(auth.getEmail())
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Email or Password"));
-		System.out.println(customer);
+		//System.out.println(customer);
 		if (encoder.matches(auth.getPassword(), customer.getPassword())) {
-			System.out.println("inside if block");
 			return mapper.map(customer, CustomerRespDTO.class);
 		} else
 			return null;
@@ -94,14 +95,14 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<CustomerBookingRespDTO> getBookingByCustomer(int pageNumber, int pageSize, @NotNull Long customerId) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		Customer customer = custDao.findById(customerId)
-				.orElseThrow(()-> new ResourceNotFoundException(" CustomerId doesn't exist"));
-		
+				.orElseThrow(() -> new ResourceNotFoundException(" CustomerId doesn't exist"));
+
 		List<Booking> bookingslist = bookingDao.findByCustomer(customer, pageable)
-				.orElseThrow(()-> new ResourceNotFoundException("Bookings not found"));
-		
+				.orElseThrow(() -> new ResourceNotFoundException("Bookings not found"));
+
 		List<CustomerBookingRespDTO> custBookingRespList = bookingslist.stream().map(booking -> {
 			CustomerBookingRespDTO bookDTO = mapper.map(booking, CustomerBookingRespDTO.class);
-			bookDTO.setTripId(booking.getTrip().getId() );
+			bookDTO.setTripId(booking.getTrip().getId());
 			bookDTO.setPaymentId(booking.getPayment().getId());
 			return bookDTO;
 		}).collect(Collectors.toList());
@@ -111,30 +112,30 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public FeedbackDTO addNewFeedback(@Valid FeedbackDTO fdto) {
 		Booking booking = bookingDao.findById(fdto.getBookingId())
-				.orElseThrow(()-> new ResourceNotFoundException("BookingId not found"));
+				.orElseThrow(() -> new ResourceNotFoundException("BookingId not found"));
 		fdto.setDriverId(booking.getDriver().getId());
 		Feedback feedback = mapper.map(fdto, Feedback.class);
-		return mapper.map(feedDao.save(feedback) , FeedbackDTO.class);
+		return mapper.map(feedDao.save(feedback), FeedbackDTO.class);
 	}
 
 	@Override
 	public List<CustomerCarDTO> getCarsByLocation(int pageNumber, int pageSize, String location) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		
-		List<Car> carList = carDao.findByLocation(location);
+
+		List<Car> carList = carDao.findByLocation(location,pageable);
 		List<CustomerCarDTO> customerCarDTOList = carList.stream()
-				.filter(car->car.getStatus().equalsIgnoreCase("available")).map(cars -> {
-					System.out.println(" in cars"+cars);
-			CustomerCarDTO carDTO = mapper.map(cars, CustomerCarDTO.class);
-			carDTO.setDriverName(cars.getDriver().getFirstName().concat(" "+cars.getDriver().getLastName()));
-			carDTO.setDriverMobile(cars.getDriver().getMobile());
-			return carDTO;
-		}).collect(Collectors.toList());
-		System.out.println("customerCarDTOList values : "+customerCarDTOList);
+				.filter(car -> car.getStatus().equalsIgnoreCase("available")).map(cars -> {
+					System.out.println(" in cars" + cars);
+					CustomerCarDTO carDTO = mapper.map(cars, CustomerCarDTO.class);
+					carDTO.setDriverName(cars.getDriver().getFirstName().concat(" " + cars.getDriver().getLastName()));
+					carDTO.setDriverMobile(cars.getDriver().getMobile());
+					return carDTO;
+				}).collect(Collectors.toList());
+		System.out.println("customerCarDTOList values : " + customerCarDTOList);
 		return customerCarDTOList;
 	}
-	
-  @Override
+
+	@Override
 	public String bookCab(BookingReqDTO bookingReqDto) {
 
 		Car car = carDao.findById(bookingReqDto.getCarId())
@@ -148,12 +149,21 @@ public class CustomerServiceImpl implements CustomerService {
 		newBooking.setCar(car);
 		newBooking.setDriver(driver);
 		newBooking.setCustomer(customer);
-		
+		newBooking.setBookingStatus("pending");
 		Booking savedBooking = bookingDao.save(newBooking);
 		if (savedBooking != null)
-			return "Car booked Successfully " + savedBooking;
+			return "Booking details added Successfully & Payment Pending" + savedBooking;
 
-		return "Sorry Car booking unsuccessfull";
+		return "Sorry adding booking details unsuccessfull";
+	}
+
+	@Override
+	public CustomerPaymentRespDTO getPaymentDetails(Long bookingId) {
+		Booking booking = bookingDao.findById(bookingId)
+				.orElseThrow(()-> new ResourceNotFoundException("BookingId doesn't exist"));
+		Payment payment = payDao.findByBooking(booking);
+		//System.out.println("in Payment values = "+payment);
+		return mapper.map(payment,CustomerPaymentRespDTO.class );
 	}
 
 }

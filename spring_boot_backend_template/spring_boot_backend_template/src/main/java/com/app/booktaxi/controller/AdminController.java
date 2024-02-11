@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ import com.app.booktaxi.service.AdminService;
 import com.app.booktaxi.dto.CustomerSigninDTO;
 import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.service.CarService;
+import com.app.booktaxi.service.DriverService;
 import com.app.booktaxi.service.OwnerService;
 
 
@@ -42,7 +44,10 @@ public class AdminController {
 
 	@Autowired
 	private CarService carService;
-	  
+
+	@Autowired
+	private DriverService driverService;
+
 	  //URL : http://localhost:8080/admin/cars
 		  	//Method  : GET
 		  	//req params  : pageNumber : def val 0, optional
@@ -94,7 +99,7 @@ public class AdminController {
 			  return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		  return new ResponseEntity<>(bookingPayment, HttpStatus.OK);
 	  }
-	  
+
 	//URL : http://localhost:8080//drivers/feedbacks/{driverId}
 	  	//Method  : GET
 	  	//req params  : pageNumber : def val 0, optional
@@ -158,4 +163,50 @@ public class AdminController {
 		return new ResponseEntity<>(message, HttpStatus.OK);
 
 	}
+
+	// approve Driver
+	//URL : http://localhost:8080/admin/drivers/driverId
+	// Method : put
+		// resp : successful msg or exc
+		@PutMapping("/drivers/{driverId}")
+		public ResponseEntity<?> updateDriverStatus(@PathVariable @NotNull Long driverId) {
+			System.out.println("in updateDriverIdStatus  ");
+
+			String message = driverService.updateDriverStatus(driverId);
+
+			return new ResponseEntity<>(message, HttpStatus.OK);
+
+		}
+		
+		
+		
+		// delete car
+		// URL : http://localhost:8080/admin/cars/carId
+		// Method : delete
+		// resp : successful msg
+		@DeleteMapping("/cars/{carId}")
+		public ResponseEntity<?> deleteCar(@PathVariable @NotNull Long carId) {
+			System.out.println("in Admin Ctrller delete car  ");
+
+			String message = carService.deleteCar(carId);
+
+			return new ResponseEntity<>(message, HttpStatus.OK);
+
+		}
+		
+		// delete Driver
+		//URL : http://localhost:8080/admin/drivers/driverId
+		// Method : delete
+		// resp : successful msg 
+		@DeleteMapping("/drivers/{driverId}")
+			public ResponseEntity<?> deleteDriver(@PathVariable @NotNull Long driverId) {
+				System.out.println("in Admin Ctrller delete Driver ");
+
+				String message = driverService.deleteDriver(driverId);
+
+				return new ResponseEntity<>(message, HttpStatus.OK);
+
+			}
+		
+		
 }

@@ -21,11 +21,18 @@ public class OwnerServiceImpl implements OwnerService {
 	public String updateOwnerStatus(Long ownerId) {
 
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
+		
+		if(!(owner.getStatus().equalsIgnoreCase("approved"))) 
+		{
 		owner.setStatus("approved");
 		Owner updatedOwner = ownerDao.save(owner);
 		if (updatedOwner != null)
 			return "Owner Approved Successfully " + updatedOwner;
 		return null;
+		}
+		return "Owner is already Approved";
+	 
 	}
+
 
 }

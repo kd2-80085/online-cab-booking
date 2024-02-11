@@ -18,4 +18,5 @@ public class FeedbackRespDTO {
 	private int rating;
 	
 	private Long bookingId;	
+
 }

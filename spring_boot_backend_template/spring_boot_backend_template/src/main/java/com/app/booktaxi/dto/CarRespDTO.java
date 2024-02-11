@@ -29,7 +29,7 @@ public class CarRespDTO {
 	private String taxiType;
 	
 	private String location;
-	
+
 	private Long ownerId;
 	
 	private Long driverId;

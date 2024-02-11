@@ -10,14 +10,15 @@ import com.app.booktaxi.dto.FeedbackRespDTO;
 
 public interface DriverService {
 
+  String updateDriverStatus(@NotNull Long driverId);
 
+	String deleteDriver(@NotNull Long driverId);
 
 	List<CarRespDTO> getAllCarsDetailsByDriver(int pageNumber, int pageSize, Long driverId);
 
 	List<BookingRespDTO> getIncomingBookingsForDriver(int pageNumber, int pageSize, @NotNull Long driverId);
 
 	List<FeedbackRespDTO> getFeedbacksForDriver(int pageNumber, int pageSize, @NotNull Long driverId);
-
 
 
 }

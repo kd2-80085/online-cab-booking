@@ -34,10 +34,6 @@ public class CarRespDTO {
 	
 	private String location;
 
-	private Long ownerId;
-	
-	private Long driverId;
-
 	@Override
 	public String toString() {
 		return "CarRespDTO [id=" + id + ", model=" + model + ", company=" + company + ", ownerId=" + ownerId

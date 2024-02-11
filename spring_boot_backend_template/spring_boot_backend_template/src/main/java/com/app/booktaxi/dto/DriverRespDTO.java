@@ -2,9 +2,11 @@ package com.app.booktaxi.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class DriverRespDTO {
 	
 	private Long Id;
@@ -24,4 +26,6 @@ public class DriverRespDTO {
 	private int rating;
 	
 	private String status;
+	
+	private Long carId;
 }

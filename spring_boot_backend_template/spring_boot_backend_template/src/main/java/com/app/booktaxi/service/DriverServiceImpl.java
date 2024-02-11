@@ -65,6 +65,7 @@ public class DriverServiceImpl implements DriverService {
 		if(driverDao.findById(driverId) != null)
 			return "Driver deletion unsuccessful";
 		return "Driver deletion successful";
+	}
   
 	@Override
 	public List<CarRespDTO> getAllCarsDetailsByDriver(int pageNumber, int pageSize, Long driverId) {

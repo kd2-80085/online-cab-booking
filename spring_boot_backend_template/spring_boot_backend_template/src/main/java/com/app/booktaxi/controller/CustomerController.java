@@ -111,5 +111,17 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(custService.bookCab(bookingReqDto));
 	}
 
+	// URL : http://localhost:8080/customer/bookings/payments{bookingId}
+				// Method : GET
+				// req params : in Head - (customerId)      
+				// resp : (id, model, company, image, seatingCapacity, driverName,
+		        //          driverMobile, registrationNumber, taxiType )
+	@GetMapping("/bookings/payments/{bookingId}")
+	public ResponseEntity<?> getPayment(@PathVariable Long bookingId){
+		System.out.println("int getPayment "+bookingId);
+		return ResponseEntity.status(HttpStatus.OK).body(custService.getPaymentDetails(bookingId));
+	}
+	
+	
 
 }

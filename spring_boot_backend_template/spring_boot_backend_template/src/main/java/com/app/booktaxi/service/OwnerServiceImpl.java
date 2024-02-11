@@ -1,5 +1,6 @@
 package com.app.booktaxi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,8 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.app.booktaxi.customexception.ResourceNotFoundException;
@@ -19,6 +22,7 @@ import com.app.booktaxi.dto.AddDriverDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
+import com.app.booktaxi.dto.OwnerCarRespDTO;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Owner;
@@ -84,4 +88,47 @@ public class OwnerServiceImpl implements OwnerService {
 		return respCarDto;
 	}
 
+	@Override
+	public List<OwnerCarRespDTO> getAllCars(int pageNumber, int pageSize, Long ownerId) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		
+		Owner owner = ownerDao.findById(ownerId)
+				.orElseThrow(()-> new ResourceNotFoundException("Invalid OwnerId"));
+		
+		List<Car> carList = carDao.findAllByOwner(owner,pageable)
+				.orElseThrow(()-> new ResourceNotFoundException("No car registered till now"));
+		//System.out.println("in carList values = "+carList);
+		
+		List<OwnerCarRespDTO> ownerCarRespList = carList.stream().map(car->{
+			OwnerCarRespDTO carDTO = mapper.map(car, OwnerCarRespDTO.class);
+			carDTO.setDriverName(car.getDriver().getFirstName().concat(" "+car.getDriver().getLastName()));
+			return carDTO;
+		}).collect(Collectors.toList());
+		
+		//System.out.println("ownerCarRespList values = "+ownerCarRespList);
+		return ownerCarRespList;
+	}
+
+	@Override
+	public List<DriverRespDTO> getAllDrivers(int pageNumber, int pageSize, Long ownerId) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		
+		Owner owner = ownerDao.findById(ownerId)
+				.orElseThrow(()-> new ResourceNotFoundException("Invalid OwnerId"));
+		
+		List<Car> carList = carDao.findAllByOwner(owner,pageable)
+				.orElseThrow(()-> new ResourceNotFoundException("No car registered till now"));
+		//System.out.println("in carList values = "+carList);
+		
+		List<DriverRespDTO> driverList = carList.stream().map(car->{
+			DriverRespDTO driverDTO = mapper.map(car.getDriver(), DriverRespDTO.class);
+			driverDTO.setCarId(car.getDriver().getId());
+			return driverDTO;
+		}).collect(Collectors.toList());
+		
+		//System.out.println("driverList values = "+driverList);
+		return driverList;
+	}
+	
+	
 }

@@ -19,28 +19,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
+import com.app.booktaxi.dto.BookingReqDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.service.CustomerService;
 
-
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-	
+
 	public CustomerController() {
 		System.out.println("in customer controller");
 	}
-	
+
 	@Autowired
 	private CustomerService custService;
-	
+
 	// URL : http://localhost:8080/customer/signup/
-				// Method : POST
-				// req params : in Body
-	            //                (fname,lname,email,password,mobile) 
-				// resp :  (id,fname,lname,email,mobile)
+	// Method : POST
+	// req params : in Body
+	// (fname,lname,email,password,mobile)
+	// resp : (id,fname,lname,email,mobile)
 	@PostMapping("/signup")
 	public ResponseEntity<?> addCustomer(@RequestBody @Valid CustomerSignupDTO c) {
 		System.out.println(c);
@@ -98,10 +98,18 @@ public class CustomerController {
 		else
 		return new ResponseEntity<>(carList, HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
+
+	// URL : http://localhost:8080/customer/cars/bookcar
+	// Method : POST
+	// req params : in Body
+	// bookingDateTime,customerId, carId, driverId, bookingType,taxiType, distance, pickupTime, pickUpLocation,dropLocation
+	// resp : (booking id with other details)
+	@PostMapping("/cars/payment/bookcar")
+	public ResponseEntity<?> bookCab(@RequestBody @Valid BookingReqDTO bookingReqDto) {
+		System.out.println(bookingReqDto);
+		System.out.println("in book cab");
+		return ResponseEntity.status(HttpStatus.CREATED).body(custService.bookCab(bookingReqDto));
+	}
+
+
 }

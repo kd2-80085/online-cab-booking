@@ -28,11 +28,14 @@ import com.app.booktaxi.dto.FeedbackDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
+import com.app.booktaxi.dao.DriverDao;
+import com.app.booktaxi.dto.BookingReqDTO;
 import com.app.booktaxi.dto.CustomerRespDTO;
 import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Feedback;
+import com.app.booktaxi.entity.Driver;
 
 @Service
 @Transactional
@@ -40,6 +43,17 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerDao custDao;
+	@Autowired
+	private CarDao carDao;
+
+	@Autowired
+	private DriverDao driverDao;
+
+	@Autowired
+	private CustomerDao customerDao;
+
+	@Autowired
+	private BookingDao bookingDao;
 
 	@Autowired
 	private BookingDao bookingDao;
@@ -119,7 +133,27 @@ public class CustomerServiceImpl implements CustomerService {
 		System.out.println("customerCarDTOList values : "+customerCarDTOList);
 		return customerCarDTOList;
 	}
-		
 	
+  @Override
+	public String bookCab(BookingReqDTO bookingReqDto) {
+
+		Car car = carDao.findById(bookingReqDto.getCarId())
+				.orElseThrow(() -> new ResourceNotFoundException("Car not found"));
+		Driver driver = driverDao.findById(bookingReqDto.getDriverId())
+				.orElseThrow(() -> new ResourceNotFoundException("Driver not found"));
+		Customer customer = custDao.findById(bookingReqDto.getCustomerId())
+				.orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+
+		Booking newBooking = mapper.map(bookingReqDto, Booking.class);
+		newBooking.setCar(car);
+		newBooking.setDriver(driver);
+		newBooking.setCustomer(customer);
+		
+		Booking savedBooking = bookingDao.save(newBooking);
+		if (savedBooking != null)
+			return "Car booked Successfully " + savedBooking;
+
+		return "Sorry Car booking unsuccessfull";
+	}
 
 }

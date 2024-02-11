@@ -89,7 +89,7 @@ public class Car extends BaseEntity {
 		t.setCar(this);
 	}
 	
-public void removeTrio(Trip t) {
+public void removeTrip(Trip t) {
 		this.trips.remove(t);
 		t.setCar(null);
 	}

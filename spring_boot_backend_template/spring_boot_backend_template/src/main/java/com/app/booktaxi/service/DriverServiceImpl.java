@@ -46,6 +46,26 @@ public class DriverServiceImpl implements DriverService {
 	@Autowired
 	private ModelMapper mapper;
 
+  @Override
+	public String updateDriverStatus(@NotNull Long driverId) {
+		Driver driver = driverDao.findById(driverId).orElseThrow(() -> new ResourceNotFoundException("Driver Not found"));
+		if(!(driver.getStatus().equalsIgnoreCase("approved"))) 
+		{
+		driver.setStatus("approved");
+		Driver updatedDriver = driverDao.save(driver);
+		if (updatedDriver != null)
+			return "Driver Approved Successfully " + updatedDriver;
+		}
+		return "Driver is already Approved";
+	}
+
+	@Override
+	public String deleteDriver(@NotNull Long driverId) {
+		driverDao.deleteById(driverId);
+		if(driverDao.findById(driverId) != null)
+			return "Driver deletion unsuccessful";
+		return "Driver deletion successful";
+  
 	@Override
 	public List<CarRespDTO> getAllCarsDetailsByDriver(int pageNumber, int pageSize, Long driverId) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);

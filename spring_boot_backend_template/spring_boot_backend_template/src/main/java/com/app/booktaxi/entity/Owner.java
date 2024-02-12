@@ -30,16 +30,16 @@ import lombok.ToString;
 @ToString(exclude = "cars",callSuper = true)
 public class Owner extends BaseEntity{
 	
-	@Column(length = 50)
+	@Column(length = 30)
 	private String firstName;
 	
-	@Column(length = 50)
+	@Column(length = 30)
 	private String lastName;
 	
 	@Column(length = 50)
 	private String email;
 	
-	@Column(length = 80)
+	@Column(length = 50)
 	private String password;
 	
 	@Column(name = "mobile",length = 10)
@@ -51,8 +51,11 @@ public class Owner extends BaseEntity{
 	@Column(length = 15)
 	private String status;
   
-	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
 	private List<Car> cars = new ArrayList<>();
+	
+	@Column(length = 15)
+	private String serviceStatus;
 	
 	@Column(name = "is_driver")
 	private boolean isDriver;

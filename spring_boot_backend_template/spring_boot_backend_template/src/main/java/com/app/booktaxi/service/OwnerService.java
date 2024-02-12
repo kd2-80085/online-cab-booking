@@ -7,4 +7,6 @@ public interface OwnerService {
 	
 	String updateOwnerStatus( Long ownerId);
 
+	String deleteOwner(@NotNull Long ownerId);
+
 }

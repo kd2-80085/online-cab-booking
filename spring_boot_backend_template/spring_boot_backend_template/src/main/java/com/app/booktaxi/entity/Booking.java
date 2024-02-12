@@ -7,8 +7,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -48,19 +50,17 @@ public class Booking extends BaseEntity{
 	private Trip trip;
 	
 	@ManyToOne
-	@JoinColumn(name = "driver_id",nullable = false)
+	@JoinColumn(name = "driver_id",nullable = true)
 	private Driver driver;
 	
 	@Column(length = 25, name = "booking_type")
 	private String bookingType;
 	
-	@OneToOne(mappedBy = "booking",cascade = CascadeType.ALL,orphanRemoval = true)
-	private Payment payment;
+	@OneToMany(mappedBy = "booking",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<Payment> payments;
 	
 	@Column(length = 25, name = "taxi_type")
 	private String taxiType;
-	
-	private float distance;
 	
 	@Column(name = "pickup_time")
 	private LocalDateTime pickupTime;
@@ -71,7 +71,18 @@ public class Booking extends BaseEntity{
 	@Column(length = 100,name = "drop_location")
 	private String dropLocation;
 	
-	@OneToOne(mappedBy = "booking",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToOne(mappedBy = "booking",cascade = CascadeType.ALL)
 	private Feedback feedbacks;
+	
+	public void addPayments(Payment p)	
+	{
+		this.payments.add(p);
+		p.setBooking(this);
+	}
+	
+	public void removePayments(Payment p) {
+		this.payments.remove(p);
+		p.setBooking(null);
+	}
 
 }

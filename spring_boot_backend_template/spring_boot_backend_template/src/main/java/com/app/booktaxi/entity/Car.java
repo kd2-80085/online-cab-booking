@@ -45,7 +45,7 @@ public class Car extends BaseEntity {
 	@Lob
 	private byte[] image;
 	
-	@OneToMany(mappedBy = "car",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
 	private List<Booking> bookings = new ArrayList<>();
 	
 	@ManyToOne
@@ -58,7 +58,7 @@ public class Car extends BaseEntity {
 	@Column(length = 25)
 	private String status;
 	
-	@OneToMany(mappedBy = "car",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
 	private List<Trip> trips = new ArrayList<Trip>();
 	
 	@OneToOne
@@ -73,6 +73,9 @@ public class Car extends BaseEntity {
 	
 	@Column(length = 100)
 	private String location;
+	
+	@Column(length = 15)
+	private String serviceStatus;
 	
 	public void addBooking(Booking b) {
 		this.bookings.add(b);
@@ -89,7 +92,7 @@ public class Car extends BaseEntity {
 		t.setCar(this);
 	}
 	
-public void removeTrio(Trip t) {
+public void removeTrip(Trip t) {
 		this.trips.remove(t);
 		t.setCar(null);
 	}

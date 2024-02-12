@@ -26,6 +26,7 @@ import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Feedback;
+import com.app.booktaxi.entity.Owner;
 
 @Transactional
 @Service
@@ -39,33 +40,39 @@ public class DriverServiceImpl implements DriverService {
 
 	@Autowired
 	private BookingDao bookingDao;
-	
+
 	@Autowired
 	private FeedbackDao feedbackDao;
 
 	@Autowired
 	private ModelMapper mapper;
 
-  @Override
+	@Override
 	public String updateDriverStatus(@NotNull Long driverId) {
-		Driver driver = driverDao.findById(driverId).orElseThrow(() -> new ResourceNotFoundException("Driver Not found"));
-		if(!(driver.getStatus().equalsIgnoreCase("approved"))) 
-		{
-		driver.setStatus("approved");
-		Driver updatedDriver = driverDao.save(driver);
-		if (updatedDriver != null)
-			return "Driver Approved Successfully " + updatedDriver;
+		Driver driver = driverDao.findById(driverId)
+				.orElseThrow(() -> new ResourceNotFoundException("Driver Not found"));
+		if (!(driver.getStatus().equalsIgnoreCase("approved"))) {
+			driver.setStatus("approved");
+			Driver updatedDriver = driverDao.save(driver);
+			if (updatedDriver != null)
+				return "Driver Approved Successfully " + updatedDriver;
 		}
 		return "Driver is already Approved";
 	}
 
+
 	@Override
 	public String deleteDriver(@NotNull Long driverId) {
-		driverDao.deleteById(driverId);
-		if(driverDao.findById(driverId) != null)
-			return "Driver deletion unsuccessful";
-		return "Driver deletion successful";
-  
+		Driver driver = driverDao.findById(driverId)
+				.orElseThrow(() -> new ResourceNotFoundException("Driver Not found"));
+		driver.setStatus("inactive");
+		Driver updatedriver = driverDao.save(driver);
+
+		if (updatedriver.getStatus().equalsIgnoreCase("inactive"))
+			return "Driver deletion successful";
+		return "Driver deletion unsuccessful";
+	}
+
 	@Override
 	public List<CarRespDTO> getAllCarsDetailsByDriver(int pageNumber, int pageSize, Long driverId) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
@@ -124,7 +131,6 @@ public class DriverServiceImpl implements DriverService {
 
 		List<FeedbackRespDTO> feedbackRespDTOList = feedbackList.stream().map(feedback -> {
 			FeedbackRespDTO feedbackDto = mapper.map(feedback, FeedbackRespDTO.class);
-
 
 			feedbackDto.setDriverId(feedback.getDriver().getId());
 			feedbackDto.setBookingId(feedback.getBooking().getId());

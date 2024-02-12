@@ -38,7 +38,7 @@ public class Trip extends BaseEntity {
 	@ManyToMany(mappedBy = "trips")
 	private Set<Customer> customers = new HashSet<>();
 
-	@OneToMany(mappedBy = "trip",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "trip",cascade = CascadeType.ALL)
 	private List<Booking> bookings = new ArrayList<>();
 	
 	@ManyToOne

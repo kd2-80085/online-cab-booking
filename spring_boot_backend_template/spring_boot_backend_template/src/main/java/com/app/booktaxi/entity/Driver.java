@@ -32,16 +32,16 @@ id      name     email     password     mob.     liscence-no.    rating
 @ToString(exclude = {"car","feedbacks","bookings"},callSuper = true)
 public class Driver extends BaseEntity{
 
-	@Column(length = 50)
+	@Column(length = 30)
 	private String firstName;
 	
-	@Column(length = 50)
+	@Column(length = 30)
 	private String lastName;
 	
 	@Column(length = 50)
 	private String email;
 	
-	@Column(length = 80)
+	@Column(length = 50)
 	private String password;
 
 	@Column(name = "mobile", length = 10)
@@ -54,7 +54,7 @@ public class Driver extends BaseEntity{
 	@Column(length = 15)
 	private String status;
 	
-	@OneToMany(mappedBy = "driver",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
 	private List<Booking> bookings = new ArrayList<>();
 	
 	@Column(length = 16,name = "licence_no")
@@ -63,11 +63,14 @@ public class Driver extends BaseEntity{
 	@Column(name = "rating")
 	private int rating;
 
-	@OneToOne(mappedBy = "driver",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToOne(mappedBy = "driver",cascade = CascadeType.ALL)
 	private Car car;
 	
-	@OneToMany(mappedBy = "driver",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
 	private List<Feedback> feedbacks = new ArrayList<Feedback>();
+	
+	@Column(length = 15)
+	private String serviceStatus;
 	
 	public void addBooking(Booking b) {
 		this.bookings.add(b);

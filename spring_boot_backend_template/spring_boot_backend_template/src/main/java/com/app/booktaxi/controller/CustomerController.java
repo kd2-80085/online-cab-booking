@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
+import com.app.booktaxi.dto.CustomerRespDTO;
 import com.app.booktaxi.dto.BookingReqDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;
+import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
+import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.service.CustomerService;
@@ -111,7 +115,7 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(custService.bookCab(bookingReqDto));
 	}
 
-	// URL : http://localhost:8080/customer/bookings/payments{bookingId}
+	// URL : http://localhost:8080/customer/bookings/payments/{bookingId}
 				// Method : GET
 				// req params : in Head - (customerId)      
 				// resp : (id, model, company, image, seatingCapacity, driverName,
@@ -122,6 +126,38 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.OK).body(custService.getPaymentDetails(bookingId));
 	}
 	
+	// URL : http://localhost:8080/customer/profile/{customerId}
+	// Method : GET
+	// req params : in Head - (customerId)      
+	// resp : (id,fname,lname,email,mobile)
+	@GetMapping("/profile/{customerId}")
+	public ResponseEntity<?> getProfile(@PathVariable Long customerId){
+		return ResponseEntity.status(HttpStatus.OK).body(custService.getProfileDetails(customerId));	
+		
+	}
 	
+	// URL : http://localhost:8080/customer/profile/{customerId}
+		// Method : PUT
+		// req params : in Head - (customerId)   
+	    //              in Body - (ffname,lname,email,mobile)
+		// resp : (id,fname,lname,email,mobile)
+	@PutMapping("/profile/{customerId}")
+	public ResponseEntity<?> updateProfile(@PathVariable Long customerId, @RequestBody CustomerUpdateProfileDTO custDTO){
+		System.out.println("In updateProfile : "+customerId+" "+custDTO);
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(custService.updateProfileDetails(customerId,custDTO));
+	}
+	
+	// URL : http://localhost:8080/customer/profile/{customerId}
+			// Method : PUT
+			// req params : in Head - (customerId)   
+		    //              in Body - (oldPassword, newPassword)
+			// resp : (id,fname,lname,email,mobile)
+	@PutMapping("/password/{customerId}")
+	public ResponseEntity<?> updatePassword(@PathVariable Long customerId,@RequestBody CustomerUpdatePwdDTO passDTO){
+		System.out.println("In updatePassword : "+customerId+" "+passDTO);
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(custService.updatePassword(customerId,passDTO));
+	}
 
 }

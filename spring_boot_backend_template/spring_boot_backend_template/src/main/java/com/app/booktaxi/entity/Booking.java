@@ -44,7 +44,7 @@ public class Booking extends BaseEntity{
 	private String bookingStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "trip_id",nullable = true)
+	@JoinColumn(name = "trip_id",nullable = false)
 	private Trip trip;
 	
 	@ManyToOne
@@ -54,7 +54,7 @@ public class Booking extends BaseEntity{
 	@Column(length = 25, name = "booking_type")
 	private String bookingType;
 	
-	@OneToOne(mappedBy = "booking",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToOne(mappedBy = "booking",cascade = CascadeType.ALL)
 	private Payment payment;
 	
 	@Column(length = 25, name = "taxi_type")
@@ -64,12 +64,12 @@ public class Booking extends BaseEntity{
 	private LocalDateTime pickupTime;
 
 	@Column(length = 100,name = "pick_up_location")
-	private String pickUpLocation;
+	private String pickupLocation;
 	
 	@Column(length = 100,name = "drop_location")
 	private String dropLocation;
 	
-	@OneToOne(mappedBy = "booking",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToOne(mappedBy = "booking",cascade = CascadeType.ALL)
 	private Feedback feedbacks;
 
 }

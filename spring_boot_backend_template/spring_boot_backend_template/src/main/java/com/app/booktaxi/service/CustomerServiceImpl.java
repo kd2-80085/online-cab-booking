@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,13 @@ import com.app.booktaxi.customexception.ResourceNotFoundException;
 import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.CustomerDao;
+import com.app.booktaxi.dao.DistanceDao;
 import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dao.PaymentDao;
 import com.app.booktaxi.dto.CustomerSigninDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;
+import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
+import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
@@ -37,6 +41,7 @@ import com.app.booktaxi.dto.CustomerRespDTO;
 import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
+import com.app.booktaxi.entity.Distance;
 import com.app.booktaxi.entity.Feedback;
 import com.app.booktaxi.entity.Payment;
 import com.app.booktaxi.entity.Driver;
@@ -65,6 +70,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private PaymentDao payDao;
+	
+	@Autowired
+	private DistanceDao distDao;
 
 	@Autowired
 	private ModelMapper mapper;
@@ -145,6 +153,8 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customer = custDao.findById(bookingReqDto.getCustomerId())
 				.orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
 
+		Distance distance = distDao.findByPickupLocationAndDropLocation(bookingReqDto.getPickupLocation(),bookingReqDto.getDropLocation());
+		System.out.println("distance values = "+distance);
 		Booking newBooking = mapper.map(bookingReqDto, Booking.class);
 		newBooking.setCar(car);
 		newBooking.setDriver(driver);
@@ -152,7 +162,15 @@ public class CustomerServiceImpl implements CustomerService {
 		newBooking.setBookingStatus("pending");
 		Booking savedBooking = bookingDao.save(newBooking);
 		if (savedBooking != null)
-			return "Booking details added Successfully & Payment Pending" + savedBooking;
+		{
+			BookingReqDTO bookDTO = mapper.map(savedBooking, BookingReqDTO.class);
+			bookDTO.setAmount(distance.getDistance()*20);
+			bookDTO.setCarId(car.getId());
+			bookDTO.setCustomerId(customer.getId());
+			bookDTO.setDriverId(driver.getId());
+			System.out.println("bookDTO values = "+bookDTO);
+			return "Booking details added Successfully & Payment Pending" + bookDTO;
+		}
 
 		return "Sorry adding booking details unsuccessfull";
 	}
@@ -165,5 +183,44 @@ public class CustomerServiceImpl implements CustomerService {
 		//System.out.println("in Payment values = "+payment);
 		return mapper.map(payment,CustomerPaymentRespDTO.class );
 	}
+
+	@Override
+	public Object getProfileDetails(Long customerId) {
+		Customer customer = custDao.findById(customerId)
+				.orElseThrow(()-> new ResourceNotFoundException("Id not found"));
+		System.out.println("customer values = "+customer);
+		return mapper.map(customer, CustomerRespDTO.class);
+	}
+
+	@Override
+	public Object updateProfileDetails(Long customerId, CustomerUpdateProfileDTO custDTO) {
+		Customer customer = custDao.findById(customerId)
+				.orElseThrow(()-> new ResourceNotFoundException("CustomerId doesn't exist"));
+		System.out.println("Customer values = "+customer);
+		customer.setFirstName(custDTO.getFirstName());
+		customer.setLastName(custDTO.getLastName());
+		customer.setEmail(custDTO.getEmail());
+		customer.setMobile(custDTO.getMobile());
+		CustomerRespDTO custRespDTO = mapper.map(custDao.save(customer), CustomerRespDTO.class);
+		if(custRespDTO != null)
+			return "Profile updated Successfully "+custRespDTO;
+		return "Profile updation Failed";
+	}
+
+	@Override
+	public Object updatePassword(Long customerId, CustomerUpdatePwdDTO passDTO) {
+		Customer customer = custDao.findById(customerId)
+				.orElseThrow(()-> new ResourceNotFoundException("CustomerId doesn't exist"));
+		if(encoder.matches(passDTO.getOldPassword(), customer.getPassword()))
+		{
+			customer.setPassword(encoder.encode(passDTO.getNewPassword()));
+			CustomerRespDTO custRespDTO = mapper.map(custDao.save(customer),CustomerRespDTO.class);
+			if( custRespDTO != null)
+				return "Password Updated Successfully "+custRespDTO;
+			return "Password Updation Failed";
+		}
+		return "Invalid Password";
+	}
+	
 
 }

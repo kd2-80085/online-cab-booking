@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.booktaxi.dto.AddCarDTO;
 import com.app.booktaxi.dto.AddDriverDTO;
 import com.app.booktaxi.dto.CarRespDTO;
+import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.OwnerCarRespDTO;
+import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.service.OwnerService;
 
 @RestController
@@ -30,24 +32,37 @@ public class OwnerController {
 	@Autowired
 	public OwnerService ownerService;
 	
-	// add Driver
+	// add owner
+	// URL : http://localhost:8080/owner/signup/
+		// Method : POST
+		// req params : in Body
+		// (fname,lname,email,password,mobile,isDriver,serviceStatus)
+		// resp : (id,fname,lname,email,mobile,isDriver,serviceStatus)
+	@PostMapping("/signup")
+	public ResponseEntity<?> addOwner(@RequestBody @Valid OwnerSignupDTO ownerDto) {
+		System.out.println(ownerDto);
+		System.out.println("in add new owner");
+		return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.addNewOwner(ownerDto));
+	}
+	
+	// add driver
 		// URL : http://localhost:8080/owner/addDriver
 		// Method : post
 		// resp : successful driverRespDTO or exc
 	@PostMapping("/addDriver")
-	public DriverRespDTO addDriverDetails(@RequestBody @Valid AddDriverDTO dto) {
+	public ResponseEntity<?> addDriverDetails(@RequestBody @Valid AddDriverDTO dto) {
 		System.out.println("in add driver Owner Controller" + dto);
-		return ownerService.addDriverDetails(dto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.addDriverDetails(dto));
 	}
 	
 	// add car
-		// URL : http://localhost:8080/owner/addCar
+		// URL : http://localhost:8080/owner/addCar/{ownerId}
 		// Method : post
 		// resp : successful carRespDTO or exc
 	@PostMapping("/addCar/{ownerId}")
-	public CarRespDTO addCarDetails(@RequestBody @Valid AddCarDTO dto, @PathVariable @NotNull Long ownerId) {
+	public ResponseEntity<?> addCarDetails(@RequestBody @Valid AddCarDTO dto, @PathVariable @NotNull Long ownerId) {
 		System.out.println("in add car Owner Controller" + dto);
-		return ownerService.addCarDetails(dto, ownerId);
+		return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.addCarDetails(dto, ownerId));
 	}
 	
 	// view all cars

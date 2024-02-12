@@ -1,9 +1,13 @@
 package com.app.booktaxi.dto;
 
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -24,24 +28,23 @@ id       name     email     password     mob.    booking_id
 @Setter
 @NoArgsConstructor
 @ToString
-public class CustomerSignupDTO {
+public class OwnerSignupDTO {
 
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
-	@NotEmpty(message = "First Name Required")
+	@NotBlank(message = "First Name Required")
 	private String firstName;
 	
-	@NotEmpty(message = "Last name Required")
+	@NotBlank(message = "Last name Required")
 	private String lastName;
 	
 	@Email(message = "Invalid Email!!!")
-	@NotEmpty(message = "Email is Required")
+	@NotBlank(message = "Email is Required")
 	private String email;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@NotEmpty(message = "Password id Required")
-	@Size(min=8,max = 20,message = "Password Length Must be Between 8 to 20")
+	@Size(min=8,max = 20,message = "Password Length Must be Between 5 to 20")
 	private String password;
 	
 	@NotEmpty(message = "Mobile no. is Required")
@@ -49,4 +52,8 @@ public class CustomerSignupDTO {
 	@Pattern(regexp = "^[0-9]{10}$", message = "Mobile no. should be digits only")
 	private String mobile;
 
+	//private byte[] image;
+	
+	private boolean isDriver;
+		
 }

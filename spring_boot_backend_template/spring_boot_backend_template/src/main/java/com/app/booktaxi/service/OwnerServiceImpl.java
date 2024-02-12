@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.booktaxi.customexception.ResourceNotFoundException;
@@ -19,11 +20,17 @@ import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.OwnerDao;
 import com.app.booktaxi.dto.AddCarDTO;
 import com.app.booktaxi.dto.AddDriverDTO;
+import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
+import com.app.booktaxi.dto.CustomerRespDTO;
+import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.OwnerCarRespDTO;
+import com.app.booktaxi.dto.OwnerRespDTO;
+import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.entity.Car;
+import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Owner;
 
@@ -42,6 +49,32 @@ public class OwnerServiceImpl implements OwnerService {
 	
 	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private PasswordEncoder encoder;
+	
+	@Override
+	public OwnerSignupDTO addNewOwner(OwnerSignupDTO ownerDto) {
+		System.out.println(ownerDto);
+		Owner owner = mapper.map(ownerDto, Owner.class);
+		owner.setStatus("Pending");
+		owner.setPassword(encoder.encode(owner.getPassword()));
+		return mapper.map(ownerDao.save(owner), OwnerSignupDTO.class);
+	}
+	
+	@Override
+	public OwnerRespDTO doLogin(AuthSignInDTO auth) {
+		
+		Owner owner = ownerDao.findByEmail(auth.getEmail()).orElseThrow(() ->
+			new ResourceNotFoundException("Invalid Email or Password")
+				); 
+		System.out.println(owner);
+		
+		if (encoder.matches(auth.getPassword(), owner.getPassword())&& owner.getStatus().equalsIgnoreCase("Active") ) {
+			return mapper.map(owner, OwnerRespDTO.class);
+		} else
+			return null;
+	}
 
 	@Override
 	public String updateOwnerStatus(Long ownerId) {
@@ -61,9 +94,12 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public DriverRespDTO addDriverDetails(@Valid AddDriverDTO newDriver) {
+	public DriverRespDTO addDriverDetails( AddDriverDTO newDriver) {
+		
 		Driver driver = mapper.map(newDriver, Driver.class);
 		
+		driver.setPassword(encoder.encode(driver.getPassword()));
+		driver.setStatus("Pending");
 		Driver persistentDriver = driverDao.save(driver);// Since want to send generated driver id to the REST clnt : saved it
 													// explicitly!
 		return mapper.map(persistentDriver, DriverRespDTO.class);
@@ -71,6 +107,7 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public CarRespDTO addCarDetails(AddCarDTO newCar, Long ownerId) {
+		
 		Driver driver = driverDao.findById(newCar.getDriverId()).orElseThrow(() ->
 			new ResourceNotFoundException("Driver Not Dound")
 			);
@@ -129,6 +166,4 @@ public class OwnerServiceImpl implements OwnerService {
 		//System.out.println("driverList values = "+driverList);
 		return driverList;
 	}
-	
-	
 }

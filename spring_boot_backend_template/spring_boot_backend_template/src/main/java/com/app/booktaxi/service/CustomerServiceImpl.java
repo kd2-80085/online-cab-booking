@@ -22,10 +22,12 @@ import com.app.booktaxi.customexception.ResourceNotFoundException;
 import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.CustomerDao;
+import com.app.booktaxi.dao.FeedbackDao;
+import com.app.booktaxi.dao.PaymentDao;
+import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dao.DistanceDao;
 import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dao.PaymentDao;
-import com.app.booktaxi.dto.CustomerSigninDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
@@ -36,6 +38,7 @@ import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
 import com.app.booktaxi.dto.CustomerPaymentRespDTO;
 import com.app.booktaxi.dao.DriverDao;
+import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingReqDTO;
 import com.app.booktaxi.dto.CustomerRespDTO;
 import com.app.booktaxi.entity.Booking;
@@ -89,8 +92,8 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public CustomerRespDTO doLogin(CustomerSigninDTO auth) {
-		Customer customer = custDao.getByEmail(auth.getEmail())
+	public CustomerRespDTO doLogin(AuthSignInDTO auth) {
+		Customer customer = custDao.findByEmail(auth.getEmail())
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Email or Password"));
 		//System.out.println(customer);
 		if (encoder.matches(auth.getPassword(), customer.getPassword())) {
@@ -161,8 +164,7 @@ public class CustomerServiceImpl implements CustomerService {
 		newBooking.setCustomer(customer);
 		newBooking.setBookingStatus("pending");
 		Booking savedBooking = bookingDao.save(newBooking);
-		if (savedBooking != null)
-		{
+		if (savedBooking != null) {
 			BookingReqDTO bookDTO = mapper.map(savedBooking, BookingReqDTO.class);
 			bookDTO.setAmount(distance.getDistance()*20);
 			bookDTO.setCarId(car.getId());
@@ -171,7 +173,6 @@ public class CustomerServiceImpl implements CustomerService {
 			System.out.println("bookDTO values = "+bookDTO);
 			return "Booking details added Successfully & Payment Pending" + bookDTO;
 		}
-
 		return "Sorry adding booking details unsuccessfull";
 	}
 
@@ -222,5 +223,4 @@ public class CustomerServiceImpl implements CustomerService {
 		return "Invalid Password";
 	}
 	
-
 }

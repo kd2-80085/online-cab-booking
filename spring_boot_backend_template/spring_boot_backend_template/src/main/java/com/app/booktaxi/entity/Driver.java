@@ -47,7 +47,6 @@ public class Driver extends BaseEntity{
 	@Column(name = "mobile", length = 10)
 	private String mobile;
 	
-
 	@Lob
 	private byte[] image;
 	

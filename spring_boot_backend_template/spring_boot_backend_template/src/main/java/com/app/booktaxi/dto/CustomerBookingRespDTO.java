@@ -2,34 +2,36 @@ package com.app.booktaxi.dto;
 
 import java.time.LocalDateTime;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
-public class BookingRespDTO {
+public class CustomerBookingRespDTO {
+
+	
 	private Long id;
-
+	
 	private LocalDateTime bookingDateTime;
-
+	
 	private String bookingStatus;
-
-	private Long customerId;
-	private Long carId;
+	
 	private Long tripId;
-	private Long driverId;
-	//private Long paymentId;
-
+	
 	private String bookingType;
-
+	
+	private Long paymentId;
+	
 	private String taxiType;
-
-	private String distance;
-
+	
+	private float distance;
+	
 	private LocalDateTime pickupTime;
 
 	private String pickUpLocation;
-
+	
 	private String dropLocation;
-
+	
 }

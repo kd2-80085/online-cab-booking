@@ -4,16 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/*
- * customer
-id       name     email     password     mob.    booking_id
- */
-
 @Getter
 @Setter
 @ToString
-public class CustomerRespDTO {
-
+public class AdminRespDTO {
+	
 	private Long id;
 	
 	private String firstName;
@@ -21,9 +16,5 @@ public class CustomerRespDTO {
 	private String lastName;
 	
 	private String email;
-	
-	private String mobile;
 
-	
-	
 }

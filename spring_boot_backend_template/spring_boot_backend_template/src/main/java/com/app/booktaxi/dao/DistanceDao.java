@@ -6,4 +6,6 @@ import com.app.booktaxi.entity.Distance;
 
 public interface DistanceDao extends JpaRepository<Distance, Long>{
 
+	Distance findByPickupLocationAndDropLocation(String pickUpLocation, String dropLocation);
+
 }

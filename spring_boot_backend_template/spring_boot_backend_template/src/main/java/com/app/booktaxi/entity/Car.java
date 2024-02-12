@@ -62,7 +62,7 @@ public class Car extends BaseEntity {
 	private List<Trip> trips = new ArrayList<Trip>();
 	
 	@OneToOne
-	@JoinColumn(name="driver_id",nullable = false)
+	@JoinColumn(name="driver_id",nullable = true)
 	private Driver driver;
 	
 	@Column(length = 10,name = "registration_no")

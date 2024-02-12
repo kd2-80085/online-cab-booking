@@ -7,17 +7,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CarRespDTO {
-	
-	private Long id;
+public class AddCarDTO {
 
 	private String model;
 	
 	private String company;
 	
 	//private byte[] image;
-	
-	private Long ownerId;
 	
 	private int seatingCapacity;
 	
@@ -30,5 +26,4 @@ public class CarRespDTO {
 	private String taxiType;
 	
 	private String location;
-	
 }

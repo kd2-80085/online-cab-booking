@@ -30,7 +30,7 @@ public class OwnerController {
 	@Autowired
 	public OwnerService ownerService;
 	
-	// add owner
+	// add Driver
 		// URL : http://localhost:8080/owner/addDriver
 		// Method : post
 		// resp : successful driverRespDTO or exc

@@ -33,7 +33,7 @@ public class Payment extends BaseEntity {
 	private double amount;
 	
 	@OneToOne
-	@JoinColumn(name = "booking_id", nullable = true)
+	@JoinColumn(name = "booking_id", nullable = false)
 	private Booking booking;
 	
 	@Column(length = 25,name ="payment_status")

@@ -32,8 +32,6 @@ public class OwnerController {
 	@Autowired
 	public OwnerService ownerService;
 	
-	
-	
 	// add owner
 	// URL : http://localhost:8080/owner/signup/
 		// Method : POST
@@ -68,7 +66,7 @@ public class OwnerController {
 	}
 	
 	// view all cars
-		// URL : http://localhost:8080/owner/cars/{ownerId}
+			// URL : http://localhost:8080/owner/cars/{ownerId}
 			// Method : GET
             // request : in Head -> (ownerId)	
 			// resp : successful carRespDTO or exc

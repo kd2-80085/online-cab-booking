@@ -1,6 +1,8 @@
 package com.app.booktaxi.service;
 
 import com.app.booktaxi.dto.CustomerSignupDTO;
+import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
+import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
 import com.app.booktaxi.entity.Car;
 
@@ -32,5 +34,10 @@ public interface CustomerService {
 
 	CustomerPaymentRespDTO getPaymentDetails(Long bookingId);
 
+	Object getProfileDetails(Long customerId);
+
+	Object updateProfileDetails(Long customerId, CustomerUpdateProfileDTO custDTO);
+
+	Object updatePassword(Long customerId, CustomerUpdatePwdDTO passDTO);
 
 }

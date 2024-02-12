@@ -24,6 +24,6 @@ public interface AdminService {
 
 	List<FeedbackRespDTO> getDriverFeedback(int pageNumber, int pageSize, @NotNull Long driverId);
 
-	AdminRespDTO doLogin(@Valid AuthSignInDTO auth);
+	AdminRespDTO doLogin( AuthSignInDTO auth);
 
 }

@@ -12,6 +12,7 @@ import com.app.booktaxi.dto.OwnerSignupDTO;
 import java.util.List;
 
 import javax.validation.Valid;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
 public interface OwnerService {

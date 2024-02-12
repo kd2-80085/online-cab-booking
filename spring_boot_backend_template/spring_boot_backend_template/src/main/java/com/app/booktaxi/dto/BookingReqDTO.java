@@ -1,6 +1,10 @@
+
 package com.app.booktaxi.dto;
 
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +14,9 @@ import lombok.ToString;
 @ToString
 public class BookingReqDTO 
 {
+	
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private Long id;
 
 	private LocalDateTime bookingDateTime;
 
@@ -25,9 +32,11 @@ public class BookingReqDTO
 
 	private LocalDateTime pickupTime;
 
-	private String pickUpLocation;
+	private String pickupLocation;
 
 	private String dropLocation;
 	
-
+	@JsonProperty(access = Access.READ_ONLY)
+	private double amount;
+	
 }

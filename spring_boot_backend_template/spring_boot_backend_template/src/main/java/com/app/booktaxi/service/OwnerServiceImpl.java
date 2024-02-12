@@ -127,7 +127,6 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public List<OwnerCarRespDTO> getAllCars(int pageNumber, int pageSize, Long ownerId) {
-		
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		
 		Owner owner = ownerDao.findById(ownerId)
@@ -149,7 +148,6 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public List<DriverRespDTO> getAllDrivers(int pageNumber, int pageSize, Long ownerId) {
-		
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		
 		Owner owner = ownerDao.findById(ownerId)
@@ -168,5 +166,4 @@ public class OwnerServiceImpl implements OwnerService {
 		//System.out.println("driverList values = "+driverList);
 		return driverList;
 	}
-	
 }

@@ -2,8 +2,6 @@ package com.app.booktaxi.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

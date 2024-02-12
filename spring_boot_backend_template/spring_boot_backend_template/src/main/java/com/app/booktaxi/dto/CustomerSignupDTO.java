@@ -2,11 +2,8 @@ package com.app.booktaxi.dto;
 
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -32,24 +29,24 @@ public class CustomerSignupDTO {
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
-	@NotBlank(message = "First Name Rwquired")
+	@NotEmpty(message = "First Name Required")
 	private String firstName;
 	
-	@NotBlank(message = "Last name Required")
+	@NotEmpty(message = "Last name Required")
 	private String lastName;
 	
 	@Email(message = "Invalid Email!!!")
-	@NotBlank(message = "Email is Required")
+	@NotEmpty(message = "Email is Required")
 	private String email;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@Size(min=5,max = 20,message = "Password Length Must be Between 5 to 20")
+	@NotEmpty(message = "Password id Required")
+	@Size(min=8,max = 20,message = "Password Length Must be Between 8 to 20")
 	private String password;
 	
 	@NotEmpty(message = "Mobile no. is Required")
 	@Size  (min = 10, message = "Mobile no. should be of 10 digits")
 	@Pattern(regexp = "^[0-9]{10}$", message = "Mobile no. should be digits only")
 	private String mobile;
-
 
 }

@@ -66,7 +66,7 @@ public class Booking extends BaseEntity{
 	private LocalDateTime pickupTime;
 
 	@Column(length = 100,name = "pick_up_location")
-	private String pickUpLocation;
+	private String pickupLocation;
 	
 	@Column(length = 100,name = "drop_location")
 	private String dropLocation;

@@ -40,10 +40,14 @@ public class CarServiceImpl implements CarService {
 
 	@Override
 	public String deleteCar(@NotNull Long carId) {
-		carDao.deleteById(carId);
-		if(carDao.findById(carId) != null)
-			return "Car deletion unsuccessful";
-		return "Car deletion successful";
+		Car car = carDao.findById(carId)
+				.orElseThrow(() -> new ResourceNotFoundException("Car Not found"));
+		car.setStatus("inactive");
+		Car updatedCar = carDao.save(car);
+		
+		if (updatedCar.getStatus().equalsIgnoreCase("inactive"))
+			return "Car deletion successful"+updatedCar;
+		return "Car deletion unsuccessful";
 	}
 
 }

@@ -40,7 +40,6 @@ import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Feedback;
 import com.app.booktaxi.entity.Payment;
 
-
 @Service
 @Transactional
 public class AdminServiceImpl implements AdminService {
@@ -50,19 +49,19 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private BookingDao bookingDao;
-	
+
 	@Autowired
 	private CarDao carDao;
-	
+
 	@Autowired
 	private DriverDao driverDao;
-	
+
 	@Autowired
 	private PaymentDao paymentDao;
-	
+
 	@Autowired
 	private FeedbackDao feedbackDao;
-	
+
 	@Autowired
 	private ModelMapper mapper;
 
@@ -86,44 +85,35 @@ public class AdminServiceImpl implements AdminService {
 	public List<CarRespDTO> getAllCarsDetails(int pageNumber, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		List<Car> carList = carDao.findAll(pageable).getContent();
-		System.out.println("List of cars : " + carList);	
-		
-		return carList.stream()
-	            .map(car -> mapper.map(car, CarRespDTO.class)) 
-	            .collect(Collectors.toList());
-		//List<CarRespDTO> carDTOList = new ArrayList<>();
-	    //for (Car car : carList) {
-		//	CarRespDTO carRespDTO = mapper.map(car, CarRespDTO.class);
-	    //    carDTOList.add(carRespDTO);
-	    //}
-		//System.out.println("Final DTO car list : "+ carDTOList);
-		//return carDTOList; 
+		System.out.println("List of cars : " + carList);
+
+		return carList.stream().map(car -> mapper.map(car, CarRespDTO.class)).collect(Collectors.toList());
+		// List<CarRespDTO> carDTOList = new ArrayList<>();
+		// for (Car car : carList) {
+		// CarRespDTO carRespDTO = mapper.map(car, CarRespDTO.class);
+		// carDTOList.add(carRespDTO);
+		// }
+		// System.out.println("Final DTO car list : "+ carDTOList);
+		// return carDTOList;
 	}
 
 	@Override
 	public List<DriverRespDTO> getAllDriversDetails(int pageNumber, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		List<Driver> driverList = driverDao.findAll(pageable).getContent();
-		System.out.println("List of drivers : "+driverList);
-		
-		return driverList.stream()
-				.map(driver -> mapper.map(driver, DriverRespDTO.class))
-				.collect(Collectors.toList());
+		System.out.println("List of drivers : " + driverList);
+
+		return driverList.stream().map(driver -> mapper.map(driver, DriverRespDTO.class)).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public PaymentRespDTO getPaymentByParticularBooking(Long bookingId, Long paymentId) {
-	    //Optional<Payment> paymentDetails = paymentDao.findById(paymentId);
-		Optional<Payment> paymentDetails = paymentDao.findById(paymentId);
-	    if (paymentDetails.isPresent()) {
-	        Payment payment = paymentDetails.get();
-	        PaymentRespDTO paymentDto = mapper.map(payment, PaymentRespDTO.class);
-	        return paymentDto;
-	    } else {
-	        // Handle the case when payment with the given paymentId is not found
-	        // For example, you can throw an exception or return a default DTO
-	        return new PaymentRespDTO(); // Return a default DTO or handle it accordingly
-	    }
+		Payment paymentDetails = paymentDao.findById(paymentId)
+				.orElseThrow(() -> new ResourceNotFoundException("Payment details Not found for payment id"));
+		PaymentRespDTO paymentDto = mapper.map(paymentDetails, PaymentRespDTO.class);
+		paymentDto.setBookingId(bookingId);
+		return paymentDto;
+	}
 	    //keep it as it is
 //	    Payment paymentDetails = paymentDao.findById(paymentId).orElseThrow(() -> 
 //		new ResourceNotFoundException("Payment Not Found")
@@ -173,7 +163,7 @@ public class AdminServiceImpl implements AdminService {
 			bookDto.setCustomerId(booking.getCustomer().getId());
 			bookDto.setDriverId(booking.getDriver().getId());
 			bookDto.setTripId(booking.getTrip().getId());
-			//bookDto.setPaymentId(booking.getPayment().getId());
+			// bookDto.setPaymentId(booking.getPayment().getId());
 
 			return bookDto;
 		}).collect(Collectors.toList());

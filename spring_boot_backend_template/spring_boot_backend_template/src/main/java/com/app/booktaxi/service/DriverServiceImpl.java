@@ -44,7 +44,7 @@ public class DriverServiceImpl implements DriverService {
 
 	@Autowired
 	private BookingDao bookingDao;
-	
+
 	@Autowired
 	private FeedbackDao feedbackDao;
 
@@ -80,12 +80,17 @@ public class DriverServiceImpl implements DriverService {
 		return "Driver is already Approved";
 	}
 
+
 	@Override
-	public String deleteDriver( Long driverId) {
-		driverDao.deleteById(driverId);
-		if(driverDao.findById(driverId) != null)
-			return "Driver deletion unsuccessful";
-		return "Driver deletion successful";
+	public String deleteDriver(Long driverId) {
+		Driver driver = driverDao.findById(driverId)
+				.orElseThrow(() -> new ResourceNotFoundException("Driver Not found"));
+		driver.setStatus("inactive");
+		Driver updatedriver = driverDao.save(driver);
+
+		if (updatedriver.getStatus().equalsIgnoreCase("inactive"))
+			return "Driver deletion successful";
+		return "Driver deletion unsuccessful";
 	}
   
 	@Override
@@ -146,7 +151,6 @@ public class DriverServiceImpl implements DriverService {
 
 		List<FeedbackRespDTO> feedbackRespDTOList = feedbackList.stream().map(feedback -> {
 			FeedbackRespDTO feedbackDto = mapper.map(feedback, FeedbackRespDTO.class);
-
 
 			feedbackDto.setDriverId(feedback.getDriver().getId());
 			feedbackDto.setBookingId(feedback.getBooking().getId());

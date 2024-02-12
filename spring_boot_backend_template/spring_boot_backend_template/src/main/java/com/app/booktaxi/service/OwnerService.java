@@ -23,6 +23,8 @@ public interface OwnerService {
 	
 	String updateOwnerStatus( Long ownerId);
 
+	String deleteOwner(@NotNull Long ownerId);
+  
 	DriverRespDTO addDriverDetails(AddDriverDTO newDriver);
 
 	CarRespDTO addCarDetails(AddCarDTO newCar, Long ownerId);

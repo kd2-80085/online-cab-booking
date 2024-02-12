@@ -11,11 +11,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PaymentRespDTO {
+public class CustomerPaymentRespDTO {
 	
 	private Long id;
 	
 	private double amount;
+	
+	private Long bookingId;
 	
 	private String paymentStatus;
 	

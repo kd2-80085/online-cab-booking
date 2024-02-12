@@ -1,5 +1,10 @@
 package com.app.booktaxi.dto;
 
+import java.util.Arrays;
+
+import com.app.booktaxi.entity.Driver;
+import com.app.booktaxi.entity.Owner;
+
 import lombok.Getter;
 import lombok.Setter;
 

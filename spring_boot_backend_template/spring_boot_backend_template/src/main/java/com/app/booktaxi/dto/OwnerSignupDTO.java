@@ -1,6 +1,7 @@
 package com.app.booktaxi.dto;
 
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -27,7 +28,7 @@ id       name     email     password     mob.    booking_id
 @Setter
 @NoArgsConstructor
 @ToString
-public class CustomerSignupDTO {
+public class OwnerSignupDTO {
 
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
@@ -43,7 +44,7 @@ public class CustomerSignupDTO {
 	private String email;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@Size(min=5,max = 20,message = "Password Length Must be Between 5 to 20")
+	@Size(min=8,max = 20,message = "Password Length Must be Between 5 to 20")
 	private String password;
 	
 	@NotEmpty(message = "Mobile no. is Required")
@@ -51,5 +52,8 @@ public class CustomerSignupDTO {
 	@Pattern(regexp = "^[0-9]{10}$", message = "Mobile no. should be digits only")
 	private String mobile;
 
-
+	//private byte[] image;
+	
+	private boolean isDriver;
+		
 }

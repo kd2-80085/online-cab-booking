@@ -7,23 +7,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DriverRespDTO {
+public class AdminRespDTO {
 	
-	private Long Id;
+	private Long id;
 	
 	private String firstName;
 	
 	private String lastName;
 	
 	private String email;
-		
-	private String mobile;
-	
-	private String licenceNo;
-	
-	private int rating;
-	
-	private String status;
-	
-	private Long carId;
+
 }

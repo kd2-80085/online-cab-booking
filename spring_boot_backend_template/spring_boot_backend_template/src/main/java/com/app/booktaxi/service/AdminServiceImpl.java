@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
@@ -16,17 +18,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.booktaxi.customexception.ResourceNotFoundException;
+import com.app.booktaxi.dao.AdminDao;
 import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.CustomerDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dao.PaymentDao;
+import com.app.booktaxi.dto.AdminRespDTO;
+import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
+import com.app.booktaxi.entity.Admin;
 import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
@@ -38,6 +44,9 @@ import com.app.booktaxi.entity.Payment;
 @Service
 @Transactional
 public class AdminServiceImpl implements AdminService {
+	
+	@Autowired
+	private AdminDao adminDao;
 
 	@Autowired
 	private BookingDao bookingDao;
@@ -59,6 +68,19 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private CustomerDao customerDao;
+	
+	@Override
+	public AdminRespDTO doLogin(@Valid AuthSignInDTO auth) {
+		Admin admin = adminDao.findByEmail(auth.getEmail()).orElseThrow(() ->
+		new ResourceNotFoundException("Invalid Email or Password")
+		); 
+		System.out.println(admin);
+	
+		if (auth.getPassword().equalsIgnoreCase(admin.getPassword()))  {
+			return mapper.map(admin, AdminRespDTO.class);
+		}
+		return null;
+	}
 
 	@Override
 	public List<CarRespDTO> getAllCarsDetails(int pageNumber, int pageSize) {
@@ -96,7 +118,6 @@ public class AdminServiceImpl implements AdminService {
 	    if (paymentDetails.isPresent()) {
 	        Payment payment = paymentDetails.get();
 	        PaymentRespDTO paymentDto = mapper.map(payment, PaymentRespDTO.class);
-	        paymentDto.setBookingId(bookingId);
 	        return paymentDto;
 	    } else {
 	        // Handle the case when payment with the given paymentId is not found
@@ -123,7 +144,7 @@ public class AdminServiceImpl implements AdminService {
 		Driver driver = driverDao.findById(driverId)
 				.orElseThrow(() -> new ResourceNotFoundException("Driver Not Found"));
 		
-		List<Feedback> feedbackList = feedbackDao.findByDriver(driver, pageable)
+		List<Feedback> feedbackList = feedbackDao.findAllByDriver(driver, pageable)
 				.orElseThrow(() -> new ResourceNotFoundException("Feedbacks Not Found"));
 		
 		List<FeedbackRespDTO> feedbackRespDTOList = feedbackList.stream().map(feedback -> {

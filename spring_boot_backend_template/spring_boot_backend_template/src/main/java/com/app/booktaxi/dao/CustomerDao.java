@@ -13,7 +13,7 @@ public interface CustomerDao extends JpaRepository<Customer, Long> {
 
 	List<Customer> findAllById(Long customerId);
 
-	Optional<Customer> getByEmail(String email);
+	Optional<Customer> findByEmail(String email);
 
 
 }

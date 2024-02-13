@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.booktaxi.customexception.ResourceNotFoundException;
@@ -18,14 +19,18 @@ import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.FeedbackDao;
+import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
+import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
+import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Feedback;
+import com.app.booktaxi.entity.Owner;
 
 @Transactional
 @Service
@@ -39,15 +44,31 @@ public class DriverServiceImpl implements DriverService {
 
 	@Autowired
 	private BookingDao bookingDao;
-	
+
 	@Autowired
 	private FeedbackDao feedbackDao;
 
 	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private PasswordEncoder encoder;
+	
+	@Override
+	public DriverRespDTO doLogin(AuthSignInDTO auth) {
+		Driver driver = driverDao.findByEmail(auth.getEmail()).orElseThrow(() ->
+			new ResourceNotFoundException("Invalid Email or Password")
+			); 
+		System.out.println(driver);
+		
+		if (encoder.matches(auth.getPassword(), driver.getPassword())&& driver.getStatus().equalsIgnoreCase("Active") ) {
+			return mapper.map(driver, DriverRespDTO.class);
+		} else
+			return null;
+	}
 
-  @Override
-	public String updateDriverStatus(@NotNull Long driverId) {
+	@Override
+	public String updateDriverStatus( Long driverId) {
 		Driver driver = driverDao.findById(driverId).orElseThrow(() -> new ResourceNotFoundException("Driver Not found"));
 		if(!(driver.getStatus().equalsIgnoreCase("approved"))) 
 		{
@@ -59,12 +80,17 @@ public class DriverServiceImpl implements DriverService {
 		return "Driver is already Approved";
 	}
 
+
 	@Override
-	public String deleteDriver(@NotNull Long driverId) {
-		driverDao.deleteById(driverId);
-		if(driverDao.findById(driverId) != null)
-			return "Driver deletion unsuccessful";
-		return "Driver deletion successful";
+	public String deleteDriver(Long driverId) {
+		Driver driver = driverDao.findById(driverId)
+				.orElseThrow(() -> new ResourceNotFoundException("Driver Not found"));
+		driver.setStatus("inactive");
+		Driver updatedriver = driverDao.save(driver);
+
+		if (updatedriver.getStatus().equalsIgnoreCase("inactive"))
+			return "Driver deletion successful";
+		return "Driver deletion unsuccessful";
 	}
   
 	@Override
@@ -90,7 +116,7 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	@Override
-	public List<BookingRespDTO> getIncomingBookingsForDriver(int pageNumber, int pageSize, @NotNull Long driverId) {
+	public List<BookingRespDTO> getIncomingBookingsForDriver(int pageNumber, int pageSize, Long driverId) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
 		Driver driver = driverDao.findById(driverId)
@@ -114,7 +140,7 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	@Override
-	public List<FeedbackRespDTO> getFeedbacksForDriver(int pageNumber, int pageSize, @NotNull Long driverId) {
+	public List<FeedbackRespDTO> getFeedbacksForDriver(int pageNumber, int pageSize, Long driverId) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
 		Driver driver = driverDao.findById(driverId)
@@ -125,7 +151,6 @@ public class DriverServiceImpl implements DriverService {
 
 		List<FeedbackRespDTO> feedbackRespDTOList = feedbackList.stream().map(feedback -> {
 			FeedbackRespDTO feedbackDto = mapper.map(feedback, FeedbackRespDTO.class);
-
 
 			feedbackDto.setDriverId(feedback.getDriver().getId());
 			feedbackDto.setBookingId(feedback.getBooking().getId());

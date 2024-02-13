@@ -1,29 +1,41 @@
 package com.app.booktaxi.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.booktaxi.customexception.ResourceNotFoundException;
+import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.OwnerDao;
+import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.dto.AddCarDTO;
-import com.app.booktaxi.dto.AddDriverDTO;
+import com.app.booktaxi.dto.DriverSignupDTO;
+import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
+import com.app.booktaxi.dto.CustomerRespDTO;
+import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.OwnerCarRespDTO;
+import com.app.booktaxi.dto.OwnerRespDTO;
+import com.app.booktaxi.dto.OwnerSignupDTO;
+
 import com.app.booktaxi.entity.Car;
+import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Owner;
 
@@ -33,37 +45,87 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Autowired
 	private OwnerDao ownerDao;
+	
+	@Autowired
+	private CarDao carDao;
+	
+	@Autowired
+	private BookingDao bookingDao;
 
 	@Autowired
 	private DriverDao driverDao;
 	
 	@Autowired
-	private CarDao carDao; 
+	private ModelMapper mapper;
 	
 	@Autowired
-	private ModelMapper mapper;
+	private PasswordEncoder encoder;
+	
+	@Override
+	public OwnerSignupDTO addNewOwner(OwnerSignupDTO ownerDto) {
+		System.out.println(ownerDto);
+		Owner owner = mapper.map(ownerDto, Owner.class);
+		owner.setStatus("Pending");
+		owner.setPassword(encoder.encode(owner.getPassword()));
+		return mapper.map(ownerDao.save(owner), OwnerSignupDTO.class);
+	}
+	
+	@Override
+	public OwnerRespDTO doLogin(AuthSignInDTO auth) {
+		
+		Owner owner = ownerDao.findByEmail(auth.getEmail()).orElseThrow(() ->
+			new ResourceNotFoundException("Invalid Email or Password")
+				); 
+		System.out.println(owner);
+		
+		if (encoder.matches(auth.getPassword(), owner.getPassword())&& owner.getStatus().equalsIgnoreCase("Active") ) {
+			return mapper.map(owner, OwnerRespDTO.class);
+		} else
+			return null;
+	}
 
 	@Override
 	public String updateOwnerStatus(Long ownerId) {
 
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
-		
-		if(!(owner.getStatus().equalsIgnoreCase("approved"))) 
-		{
-		owner.setStatus("approved");
-		Owner updatedOwner = ownerDao.save(owner);
-		if (updatedOwner != null)
-			return "Owner Approved Successfully " + updatedOwner;
-		return null;
+
+		if (!(owner.getStatus().equalsIgnoreCase("active"))) {
+			owner.setStatus("active");
+			Owner updatedOwner = ownerDao.save(owner);
+			if (updatedOwner != null)
+				return "Owner Approved Successfully " + updatedOwner;
+			return null;
 		}
 		return "Owner is already Approved";
-	 
+
 	}
 
 	@Override
-	public DriverRespDTO addDriverDetails(@Valid AddDriverDTO newDriver) {
+	public String deleteOwner(@NotNull Long ownerId) {
+		// TODO Auto-generated method stub
+		Owner owner=ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
+		
+		List<Car> ocars= carDao.findAllByOwner(owner);
+		for (Car car : ocars)
+		{    
+			car.setServiceStatus("inactive");
+			carDao.save(car);
+		}
+		owner.setServiceStatus("inactive");
+	   Owner updatedOwner= ownerDao.save(owner);
+		if (updatedOwner.getStatus().equalsIgnoreCase("inactive"))
+			return "Owner deletion successful";
+		return "Owner deletion unsuccessful";
+}
+	
+  
+	@Override
+	public DriverRespDTO addDriverDetails( DriverSignupDTO newDriver) {
+		
 		Driver driver = mapper.map(newDriver, Driver.class);
 		
+		driver.setPassword(encoder.encode(driver.getPassword()));
+		driver.setStatus("Pending");
 		Driver persistentDriver = driverDao.save(driver);// Since want to send generated driver id to the REST clnt : saved it
 													// explicitly!
 		return mapper.map(persistentDriver, DriverRespDTO.class);
@@ -71,6 +133,7 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public CarRespDTO addCarDetails(AddCarDTO newCar, Long ownerId) {
+		
 		Driver driver = driverDao.findById(newCar.getDriverId()).orElseThrow(() ->
 			new ResourceNotFoundException("Driver Not Dound")
 			);
@@ -129,6 +192,4 @@ public class OwnerServiceImpl implements OwnerService {
 		//System.out.println("driverList values = "+driverList);
 		return driverList;
 	}
-	
-	
 }

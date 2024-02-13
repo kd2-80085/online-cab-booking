@@ -23,6 +23,8 @@ import com.app.booktaxi.dto.CustomerCarDTO;
 import com.app.booktaxi.dto.CustomerRespDTO;
 import com.app.booktaxi.dto.BookingReqDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;
+import com.app.booktaxi.dto.PaymentReqDTO;
+import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
@@ -106,7 +108,8 @@ public class CustomerController {
 	// URL : http://localhost:8080/customer/cars/bookcar
 	// Method : POST
 	// req params : in Body
-	// bookingDateTime,customerId, carId, driverId, bookingType,taxiType, distance, pickupTime, pickUpLocation,dropLocation
+	// bookingDateTime,customerId, carId, driverId, bookingType,taxiType, distance,
+	// pickupTime, pickUpLocation,dropLocation
 	// resp : (booking id with other details)
 	@PostMapping("/cars/payment/bookcar")
 	public ResponseEntity<?> bookCab(@RequestBody @Valid BookingReqDTO bookingReqDto) {
@@ -115,6 +118,36 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(custService.bookCab(bookingReqDto));
 	}
 
+	// URL : http://localhost:8080/customer/cars/bookcar/payment
+	// Method : POST
+	// req params : in Body
+	// paymentId,amount, bookingId, transaction_id,paymentStatus,paymentDateAndTime,
+	// paymentType;
+	// resp : (booking id with other details)
+	@PostMapping("/cars/payment/bookcar/payment")
+	public ResponseEntity<?> saveNewPayment(@RequestBody @Valid PaymentReqDTO paymentReqDTO) {
+		System.out.println(paymentReqDTO);
+		System.out.println("in saveNewPayment");
+		PaymentRespDTO paymentRespDTO = custService.saveNewPayment(paymentReqDTO);
+		if (paymentRespDTO != null)
+			return ResponseEntity.status(HttpStatus.CREATED)
+					.body("Payment saved successfully: " + paymentReqDTO);
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save payment");
+	}
+	
+	// URL : http://localhost:8080/customer/bookings/{bookingid}
+	// Method : put
+	@PutMapping("/bookings/{bookingid}")
+	public ResponseEntity<?> cancelBooking(@PathVariable @NotNull Long bookingid) 
+	{
+		System.out.println("in updateCarStatus  ");
+
+		String message = custService.cancelBooking(bookingid);
+
+		return new ResponseEntity<>(message, HttpStatus.OK);
+
+	}
+	   
 	// URL : http://localhost:8080/customer/bookings/payments/{bookingId}
 				// Method : GET
 				// req params : in Head - (customerId)      

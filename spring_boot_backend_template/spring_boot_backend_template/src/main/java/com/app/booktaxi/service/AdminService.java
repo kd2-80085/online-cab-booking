@@ -2,8 +2,11 @@ package com.app.booktaxi.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.app.booktaxi.dto.AdminRespDTO;
+import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
@@ -20,5 +23,7 @@ public interface AdminService {
 	PaymentRespDTO getPaymentByParticularBooking(Long bookingId, Long paymentId);
 
 	List<FeedbackRespDTO> getDriverFeedback(int pageNumber, int pageSize, @NotNull Long driverId);
+
+	AdminRespDTO doLogin( AuthSignInDTO auth);
 
 }

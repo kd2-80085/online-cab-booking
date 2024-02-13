@@ -24,17 +24,14 @@ import com.app.booktaxi.dto.FeedbackRespDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.service.AdminService;
-import com.app.booktaxi.dto.CustomerSigninDTO;
 import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.service.CarService;
 import com.app.booktaxi.service.DriverService;
 import com.app.booktaxi.service.OwnerService;
 
-
 @RestController
 @RequestMapping("/admin")
-public class AdminController {
-	  
+public class AdminController { 
   @Autowired
 	private AdminService adminService;
 
@@ -170,46 +167,59 @@ public class AdminController {
 	}
 
 	// approve Driver
-	//URL : http://localhost:8080/admin/drivers/driverId
+	// URL : http://localhost:8080/admin/drivers/driverId
 	// Method : put
-		// resp : successful msg or exc
-		@PutMapping("/drivers/{driverId}")
-		public ResponseEntity<?> updateDriverStatus(@PathVariable @NotNull Long driverId) {
-			System.out.println("in updateDriverIdStatus  ");
+	// resp : successful msg or exc
+	@PutMapping("/drivers/{driverId}")
+	public ResponseEntity<?> updateDriverStatus(@PathVariable @NotNull Long driverId) {
+		System.out.println("in updateDriverIdStatus  ");
 
-			String message = driverService.updateDriverStatus(driverId);
+		String message = driverService.updateDriverStatus(driverId);
 
-			return new ResponseEntity<>(message, HttpStatus.OK);
+		return new ResponseEntity<>(message, HttpStatus.OK);
 
-		}
-		
-		// delete car
-		// URL : http://localhost:8080/admin/cars/carId
-		// Method : delete
-		// resp : successful msg
-		@DeleteMapping("/cars/{carId}")
-		public ResponseEntity<?> deleteCar(@PathVariable @NotNull Long carId) {
-			System.out.println("in Admin Ctrller delete car  ");
+	}
 
-			String message = carService.deleteCar(carId);
+	// delete car
+	// URL : http://localhost:8080/admin/cars/carId
+	// Method : delete
+	// resp : successful msg
+	@DeleteMapping("/cars/{carId}")
+	public ResponseEntity<?> deleteCar(@PathVariable @NotNull Long carId) {
+		System.out.println("in Admin Ctrller delete car  ");
 
-			return new ResponseEntity<>(message, HttpStatus.OK);
+		String message = carService.deleteCar(carId);
 
-		}
-		
-		// delete Driver
-		//URL : http://localhost:8080/admin/drivers/driverId
-		// Method : delete
-		// resp : successful msg 
-		@DeleteMapping("/drivers/{driverId}")
-			public ResponseEntity<?> deleteDriver(@PathVariable @NotNull Long driverId) {
-				System.out.println("in Admin Ctrller delete Driver ");
+		return new ResponseEntity<>(message, HttpStatus.OK);
 
-				String message = driverService.deleteDriver(driverId);
+	}
 
-				return new ResponseEntity<>(message, HttpStatus.OK);
+	// delete Driver
+	// URL : http://localhost:8080/admin/drivers/driverId
+	// Method : delete
+	// resp : successful msg
+	@DeleteMapping("/drivers/{driverId}")
+	public ResponseEntity<?> deleteDriver(@PathVariable @NotNull Long driverId) {
+		System.out.println("in Admin Ctrller delete Driver ");
 
-			}
-		
-		
+		String message = driverService.deleteDriver(driverId);
+
+		return new ResponseEntity<>(message, HttpStatus.OK);
+
+	}
+
+	// delete Owner
+	// URL : http://localhost:8080/admin/owners/ownerId
+	// Method : delete
+	// resp : successful msg
+	@DeleteMapping("/owners/{ownerId}")
+	public ResponseEntity<?> deleteOwner(@PathVariable @NotNull Long ownerId) {
+		System.out.println("in Admin Ctrller delete Owner ");
+
+		String message = ownerService.deleteOwner(ownerId);
+
+		return new ResponseEntity<>(message, HttpStatus.OK);
+
+	}
+
 }

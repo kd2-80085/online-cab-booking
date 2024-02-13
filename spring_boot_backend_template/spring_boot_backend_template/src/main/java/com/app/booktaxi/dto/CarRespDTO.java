@@ -30,6 +30,5 @@ public class CarRespDTO {
 	private String taxiType;
 	
 	private String location;
-
 	
 }

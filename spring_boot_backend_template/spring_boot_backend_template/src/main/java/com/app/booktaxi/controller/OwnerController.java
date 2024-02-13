@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.booktaxi.dto.AddCarDTO;
+
 import com.app.booktaxi.dto.AddDriverDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.CarUpdateDTO;
@@ -29,6 +30,7 @@ import com.app.booktaxi.dto.OwnerCarRespDTO;
 import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 import com.app.booktaxi.dto.OwnerUpdatePwdDTO;
+import com.app.booktaxi.dto.DriverSignupDTO;
 import com.app.booktaxi.service.OwnerService;
 
 @RestController
@@ -56,7 +58,7 @@ public class OwnerController {
 	// Method : post
 	// resp : successful driverRespDTO or exc
 	@PostMapping("/addDriver")
-	public ResponseEntity<?> addDriverDetails(@RequestBody @Valid AddDriverDTO dto) {
+	public ResponseEntity<?> addDriverDetails(@RequestBody @Valid DriverSignupDTO dto) {
 		System.out.println("in add driver Owner Controller" + dto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.addDriverDetails(dto));
 	}

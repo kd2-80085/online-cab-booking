@@ -56,6 +56,12 @@ public class OwnerServiceImpl implements OwnerService {
 	private DriverDao driverDao;
 	
 	@Autowired
+<<<<<<< HEAD
+=======
+	private CarDao carDao; 
+	
+	@Autowired
+>>>>>>> 70d8e8e16a232efb8565b5a7fc546dd398d68ddf
 	private ModelMapper mapper;
 	
 	@Autowired

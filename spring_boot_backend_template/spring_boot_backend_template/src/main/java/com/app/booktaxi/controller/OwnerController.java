@@ -26,6 +26,7 @@ import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.OwnerCarRespDTO;
 import com.app.booktaxi.dto.OwnerSignupDTO;
+import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 import com.app.booktaxi.service.OwnerService;
 
 @RestController
@@ -107,10 +108,21 @@ public class OwnerController {
 	// in Body - (Company,Location,Model,SeatingCapacity)
 	// resp : successful CarRespDTO or exc
 	@PutMapping("/owner/car/edit/{carId}")
-	public ResponseEntity<?> updateCar(@PathVariable Long carId,
-			@RequestBody @Valid CarUpdateDTO carDTO) {
+	public ResponseEntity<?> updateCar(@PathVariable Long carId, @RequestBody @Valid CarUpdateDTO carDTO) {
 		System.out.println("In update Car : " + carId + " " + carDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(ownerService.updateCarDetails(carId, carDTO));
+	}
+
+	// update profile
+	// URL : http://localhost:8080/owner/profile/{ownerId}
+	// Method : PUT
+	// req params : in Head - (ownerId)
+	// in Body - (fname,lname,email,mobile)
+	// resp : (id,fname,lname,email,mobile)
+	@PutMapping("/profile/{ownerId}")
+	public ResponseEntity<?> updateProfile(@PathVariable Long ownerId, @RequestBody OwnerUpdateProfileDTO ownerDto) {
+		System.out.println("In updateProfile : " + ownerId + " " + ownerDto);
+		return ResponseEntity.status(HttpStatus.OK).body(ownerService.updateProfileDetails(ownerId, ownerDto));
 	}
 
 }

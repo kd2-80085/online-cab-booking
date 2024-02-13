@@ -9,6 +9,7 @@ import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.OwnerCarRespDTO;
 import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.OwnerSignupDTO;
+import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 
 import java.util.List;
 
@@ -35,5 +36,7 @@ public interface OwnerService {
 	List<DriverRespDTO> getAllDrivers(int pageNumber, int pageSize, Long ownerId);
 
 	Object updateCarDetails(Long carId, CarUpdateDTO carDTO);
+
+	Object updateProfileDetails(Long ownerId, OwnerUpdateProfileDTO ownerDto);
 
 }

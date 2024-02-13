@@ -34,7 +34,7 @@ import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.OwnerCarRespDTO;
 import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.OwnerSignupDTO;
-
+import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
@@ -208,5 +208,20 @@ public class OwnerServiceImpl implements OwnerService {
 		if(cartRespDTO != null)
 			return "Car updated Successfully "+cartRespDTO;
 		return "Car updation Failed";
+	}
+
+	@Override
+	public Object updateProfileDetails(Long ownerId, OwnerUpdateProfileDTO ownerDto) {
+		Owner owner = ownerDao.findById(ownerId)
+				.orElseThrow(()-> new ResourceNotFoundException("Owner doesn't exist"));
+		System.out.println("Owner values = "+owner);
+		owner.setFirstName(ownerDto.getFirstName());
+		owner.setLastName(ownerDto.getLastName());
+		owner.setEmail(ownerDto.getEmail());
+		owner.setMobile(ownerDto.getMobile());
+		OwnerRespDTO ownerRespDTO = mapper.map(ownerDao.save(owner), OwnerRespDTO.class);
+		if(ownerRespDTO != null)
+			return "Profile updated Successfully "+ownerRespDTO;
+		return "Profile updation Failed";
 	}
 }

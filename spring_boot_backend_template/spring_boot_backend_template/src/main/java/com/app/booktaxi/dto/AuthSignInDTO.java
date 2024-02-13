@@ -20,6 +20,10 @@ public class AuthSignInDTO {
 	@NotBlank(message = "Password is Required")
 	@Size(min=8,max = 20,message = "Password Length Must be Between 8 to 20")
 	private String password;
+  
+	@NotBlank
+	@Size(min=8,max = 20,message = "Invalid Password")
+	private String password;
 	
 	@NotBlank(message = "Role can not be empty")
 	private String role;

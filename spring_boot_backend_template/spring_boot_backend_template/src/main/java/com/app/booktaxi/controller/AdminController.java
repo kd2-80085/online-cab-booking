@@ -82,7 +82,7 @@ public class AdminController {
 	  }
 	  
 	  
-	//get payments on bookings
+	//get payments of bookings
 	//URL : http://localhost:8080//bookings/payments/{bookingId}/{paymentId}
 	  	//Method  : GET
 	  	//req params  : pageNumber : def val 0, optional

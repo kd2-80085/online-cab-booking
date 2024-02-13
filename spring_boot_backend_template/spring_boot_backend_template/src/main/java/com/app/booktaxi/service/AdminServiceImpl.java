@@ -125,11 +125,7 @@ public class AdminServiceImpl implements AdminService {
 //		else {
 //			return new PaymentRespDTO();
 //		}
-<<<<<<< HEAD
 	
-=======
-	}
->>>>>>> 70d8e8e16a232efb8565b5a7fc546dd398d68ddf
 
 	@Override
 	public List<FeedbackRespDTO> getDriverFeedback(int pageNumber, int pageSize, Long driverId) {

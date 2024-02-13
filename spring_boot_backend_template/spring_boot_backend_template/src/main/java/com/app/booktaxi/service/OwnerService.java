@@ -1,7 +1,7 @@
 package com.app.booktaxi.service;
 
 import com.app.booktaxi.dto.AddCarDTO;
-import com.app.booktaxi.dto.AddDriverDTO;
+import com.app.booktaxi.dto.DriverSignupDTO;
 import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
@@ -23,7 +23,7 @@ public interface OwnerService {
 	
 	String updateOwnerStatus( Long ownerId);
 
-	DriverRespDTO addDriverDetails(AddDriverDTO newDriver);
+	DriverRespDTO addDriverDetails(DriverSignupDTO newDriver);
 
 	CarRespDTO addCarDetails(AddCarDTO newCar, Long ownerId);
 

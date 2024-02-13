@@ -19,7 +19,7 @@ import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.OwnerDao;
 import com.app.booktaxi.dto.AddCarDTO;
-import com.app.booktaxi.dto.AddDriverDTO;
+import com.app.booktaxi.dto.DriverSignupDTO;
 import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
@@ -94,7 +94,7 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public DriverRespDTO addDriverDetails( AddDriverDTO newDriver) {
+	public DriverRespDTO addDriverDetails( DriverSignupDTO newDriver) {
 		
 		Driver driver = mapper.map(newDriver, Driver.class);
 		

@@ -9,12 +9,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
+import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
+import com.app.booktaxi.dto.DriverUpdateProfileDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
 import com.app.booktaxi.service.CarService;
 import com.app.booktaxi.service.DriverService;
@@ -81,6 +85,19 @@ public class DriverController {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		return new ResponseEntity<>(allFeedBacks, HttpStatus.OK);
 
+	}
+	
+	// URL : http://localhost:8080/driver/profile/{driverId}
+			// Method : PUT
+			// req params : in Head - (driverId)   
+		    //              in Body - (fname,lname,email,mobile,licenseNo)
+			// resp : (id,fname,lname,email,mobile,licenseNo)
+	@PutMapping("/profile/{driverId}")
+	public ResponseEntity<?> updateProfile(@PathVariable Long driverId, 
+			@RequestBody DriverUpdateProfileDTO driverDto){
+		System.out.println("In update Profile : "+driverId+" "+driverDto);
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(driverService.updateProfileDetails(driverId,driverDto));
 	}
 
 }

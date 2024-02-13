@@ -35,6 +35,7 @@ import com.app.booktaxi.dto.OwnerCarRespDTO;
 import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
+import com.app.booktaxi.dto.OwnerUpdatePwdDTO;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
@@ -223,5 +224,20 @@ public class OwnerServiceImpl implements OwnerService {
 		if(ownerRespDTO != null)
 			return "Profile updated Successfully "+ownerRespDTO;
 		return "Profile updation Failed";
+	}
+
+	@Override
+	public Object updatePassword(Long ownerId, OwnerUpdatePwdDTO passDTO) {
+		Owner owner = ownerDao.findById(ownerId)
+				.orElseThrow(()-> new ResourceNotFoundException("OwnerId doesn't exist"));
+		if(encoder.matches(passDTO.getOldPassword(), owner.getPassword()))
+		{
+			owner.setPassword(encoder.encode(passDTO.getNewPassword()));
+			OwnerRespDTO ownerRespDTO = mapper.map(ownerDao.save(owner),OwnerRespDTO.class);
+			if( ownerRespDTO != null)
+				return "Password Updated Successfully "+ownerRespDTO;
+			return "Password Updation Failed";
+		}
+		return "Invalid Password";
 	}
 }

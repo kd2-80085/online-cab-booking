@@ -23,10 +23,12 @@ import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.CarUpdateDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
+import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.OwnerCarRespDTO;
 import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
+import com.app.booktaxi.dto.OwnerUpdatePwdDTO;
 import com.app.booktaxi.service.OwnerService;
 
 @RestController
@@ -125,4 +127,14 @@ public class OwnerController {
 		return ResponseEntity.status(HttpStatus.OK).body(ownerService.updateProfileDetails(ownerId, ownerDto));
 	}
 
+	// URL : http://localhost:8080/owner/password/{ownerId}
+	// Method : PUT
+	// req params : in Head - (ownerId)
+	// in Body - (oldPassword, newPassword)
+	// resp : (id,fname,lname,email,mobile)
+	@PutMapping("/password/{ownerId}")
+	public ResponseEntity<?> updatePassword(@PathVariable Long ownerId, @RequestBody OwnerUpdatePwdDTO passDTO) {
+		System.out.println("In updatePassword : " + ownerId + " " + passDTO);
+		return ResponseEntity.status(HttpStatus.OK).body(ownerService.updatePassword(ownerId, passDTO));
+	}
 }

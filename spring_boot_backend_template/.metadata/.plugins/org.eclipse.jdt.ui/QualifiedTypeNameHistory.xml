@@ -6,4 +6,5 @@
     <fullyQualifiedTypeName name="com.app.booktaxi.dto.CarRespDTO"/>
     <fullyQualifiedTypeName name="com.app.booktaxi.dto.OwnerCarRespDTO"/>
     <fullyQualifiedTypeName name="com.app.booktaxi.dto.OwnerRespDTO"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.entity.Owner"/>
 </qualifiedTypeNameHistroy>

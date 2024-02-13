@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+<<<<<<< HEAD
+    <fullyQualifiedTypeName name="javax.validation.constraints.NotNull"/>
+    <fullyQualifiedTypeName name="javax.validation.constraints.NotBlank"/>
+    <fullyQualifiedTypeName name="javax.validation.Valid"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.dto.CarRespDTO"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.dto.OwnerCarRespDTO"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.dto.OwnerRespDTO"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.entity.Owner"/>
+=======
     <fullyQualifiedTypeName name="com.app.booktaxi.entity.Payment"/>
+>>>>>>> main
 </qualifiedTypeNameHistroy>

@@ -12,9 +12,14 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.booktaxi.dto.AdminRespDTO;
 import com.app.booktaxi.dto.AuthSignInDTO;
+import com.app.booktaxi.dto.CustomerRespDTO;
+import com.app.booktaxi.dto.DriverRespDTO;
+import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.SigninResponse;
 import com.app.booktaxi.service.AdminService;
 import com.app.booktaxi.service.CustomerService;
@@ -24,7 +29,7 @@ import com.app.booktaxi.service.UserEntityService;
 import com.app.security.JwtUtils;
 
 @RestController
-@RequestMapping("/home")
+@RequestMapping("/home/login")
 public class HomeController {
 
 	@Autowired
@@ -123,65 +128,50 @@ public class HomeController {
 //		// invoke service method
 //		return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerUser(request));
 //	}
-	
+
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateLogin(@RequestBody @Valid AuthSignInDTO reqDTO) {
-	    System.out.println("in signin " + reqDTO);
+		System.out.println("in signin " + reqDTO);
 
-	    String role = reqDTO.getRole().toLowerCase();
-	    ResponseEntity<?> response = authenticateAndGenerateToken(reqDTO, role);
+		String role = reqDTO.getRole().toLowerCase();
+		ResponseEntity<?> response = authenticateAndGenerateToken(reqDTO, role);
 
-	    if (response != null) {
-	        return response;
-	    } else {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized user");
-	    }
+		if (response != null) {
+			return response;
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized user");
+		}
 	}
 
 	private ResponseEntity<?> authenticateAndGenerateToken(AuthSignInDTO reqDTO, String role) {
-	    Object responseDto = null;
-	    switch (role) {
-	        case "admin":
-	            responseDto = adminService.doLogin(reqDTO);
-	            break;
-	        case "customer":
-	            responseDto = custService.doLogin(reqDTO);
-	            break;
-	        case "owner":
-	            responseDto = ownerService.doLogin(reqDTO);
-	            break;
-	        case "driver":
-	            responseDto = driverService.doLogin(reqDTO);
-	            break;
-	    }
-         System.out.println("auth "+responseDto);
-	    if (responseDto != null) 
-	    { 
-	    	System.out.println("hi");
-	        Authentication verifiedAuth = mgr.authenticate(
-	            new UsernamePasswordAuthenticationToken(reqDTO.getEmail(), reqDTO.getPassword(), AuthorityUtils.createAuthorityList(reqDTO.getRole())
-	        ));
-	        System.out.println(verifiedAuth.getClass()); // Custom user details
-	        // => auth success
-	        return ResponseEntity.ok(
-	            new SigninResponse(utils.generateJwtToken(verifiedAuth), "Successful Authentication!!!")
-	        );
-	       // return ResponseEntity.ok(responseDto);
-	    } else {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
-	    }
+		Object responseDto = null;
+		switch (role) {
+		case "admin":
+			responseDto = adminService.doLogin(reqDTO);
+			break;
+		case "customer":
+			responseDto = custService.doLogin(reqDTO);
+			break;
+		case "owner":
+			responseDto = ownerService.doLogin(reqDTO);
+			break;
+		case "driver":
+			responseDto = driverService.doLogin(reqDTO);
+			break;
+		}
+		System.out.println("auth " + responseDto);
+		if (responseDto != null) {
+			System.out.println("hi");
+			Authentication verifiedAuth = mgr.authenticate(new UsernamePasswordAuthenticationToken(reqDTO.getEmail(),
+					reqDTO.getPassword(), AuthorityUtils.createAuthorityList(reqDTO.getRole())));
+			System.out.println(verifiedAuth.getClass()); // Custom user details
+			// => auth success
+			return ResponseEntity
+					.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), "Successful Authentication!!!"));
+			// return ResponseEntity.ok(responseDto);
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
+		}
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

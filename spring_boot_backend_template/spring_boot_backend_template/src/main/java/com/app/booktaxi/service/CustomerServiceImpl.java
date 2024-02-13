@@ -22,8 +22,6 @@ import com.app.booktaxi.customexception.ResourceNotFoundException;
 import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.CustomerDao;
-import com.app.booktaxi.dao.FeedbackDao;
-import com.app.booktaxi.dao.PaymentDao;
 import com.app.booktaxi.dao.UserEntityDao;
 import com.app.booktaxi.dao.DistanceDao;
 import com.app.booktaxi.dao.FeedbackDao;
@@ -51,7 +49,6 @@ import com.app.booktaxi.entity.Payment;
 import com.app.booktaxi.entity.UserEntity;
 import com.app.booktaxi.entity.UserRole;
 import com.app.booktaxi.entity.Driver;
-import com.app.booktaxi.entity.Payment;
 
 @Service
 @Transactional
@@ -86,7 +83,7 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private UserEntityDao userEntityDao;
-
+	
 	@Autowired
 	private ModelMapper mapper;
 
@@ -95,7 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public CustomerSignupDTO addNewCustomer(CustomerSignupDTO c) {
-		// System.out.println(c);
+		//System.out.println(c);
 		Customer customer = mapper.map(c, Customer.class);
 		customer.setPassword(encoder.encode(customer.getPassword()));
 		
@@ -110,7 +107,8 @@ public class CustomerServiceImpl implements CustomerService {
 	public CustomerRespDTO doLogin(AuthSignInDTO auth) {
 		Customer customer = custDao.findByEmail(auth.getEmail())
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Email or Password"));
-		// System.out.println(customer);
+		//System.out.println(customer);
+
 		if (encoder.matches(auth.getPassword(), customer.getPassword())) {
 			return mapper.map(customer, CustomerRespDTO.class);
 		} else
@@ -177,9 +175,9 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customer = custDao.findById(bookingReqDto.getCustomerId())
 				.orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
 
-		Distance distance = distDao.findByPickupLocationAndDropLocation(bookingReqDto.getPickupLocation(),
-				bookingReqDto.getDropLocation());
-		System.out.println("distance values = " + distance);
+		Distance distance = distDao.findByPickupLocationAndDropLocation(bookingReqDto.getPickupLocation(),bookingReqDto.getDropLocation());
+		System.out.println("distance values = "+distance);
+
 		Booking newBooking = mapper.map(bookingReqDto, Booking.class);
 		newBooking.setCar(car);
 		newBooking.setDriver(driver);
@@ -210,8 +208,9 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Object getProfileDetails(Long customerId) {
 		Customer customer = custDao.findById(customerId)
-				.orElseThrow(() -> new ResourceNotFoundException("Id not found"));
-		System.out.println("customer values = " + customer);
+				.orElseThrow(()-> new ResourceNotFoundException("Id not found"));
+		System.out.println("customer values = "+customer);
+
 		return mapper.map(customer, CustomerRespDTO.class);
 	}
 

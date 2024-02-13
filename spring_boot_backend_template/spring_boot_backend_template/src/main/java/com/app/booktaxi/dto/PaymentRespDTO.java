@@ -1,5 +1,7 @@
 package com.app.booktaxi.dto;
 
+import java.time.LocalDateTime;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,13 +10,18 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PaymentRespDTO {
-	
 	private Long id;
 	
 	private double amount;
-	
+
 	private Long bookingId;
 	
+	private String transaction_id;
+	
 	private String paymentStatus;
+	
+	private LocalDateTime paymentDateAndTime;
+	
+	private String paymentType;
 	
 }

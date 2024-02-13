@@ -16,6 +16,7 @@ public class FeedbackRespDTO {
 	private String feedback;
 	
 	private int rating;
-	
+
 	private Long bookingId;	
+
 }

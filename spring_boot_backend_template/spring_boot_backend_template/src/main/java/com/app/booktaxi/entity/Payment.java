@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,7 +34,10 @@ public class Payment extends BaseEntity {
 	@Column(name = "amount")
 	private double amount;
 	
-	@OneToOne
+	@Column(name = "transaction_id",length = 40)
+	private String transaction_id;
+	
+	@ManyToOne
 	@JoinColumn(name = "booking_id", nullable = false)
 	private Booking booking;
 	

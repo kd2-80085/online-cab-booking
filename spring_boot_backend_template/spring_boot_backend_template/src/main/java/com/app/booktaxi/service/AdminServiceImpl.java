@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
@@ -16,17 +18,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.booktaxi.customexception.ResourceNotFoundException;
+import com.app.booktaxi.dao.AdminDao;
 import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.CustomerDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dao.PaymentDao;
+import com.app.booktaxi.dto.AdminRespDTO;
+import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
+import com.app.booktaxi.entity.Admin;
 import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
@@ -34,89 +40,110 @@ import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Feedback;
 import com.app.booktaxi.entity.Payment;
 
-
 @Service
 @Transactional
 public class AdminServiceImpl implements AdminService {
+	
+	@Autowired
+	private AdminDao adminDao;
 
 	@Autowired
 	private BookingDao bookingDao;
-	
+
 	@Autowired
 	private CarDao carDao;
-	
+
 	@Autowired
 	private DriverDao driverDao;
-	
+
 	@Autowired
 	private PaymentDao paymentDao;
-	
+
 	@Autowired
 	private FeedbackDao feedbackDao;
-	
+
 	@Autowired
 	private ModelMapper mapper;
 
 	@Autowired
 	private CustomerDao customerDao;
+	
+	@Override
+	public AdminRespDTO doLogin(@Valid AuthSignInDTO auth) {
+		Admin admin = adminDao.findByEmail(auth.getEmail()).orElseThrow(() ->
+		new ResourceNotFoundException("Invalid Email or Password")
+		); 
+		System.out.println(admin);
+	
+		if (auth.getPassword().equalsIgnoreCase(admin.getPassword()))  {
+			return mapper.map(admin, AdminRespDTO.class);
+		}
+		return null;
+	}
 
 	@Override
 	public List<CarRespDTO> getAllCarsDetails(int pageNumber, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		List<Car> carList = carDao.findAll(pageable).getContent();
-		System.out.println("List of cars : " + carList);	
-		
-		return carList.stream()
-	            .map(car -> mapper.map(car, CarRespDTO.class)) 
-	            .collect(Collectors.toList());
-		//List<CarRespDTO> carDTOList = new ArrayList<>();
-	    //for (Car car : carList) {
-		//	CarRespDTO carRespDTO = mapper.map(car, CarRespDTO.class);
-	    //    carDTOList.add(carRespDTO);
-	    //}
-		//System.out.println("Final DTO car list : "+ carDTOList);
-		//return carDTOList; 
+		System.out.println("List of cars : " + carList);
+
+		return carList.stream().map(car -> mapper.map(car, CarRespDTO.class)).collect(Collectors.toList());
+		// List<CarRespDTO> carDTOList = new ArrayList<>();
+		// for (Car car : carList) {
+		// CarRespDTO carRespDTO = mapper.map(car, CarRespDTO.class);
+		// carDTOList.add(carRespDTO);
+		// }
+		// System.out.println("Final DTO car list : "+ carDTOList);
+		// return carDTOList;
 	}
 
 	@Override
 	public List<DriverRespDTO> getAllDriversDetails(int pageNumber, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		List<Driver> driverList = driverDao.findAll(pageable).getContent();
-		System.out.println("List of drivers : "+driverList);
-		
-		return driverList.stream()
-				.map(driver -> mapper.map(driver, DriverRespDTO.class))
-				.collect(Collectors.toList());
+		System.out.println("List of drivers : " + driverList);
+
+		return driverList.stream().map(driver -> mapper.map(driver, DriverRespDTO.class)).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public PaymentRespDTO getPaymentByParticularBooking(Long bookingId, Long paymentId) {
-	    Optional<Payment> paymentDetails = paymentDao.findById(paymentId);
-
-	    if (paymentDetails.isPresent()) {
-	        Payment payment = paymentDetails.get();
-	        PaymentRespDTO paymentDto = mapper.map(payment, PaymentRespDTO.class);
-	        paymentDto.setBookingId(bookingId);
-	        return paymentDto;
-	    } else {
-	        // Handle the case when payment with the given paymentId is not found
-	        // For example, you can throw an exception or return a default DTO
-	        return new PaymentRespDTO(); // Return a default DTO or handle it accordingly
-	    }
+		Payment paymentDetails = paymentDao.findById(paymentId)
+				.orElseThrow(() -> new ResourceNotFoundException("Payment details Not found for payment id"));
+		PaymentRespDTO paymentDto = mapper.map(paymentDetails, PaymentRespDTO.class);
+		paymentDto.setBookingId(bookingId);
+		return paymentDto;
 	}
+	    //keep it as it is
+//	    Payment paymentDetails = paymentDao.findById(paymentId).orElseThrow(() -> 
+//		new ResourceNotFoundException("Payment Not Found")
+//			);
+//		if(paymentDetails==null) {
+//			PaymentRespDTO paymentDto = mapper.map(paymentDetails, PaymentRespDTO.class);
+//			return paymentDto;
+//		}
+//		else {
+//			return new PaymentRespDTO();
+//		}
+	
 
 	@Override
-	public FeedbackRespDTO getDriverFeedback(@NotNull Long driverId) {
-		Optional<Feedback> feedbackDetails = feedbackDao.findById(driverId);
-
-	    if (feedbackDetails.isPresent()) {
-	    	Feedback feedback = feedbackDetails.get();
-	    	FeedbackRespDTO feedbackDto = mapper.map(feedback, FeedbackRespDTO.class);
-	    	feedbackDto.setDriverId(driverId);
-	        return feedbackDto;
-	    } else {
-	        return new FeedbackRespDTO(); // Return a default DTO or handle it accordingly
-	    }
+	public List<FeedbackRespDTO> getDriverFeedback(int pageNumber, int pageSize, Long driverId) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		
+		Driver driver = driverDao.findById(driverId)
+				.orElseThrow(() -> new ResourceNotFoundException("Driver Not Found"));
+		
+		List<Feedback> feedbackList = feedbackDao.findAllByDriver(driver, pageable)
+				.orElseThrow(() -> new ResourceNotFoundException("Feedbacks Not Found"));
+		
+		List<FeedbackRespDTO> feedbackRespDTOList = feedbackList.stream().map(feedback -> {
+			FeedbackRespDTO feedbackDto = mapper.map(feedback, FeedbackRespDTO.class);
+			feedbackDto.setDriverId(driverId);
+			return feedbackDto;
+		}).collect(Collectors.toList());
+		
+		return feedbackRespDTOList;
 	}
 
 	@Override
@@ -136,7 +163,7 @@ public class AdminServiceImpl implements AdminService {
 			bookDto.setCustomerId(booking.getCustomer().getId());
 			bookDto.setDriverId(booking.getDriver().getId());
 			bookDto.setTripId(booking.getTrip().getId());
-			//bookDto.setPaymentId(booking.getPayment().getId());
+			// bookDto.setPaymentId(booking.getPayment().getId());
 
 			return bookDto;
 		}).collect(Collectors.toList());

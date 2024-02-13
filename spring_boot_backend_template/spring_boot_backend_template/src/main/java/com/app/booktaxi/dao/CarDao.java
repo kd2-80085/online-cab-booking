@@ -19,4 +19,5 @@ public interface CarDao extends JpaRepository<Car, Long> {
 	Optional<List<Car>> findAllByOwner(Owner owner, Pageable pageable);
 
 
+
 }

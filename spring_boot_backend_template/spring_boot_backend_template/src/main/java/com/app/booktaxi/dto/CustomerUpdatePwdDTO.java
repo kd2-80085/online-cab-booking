@@ -1,5 +1,6 @@
 package com.app.booktaxi.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -12,11 +13,11 @@ import lombok.ToString;
 @ToString
 public class CustomerUpdatePwdDTO {
 
-	@NotEmpty(message = "Password id Required")
+	@NotBlank(message = "Password is Required")
 	@Size(min=8,max = 20,message = "Password Length Must be Between 8 to 20")
 	private String oldPassword;
 	
-	@NotEmpty(message = "Password id Required")
+	@NotBlank(message = "Password is Required")
 	@Size(min=8,max = 20,message = "Password Length Must be Between 8 to 20")
 	private String newPassword;
 }

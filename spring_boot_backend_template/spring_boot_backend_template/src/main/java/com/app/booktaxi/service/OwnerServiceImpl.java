@@ -38,6 +38,7 @@ import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 import com.app.booktaxi.dto.OwnerUpdatePwdDTO;
+
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
@@ -51,24 +52,53 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Autowired
 	private OwnerDao ownerDao;
+	
+	@Autowired
+	private CarDao carDao;
+	
+	@Autowired
+	private BookingDao bookingDao;
 
 	@Autowired
 	private CarDao carDao;
 
-	@Autowired
+  @Autowired
 	private BookingDao bookingDao;
 
 	@Autowired
 	private DriverDao driverDao;
 
-	@Autowired
+  @Autowired
 	private ModelMapper mapper;
-
+  
 	@Autowired
 	private PasswordEncoder encoder;
-
-	@Autowired
+  
+  @Autowired
 	private UserEntityDao userEntityDao;
+	
+	@Override
+	public OwnerSignupDTO addNewOwner(OwnerSignupDTO ownerDto) {
+		System.out.println(ownerDto);
+		Owner owner = mapper.map(ownerDto, Owner.class);
+		owner.setStatus("Pending");
+		owner.setPassword(encoder.encode(owner.getPassword()));
+		return mapper.map(ownerDao.save(owner), OwnerSignupDTO.class);
+	}
+	
+	@Override
+	public OwnerRespDTO doLogin(AuthSignInDTO auth) {
+		
+		Owner owner = ownerDao.findByEmail(auth.getEmail()).orElseThrow(() ->
+			new ResourceNotFoundException("Invalid Email or Password")
+				); 
+		System.out.println(owner);
+		
+		if (encoder.matches(auth.getPassword(), owner.getPassword())&& owner.getStatus().equalsIgnoreCase("Active") ) {
+			return mapper.map(owner, OwnerRespDTO.class);
+		} else
+			return null;
+	}
 
 	// private UserRole userRole;
 	@Override
@@ -119,10 +149,11 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public String deleteOwner(@NotNull Long ownerId) {
-		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
-
-		List<Car> ocars = carDao.findAllByOwner(owner);
-		for (Car car : ocars) {
+		Owner owner=ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
+		
+		List<Car> ocars= carDao.findAllByOwner(owner);
+		for (Car car : ocars)
+		{    
 			car.setServiceStatus("inactive");
 			carDao.save(car);
 		}
@@ -150,7 +181,6 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public CarRespDTO addCarDetails(AddCarDTO newCar, Long ownerId) {
-
 		Driver driver = driverDao.findById(newCar.getDriverId())
 				.orElseThrow(() -> new ResourceNotFoundException("Driver Not Dound"));
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not Found"));

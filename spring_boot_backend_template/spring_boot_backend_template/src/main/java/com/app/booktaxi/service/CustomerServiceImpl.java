@@ -49,6 +49,7 @@ import com.app.booktaxi.entity.Payment;
 import com.app.booktaxi.entity.UserEntity;
 import com.app.booktaxi.entity.UserRole;
 import com.app.booktaxi.entity.Driver;
+import com.app.booktaxi.entity.Payment;
 
 @Service
 @Transactional
@@ -65,6 +66,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerDao customerDao;
+	
+	@Autowired
+	private PaymentDao paymentDao;
 
 	@Autowired
 	private PaymentDao paymentDao;
@@ -215,30 +219,31 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public PaymentRespDTO saveNewPayment(PaymentReqDTO paymentReqDTO) {
+	public PaymentRespDTO saveNewPayment(PaymentReqDTO paymentReqDTO)
+	{
 		System.out.println(paymentReqDTO);
 		Payment payment = mapper.map(paymentReqDTO, Payment.class);
 		System.out.println(payment);
-		Long id = paymentReqDTO.getBookingId();
+		Long id=paymentReqDTO.getBookingId();
 //		System.out.println(
 //				bookingDao.findById(id));
-		Booking booking = bookingDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car not found"));
+		Booking booking=bookingDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car not found"));		
 		System.out.println(booking);
 		payment.setBooking(booking);
-		Payment savedPayment = paymentDao.save(payment);
-		PaymentRespDTO paymentRespDTO = mapper.map(savedPayment, PaymentRespDTO.class);
+		Payment savedPayment= paymentDao.save(payment);
+		PaymentRespDTO paymentRespDTO=mapper.map(savedPayment, PaymentRespDTO.class);
 		if (paymentRespDTO != null)
-			return paymentRespDTO;
+			return  paymentRespDTO;
 		return null;
 	}
 
 	@Override
-	public String cancelBooking(@NotNull Long bookingid) {
-		// System.out.println(bookingDao.findById(bookingid));
-		Booking booking = bookingDao.findById(bookingid)
-				.orElseThrow(() -> new ResourceNotFoundException("Booking not found"));
-		System.out.println(booking);
-		booking.setBookingStatus("cancelled");
+	public String cancelBooking(@NotNull Long bookingid) 
+	{
+		//System.out.println(bookingDao.findById(bookingid));
+		Booking booking=bookingDao.findById(bookingid).orElseThrow(() -> new ResourceNotFoundException("Booking not found"));		
+      System.out.println(booking);
+				booking.setBookingStatus("cancelled");
 		Booking cancelledBooking = bookingDao.save(booking);
 		if (cancelledBooking != null)
 			return "Booking Cancelled Successfully " + cancelledBooking;

@@ -13,6 +13,7 @@ import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 import com.app.booktaxi.dto.OwnerUpdatePwdDTO;
 
 import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 public interface OwnerService {

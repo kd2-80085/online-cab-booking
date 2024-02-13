@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.app.booktaxi.dto.AddCarDTO;
-
 import com.app.booktaxi.dto.AddDriverDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.CarUpdateDTO;
@@ -39,7 +37,6 @@ public class OwnerController {
 
 	@Autowired
 	public OwnerService ownerService;
-
 	// add owner
 	// URL : http://localhost:8080/owner/signup/
 	// Method : POST

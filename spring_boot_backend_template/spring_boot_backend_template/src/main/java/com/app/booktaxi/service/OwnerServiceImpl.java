@@ -38,6 +38,7 @@ import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 import com.app.booktaxi.dto.OwnerUpdatePwdDTO;
+
 import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
@@ -117,10 +118,8 @@ public class OwnerServiceImpl implements OwnerService {
 
 	}
 
-	@Override
 	public String deleteOwner(@NotNull Long ownerId) {
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
-
 		List<Car> ocars = carDao.findAllByOwner(owner);
 		for (Car car : ocars) {
 			car.setServiceStatus("inactive");
@@ -150,7 +149,6 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public CarRespDTO addCarDetails(AddCarDTO newCar, Long ownerId) {
-
 		Driver driver = driverDao.findById(newCar.getDriverId())
 				.orElseThrow(() -> new ResourceNotFoundException("Driver Not Dound"));
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not Found"));

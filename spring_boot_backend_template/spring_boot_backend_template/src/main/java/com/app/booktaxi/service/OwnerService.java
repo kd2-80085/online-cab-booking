@@ -13,6 +13,7 @@ import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 import com.app.booktaxi.dto.OwnerUpdatePwdDTO;
 
 import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 public interface OwnerService {
@@ -22,7 +23,7 @@ public interface OwnerService {
 	OwnerRespDTO doLogin( AuthSignInDTO auth);
 	
 	String updateOwnerStatus( Long ownerId);
-
+  
 	String deleteOwner(@NotNull Long ownerId);
   
 	DriverRespDTO addDriverDetails(DriverSignupDTO newDriver);

@@ -172,7 +172,7 @@ public class CustomerController {
 	// URL : http://localhost:8080/customer/profile/{customerId}
 		// Method : PUT
 		// req params : in Head - (customerId)   
-	    //              in Body - (ffname,lname,email,mobile)
+	    //              in Body - (fname,lname,email,mobile)
 		// resp : (id,fname,lname,email,mobile)
 	@PutMapping("/profile/{customerId}")
 	public ResponseEntity<?> updateProfile(@PathVariable Long customerId, @RequestBody CustomerUpdateProfileDTO custDTO){

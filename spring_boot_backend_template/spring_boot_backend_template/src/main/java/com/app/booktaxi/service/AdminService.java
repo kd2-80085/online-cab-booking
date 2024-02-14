@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.app.booktaxi.dto.AdminRespDTO;
+import com.app.booktaxi.dto.AdminSignupDTO;
 import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
@@ -25,5 +26,7 @@ public interface AdminService {
 	List<FeedbackRespDTO> getDriverFeedback(int pageNumber, int pageSize, @NotNull Long driverId);
 
 	AdminRespDTO doLogin( AuthSignInDTO auth);
+
+	AdminSignupDTO addNewAdmin(@Valid AdminSignupDTO adminDto);
 
 }

@@ -22,7 +22,9 @@ import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
+import com.app.booktaxi.dto.CustomerRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
+import com.app.booktaxi.dto.DriverUpdateProfileDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
 import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.entity.Booking;
@@ -160,5 +162,25 @@ public class DriverServiceImpl implements DriverService {
 
 		return feedbackRespDTOList;
 	}
+
+	@Override
+	public DriverRespDTO updateProfileDetails(Long driverId, DriverUpdateProfileDTO driverDto) {
+	    Driver driver = driverDao.findById(driverId)
+	            .orElseThrow(() -> new ResourceNotFoundException("Driver Not Found"));
+	    System.out.println("Driver = " + driver);
+
+	    driver.setFirstName(driverDto.getFirstName());
+	    driver.setLastName(driverDto.getLastName());
+	    driver.setEmail(driverDto.getEmail());
+	    driver.setMobile(driverDto.getMobile());
+	    driver.setLicenceNo(driverDto.getLicenceNo());
+
+	    Driver updatedDriver = driverDao.save(driver);
+	    System.out.println(" updated " + updatedDriver);
+	    DriverRespDTO driverRespDto = mapper.map(updatedDriver, DriverRespDTO.class);
+
+	    return driverRespDto;
+	}
+
 
 }

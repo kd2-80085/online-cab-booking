@@ -1,0 +1,5 @@
+package com.app.booktaxi.dto;
+
+public class OwnerUpdateProfileDTO {
+
+}

@@ -10,10 +10,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PaymentRespDTO {
-	
 	private Long id;
 	
 	private double amount;
+
+	private Long bookingId;
+	
+	private String transaction_id;
 	
 	private String paymentStatus;
 	

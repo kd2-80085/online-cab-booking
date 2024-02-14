@@ -147,10 +147,8 @@ public class OwnerServiceImpl implements OwnerService {
 
 	}
 
-	@Override
 	public String deleteOwner(@NotNull Long ownerId) {
 		Owner owner=ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
-		
 		List<Car> ocars= carDao.findAllByOwner(owner);
 		for (Car car : ocars)
 		{    

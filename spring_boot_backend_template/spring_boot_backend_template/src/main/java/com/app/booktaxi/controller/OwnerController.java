@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.app.booktaxi.dto.AddCarDTO;
-import com.app.booktaxi.dto.AddDriverDTO;
+import com.app.booktaxi.dto.DriverSignupDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.CarUpdateDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;

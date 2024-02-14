@@ -23,7 +23,7 @@ public interface OwnerService {
 	OwnerRespDTO doLogin( AuthSignInDTO auth);
 	
 	String updateOwnerStatus( Long ownerId);
-
+  
 	String deleteOwner(@NotNull Long ownerId);
   
 	DriverRespDTO addDriverDetails(DriverSignupDTO newDriver);

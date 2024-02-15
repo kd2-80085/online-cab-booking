@@ -8,6 +8,8 @@ import NotFound from "./NotFound";
 import Login from "./Login";
 import DefaultLayout from "./layout/DefaultLayout";
 import SignUp from "./register/SignUp";
+import BookingList from "./admin/BookingList";
+import TaxiBooking from "./customer/TaxiBooking";
 
 function Launcher() {
   return (
@@ -26,7 +28,8 @@ function Launcher() {
         <Route exact path="/db" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
-          
+        <Route path='/bookings' element={<BookingList />} />
+        <Route path='/booktaxi' element={<TaxiBooking />} />  
         </Route>
         {/* <Route path='/employees/edit/:id' element={<AddEmployee />} /> */}
         <Route path="*/*" element={<NotFound />} />

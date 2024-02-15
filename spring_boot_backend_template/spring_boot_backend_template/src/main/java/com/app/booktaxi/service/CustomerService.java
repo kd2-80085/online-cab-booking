@@ -6,7 +6,6 @@ import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
-import com.app.booktaxi.entity.Car;
 
 import java.util.List;
 

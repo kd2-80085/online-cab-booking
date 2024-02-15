@@ -18,17 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.app.booktaxi.dto.AddCarDTO;
 import com.app.booktaxi.dto.DriverSignupDTO;
-import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.CarUpdateDTO;
-import com.app.booktaxi.dto.CustomerSignupDTO;
-import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
-import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.OwnerCarRespDTO;
 import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 import com.app.booktaxi.dto.OwnerUpdatePwdDTO;
-import com.app.booktaxi.dto.DriverSignupDTO;
 import com.app.booktaxi.service.OwnerService;
 
 @RestController

@@ -12,28 +12,20 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.booktaxi.dto.AdminRespDTO;
 import com.app.booktaxi.dto.AuthSignInDTO;
-import com.app.booktaxi.dto.CustomerRespDTO;
-import com.app.booktaxi.dto.DriverRespDTO;
-import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.SigninResponse;
 import com.app.booktaxi.service.AdminService;
 import com.app.booktaxi.service.CustomerService;
 import com.app.booktaxi.service.DriverService;
 import com.app.booktaxi.service.OwnerService;
-import com.app.booktaxi.service.UserEntityService;
 import com.app.security.JwtUtils;
 
 @RestController
 @RequestMapping("/home")
 public class HomeController {
 
-	@Autowired
-	private UserEntityService userService;
 	// dep : auth mgr
 	@Autowired
 	private AuthenticationManager mgr;

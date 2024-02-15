@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.booktaxi.dao.OwnerDao;
 import com.app.booktaxi.dao.UserEntityDao;
-import com.app.booktaxi.entity.Owner;
 import com.app.booktaxi.entity.UserEntity;
 
 @Service

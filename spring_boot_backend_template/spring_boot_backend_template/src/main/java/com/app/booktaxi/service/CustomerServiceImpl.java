@@ -7,14 +7,11 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.websocket.Encoder;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +29,6 @@ import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
 import com.app.booktaxi.dto.PaymentReqDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
-import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
 import com.app.booktaxi.dto.CustomerPaymentRespDTO;
@@ -49,7 +45,6 @@ import com.app.booktaxi.entity.Payment;
 import com.app.booktaxi.entity.UserEntity;
 import com.app.booktaxi.entity.UserRole;
 import com.app.booktaxi.entity.Driver;
-import com.app.booktaxi.entity.Payment;
 
 @Service
 @Transactional
@@ -63,10 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private DriverDao driverDao;
-
-	@Autowired
-	private CustomerDao customerDao;
-
+	
 	@Autowired
 	private PaymentDao paymentDao;
 

@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.app.booktaxi.customexception.ResourceNotFoundException;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.entity.Car;
-import com.app.booktaxi.entity.Driver;
 
 @Service
 @Transactional

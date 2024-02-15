@@ -1,11 +1,9 @@
 package com.app.booktaxi.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
-import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +20,13 @@ import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
-import com.app.booktaxi.dto.CustomerRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.DriverUpdateProfileDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
-import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.entity.Car;
-import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Feedback;
-import com.app.booktaxi.entity.Owner;
 
 @Transactional
 @Service

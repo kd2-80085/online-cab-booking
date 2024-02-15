@@ -24,7 +24,7 @@ import com.app.booktaxi.service.CarService;
 import com.app.booktaxi.service.DriverService;
 
 @RestController
-@RequestMapping("/drivers")
+@RequestMapping("/driver")
 public class DriverController {
 
 	@Autowired

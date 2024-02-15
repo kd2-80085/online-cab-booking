@@ -15,7 +15,12 @@ public interface CarDao extends JpaRepository<Car, Long> {
 	List<Car> findByLocation(String location, Pageable pageable);
   
 	Optional<List<Car>> findAllByDriver(Driver driver, Pageable pageable);
-
+  
 	Optional<List<Car>> findAllByOwner(Owner owner, Pageable pageable);
+
+	List<Car> findAllByOwner(Owner owner);
+
+	Car findAllByDriver(Driver driver);
+
 
 }

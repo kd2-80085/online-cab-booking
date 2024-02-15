@@ -1,6 +1,8 @@
 package com.app.booktaxi.service;
 
 import com.app.booktaxi.dto.CustomerSignupDTO;
+import com.app.booktaxi.dto.PaymentReqDTO;
+import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
@@ -31,6 +33,10 @@ public interface CustomerService {
 	List<CustomerCarDTO> getCarsByLocation(int pageNumber, int pageSize, String location);
   
 	String bookCab(BookingReqDTO bookingReqDto);
+
+	PaymentRespDTO saveNewPayment(@Valid PaymentReqDTO paymentReqDTO);
+
+	String cancelBooking(@NotNull Long bookingid);
 
 	CustomerPaymentRespDTO getPaymentDetails(Long bookingId);
 

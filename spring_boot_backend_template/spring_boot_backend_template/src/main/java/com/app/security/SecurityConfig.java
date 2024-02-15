@@ -13,21 +13,23 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import org.springframework.http.HttpMethod;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-@EnableWebSecurity//to enable spring sec frmwork support
-@Configuration //to tell SC , this is config class containing @Bean methods
+@EnableWebSecurity // to enable spring sec frmwork support
+@Configuration // to tell SC , this is config class containing @Bean methods
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 //To enable method level authorization support : pre n post authorization
 public class SecurityConfig {
-
-	//dep : custom jwt auth filter
+	// dep : pwd encoder
+	@Autowired
+	private PasswordEncoder enc;
+	// dep : custom jwt auth filter
 	@Autowired
 	private JwtAuthenticationFilter jwtFilter;
-	//dep : custom auth entry point
+	// dep : custom auth entry point
 	@Autowired
 	private CustomAuthenticationEntryPoint authEntry;
-	
-	
+
 	@Bean
 	public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception
 	{
@@ -38,7 +40,7 @@ public class SecurityConfig {
 		csrf().disable()
 		.exceptionHandling().authenticationEntryPoint(authEntry)
 		.and().authorizeRequests()
-		.antMatchers("/home/signin","/owner/signup","/customer/signup","/admin/signup",
+		.antMatchers("/admin/bookings/**","/home/signin","/owner/signup","/customer/signup","/admin/signup",
 				"/v*/api-doc*/**","/swagger-ui/**").permitAll()
 		// only required for JS clnts (react / angular) : for the pre flight requests
 		.antMatchers(HttpMethod.OPTIONS).permitAll()
@@ -53,14 +55,12 @@ public class SecurityConfig {
 		and()
 		//inserting jwt filter before sec filter
 		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-	
 		return http.build();
 	}
-	//configure AuthMgr as a spring bean
+
+	// configure AuthMgr as a spring bean
 	@Bean
-	public AuthenticationManager authenticationManager
-	(AuthenticationConfiguration config) throws Exception
-	{
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
 	}
 }

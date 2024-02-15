@@ -7,6 +7,7 @@ import Dashboard from './Dashboard';
 import NotFound from './components/NotFound';
 import Login from './components/Login';
 import Parent from './Parent';
+import CustomerSignUp from './components/CustomerSignUp';
 
 function Launcher() {
   return (
@@ -29,6 +30,7 @@ function Launcher() {
             <Route path='/login' element={<Login />} />
             {/* <Route path='/employees/edit/:id' element={<AddEmployee />} /> */}
             <Route path='*' element={<NotFound />} />
+            <Route path='/custsignup' element={<CustomerSignUp />} />
           </Routes>
         </div>
       </div>

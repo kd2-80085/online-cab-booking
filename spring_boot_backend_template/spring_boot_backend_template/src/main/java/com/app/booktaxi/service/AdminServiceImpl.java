@@ -7,8 +7,10 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +22,15 @@ import com.app.booktaxi.dao.CustomerDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dao.PaymentDao;
+import com.app.booktaxi.dao.UserEntityDao;
 import com.app.booktaxi.dto.AdminRespDTO;
+import com.app.booktaxi.dto.AdminSignupDTO;
 import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
+import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.entity.Admin;
 import com.app.booktaxi.entity.Booking;
@@ -33,7 +38,10 @@ import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Feedback;
+import com.app.booktaxi.entity.Owner;
 import com.app.booktaxi.entity.Payment;
+import com.app.booktaxi.entity.UserEntity;
+import com.app.booktaxi.entity.UserRole;
 
 @Service
 @Transactional
@@ -62,6 +70,12 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private CustomerDao customerDao;
+	
+	@Autowired
+	private PasswordEncoder encoder;
+	
+	@Autowired
+	private UserEntityDao userEntityDao;
 	
 	@Override
 	public AdminRespDTO doLogin(@Valid AuthSignInDTO auth) {
@@ -168,7 +182,8 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<BookingRespDTO> getAllBookings(int pageNumber, int pageSize) {
-		List<Booking> bookings = bookingDao.findAll();
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Page<Booking> bookings = bookingDao.findAll(pageable);
 		
 		System.out.println("List of Bookings : "+ bookings);
 		
@@ -179,12 +194,26 @@ public class AdminServiceImpl implements AdminService {
 			bookRespDto.setCarId(booking.getCar().getId());
 			bookRespDto.setCustomerId(booking.getCustomer().getId());
 			bookRespDto.setDriverId(booking.getDriver().getId());
-			bookRespDto.setTripId(booking.getTrip().getId());
+			if(booking.getTrip() != null)
+				bookRespDto.setTripId(booking.getTrip().getId());
 			// bookDto.setPaymentId(booking.getPayment().getId());
 
 			return bookRespDto;
 		}).collect(Collectors.toList());
 		return bookingRespDtoList;
+	}
+		
+	public AdminSignupDTO addNewAdmin(@Valid AdminSignupDTO adminDto) {
+		System.out.println(adminDto);
+
+		Admin admin = mapper.map(adminDto, Admin.class);
+		admin.setPassword(encoder.encode(admin.getPassword()));
+
+		UserEntity user = mapper.map(admin, UserEntity.class);
+		user.setRole(UserRole.ROLE_ADMIN);
+		userEntityDao.save(user);
+
+		return mapper.map(adminDao.save(admin), AdminSignupDTO.class);
 	}
 
 }

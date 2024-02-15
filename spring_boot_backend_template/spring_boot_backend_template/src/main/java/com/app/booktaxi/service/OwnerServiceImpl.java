@@ -43,22 +43,19 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Autowired
 	private OwnerDao ownerDao;
-	
+
 	@Autowired
 	private CarDao carDao;
-	
-	@Autowired
-	private BookingDao bookingDao;
 
 	@Autowired
 	private DriverDao driverDao;
 
 	@Autowired
 	private ModelMapper mapper;
-  
+
 	@Autowired
 	private PasswordEncoder encoder;
-  
+
 	@Autowired
 	private UserEntityDao userEntityDao;
 
@@ -84,8 +81,8 @@ public class OwnerServiceImpl implements OwnerService {
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Email or Password"));
 		System.out.println(owner);
 		if (encoder.matches(auth.getPassword(), owner.getPassword()))
-				System.out.println("pass match in oserviceimpl");
-		if(owner.getStatus().equalsIgnoreCase("Active"))
+			System.out.println("pass match in oserviceimpl");
+		if (owner.getStatus().equalsIgnoreCase("Active"))
 			System.out.println("owner.getStatus().equalsIgnoreCase(\"Active\") match");
 
 		if (encoder.matches(auth.getPassword(), owner.getPassword()) && owner.getStatus().equalsIgnoreCase("Active")) {
@@ -113,10 +110,9 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	public String deleteOwner(@NotNull Long ownerId) {
-		Owner owner=ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
-		List<Car> ocars= carDao.findAllByOwner(owner);
-		for (Car car : ocars)
-		{    
+		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
+		List<Car> ocars = carDao.findAllByOwner(owner);
+		for (Car car : ocars) {
 			car.setServiceStatus("inactive");
 			carDao.save(car);
 		}
@@ -147,15 +143,13 @@ public class OwnerServiceImpl implements OwnerService {
 		Driver driver = driverDao.findById(newCar.getDriverId())
 				.orElseThrow(() -> new ResourceNotFoundException("Driver Not Dound"));
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not Found"));
-		
 		List<Car> carList = carDao.findAll();
-		
 		for (Car car : carList) {
-			if(car.getRegistrationNo().equals(newCar.getRegistrationNo()))
+			if (car.getRegistrationNo().equals(newCar.getRegistrationNo()))
 				return null;
 		}
 		Car carFindByDriver = carDao.findAllByDriver(driver);
-		if(carFindByDriver == null) {
+		if (carFindByDriver == null) {
 			Car car = mapper.map(newCar, Car.class);
 			car.setDriver(driver);
 			car.setOwner(owner);
@@ -164,8 +158,7 @@ public class OwnerServiceImpl implements OwnerService {
 			respCarDto.setOwnerId(ownerId);
 			respCarDto.setDriverId(newCar.getDriverId());
 			return respCarDto;
-		}
-		else {
+		} else {
 			return null;
 		}
 	}

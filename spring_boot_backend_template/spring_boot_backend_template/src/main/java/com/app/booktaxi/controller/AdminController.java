@@ -217,5 +217,26 @@ public class AdminController {
 		return new ResponseEntity<>(message, HttpStatus.OK);
 
 	}
+	
+	// get all bookings
+		// URL : http://localhost:8080/admin/bookings
+		// Method : GET
+		// req params : pageNumber , def val 0 , optional
+		// pageSize : def val 3 , optional
+		// resp : detached all bookings or exc
+		@GetMapping("/bookings")
+		public ResponseEntity<?> getBookings(@RequestParam(defaultValue = "0", required = false) int pageNumber,
+				@RequestParam(defaultValue = "3", required = false) int pageSize) {
+			System.out.println("in get booking for cust " + pageNumber + " " + pageSize);
+
+			List<BookingRespDTO> bookingList = adminService.getAllBookings(pageNumber, pageSize);
+			System.out.println("Admin Controller get all bookings \n");
+
+			if (bookingList.isEmpty())
+				return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			// bookings found
+			return new ResponseEntity<>(bookingList, HttpStatus.OK);
+
+		}
 
 }

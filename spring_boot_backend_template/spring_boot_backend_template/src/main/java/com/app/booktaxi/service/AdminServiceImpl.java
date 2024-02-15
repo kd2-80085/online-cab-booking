@@ -166,4 +166,25 @@ public class AdminServiceImpl implements AdminService {
 		return bookingRespDTOList;
 	}
 
+	@Override
+	public List<BookingRespDTO> getAllBookings(int pageNumber, int pageSize) {
+		List<Booking> bookings = bookingDao.findAll();
+		
+		System.out.println("List of Bookings : "+ bookings);
+		
+		List<BookingRespDTO> bookingRespDtoList = bookings.stream().map(booking -> {
+			BookingRespDTO bookRespDto = mapper.map(booking, BookingRespDTO.class);
+
+			bookRespDto.setPickUpLocation(booking.getPickupLocation());
+			bookRespDto.setCarId(booking.getCar().getId());
+			bookRespDto.setCustomerId(booking.getCustomer().getId());
+			bookRespDto.setDriverId(booking.getDriver().getId());
+			bookRespDto.setTripId(booking.getTrip().getId());
+			// bookDto.setPaymentId(booking.getPayment().getId());
+
+			return bookRespDto;
+		}).collect(Collectors.toList());
+		return bookingRespDtoList;
+	}
+
 }

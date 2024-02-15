@@ -178,7 +178,7 @@ public class CustomerController {
 				.body(custService.updateProfileDetails(customerId,custDTO));
 	}
 	
-	// URL : http://localhost:8080/customer/profile/{customerId}
+	// URL : http://localhost:8080/customer/password/{customerId}
 			// Method : PUT
 			// req params : in Head - (customerId)   
 		    //              in Body - (oldPassword, newPassword)
@@ -189,5 +189,16 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(custService.updatePassword(customerId,passDTO));
 	}
+	
+	// URL : http://localhost:8080/customer/bookings/distance
+				// Method : GET
+				// req params : in Head - (customerId) 
+				// resp : (DISTANCE_RESP_DTO - pickup location , drop location, distances)
+		@GetMapping("/bookings/distance")
+		public ResponseEntity<?> getDistanceList(){
+			System.out.println("In getDistanceList  ");
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(custService.getDistanceList());
+		}
 
 }

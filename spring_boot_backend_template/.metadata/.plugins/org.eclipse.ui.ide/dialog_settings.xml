@@ -69,6 +69,8 @@
 		<item value="org.eclipse.rcp:4.19.0.v20210303-1800"/>
 		<item value="org.eclipse.tm.terminal.connector.ssh.feature:10.2.0.202012191711"/>
 		<item value="org.eclipse.tm.terminal.control.feature:10.2.0.202103012351"/>
+		<item value="org.eclipse.tm.terminal.feature:10.2.0.202012191711"/>
+		<item value="org.eclipse.tm.terminal.view.feature:10.2.0.202103012351"/>
 		<item value="org.eclipse.userstorage:1.2.0.v20191120-1614"/>
 		<item value="org.eclipse.wst.common.fproj:3.7.3.v202007142017"/>
 		<item value="org.eclipse.wst.jsdt.chromium.debug.feature:0.6.100.v201908270117"/>

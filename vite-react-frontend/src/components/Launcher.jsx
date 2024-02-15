@@ -26,7 +26,7 @@ function Launcher() {
         <Route exact path="/db" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
-
+          
         </Route>
         {/* <Route path='/employees/edit/:id' element={<AddEmployee />} /> */}
         <Route path="*/*" element={<NotFound />} />

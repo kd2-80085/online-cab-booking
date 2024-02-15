@@ -20,4 +20,5 @@ const update = (data) => {
 const remove = (id) => {
   return httpClient.delete(`/${id}`);
 };
+
 export default { getAll, ownerSignup, get, update, remove };

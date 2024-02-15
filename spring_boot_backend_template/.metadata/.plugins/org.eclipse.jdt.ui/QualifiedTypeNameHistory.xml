@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <<<<<<< HEAD
+    <fullyQualifiedTypeName name="com.app.booktaxi.dto.AdminSignupDTO"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.entity.Admin"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.dao.UserEntityDao"/>
+    <fullyQualifiedTypeName name="io.jsonwebtoken.io.Encoder"/>
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> main
@@ -23,5 +29,6 @@
 >>>>>>> main
 >>>>>>> 2127aa95080585710e049a5d4d45060c613ea442
 =======
+>>>>>>> main
 >>>>>>> main
 </qualifiedTypeNameHistroy>

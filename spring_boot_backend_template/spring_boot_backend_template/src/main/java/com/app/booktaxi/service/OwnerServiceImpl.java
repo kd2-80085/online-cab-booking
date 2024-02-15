@@ -60,12 +60,6 @@ public class OwnerServiceImpl implements OwnerService {
 	private BookingDao bookingDao;
 
 	@Autowired
-	private CarDao carDao;
-
-  @Autowired
-	private BookingDao bookingDao;
-
-	@Autowired
 	private DriverDao driverDao;
 
   @Autowired
@@ -76,29 +70,6 @@ public class OwnerServiceImpl implements OwnerService {
   
   @Autowired
 	private UserEntityDao userEntityDao;
-	
-	@Override
-	public OwnerSignupDTO addNewOwner(OwnerSignupDTO ownerDto) {
-		System.out.println(ownerDto);
-		Owner owner = mapper.map(ownerDto, Owner.class);
-		owner.setStatus("Pending");
-		owner.setPassword(encoder.encode(owner.getPassword()));
-		return mapper.map(ownerDao.save(owner), OwnerSignupDTO.class);
-	}
-	
-	@Override
-	public OwnerRespDTO doLogin(AuthSignInDTO auth) {
-		
-		Owner owner = ownerDao.findByEmail(auth.getEmail()).orElseThrow(() ->
-			new ResourceNotFoundException("Invalid Email or Password")
-				); 
-		System.out.println(owner);
-		
-		if (encoder.matches(auth.getPassword(), owner.getPassword())&& owner.getStatus().equalsIgnoreCase("Active") ) {
-			return mapper.map(owner, OwnerRespDTO.class);
-		} else
-			return null;
-	}
 
 	// private UserRole userRole;
 	@Override
@@ -122,6 +93,10 @@ public class OwnerServiceImpl implements OwnerService {
 		Owner owner = ownerDao.findByEmail(auth.getEmail())
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Email or Password"));
 		System.out.println(owner);
+		if (encoder.matches(auth.getPassword(), owner.getPassword()))
+				System.out.println("pass match in oserviceimpl");
+		if(owner.getStatus().equalsIgnoreCase("Active"))
+			System.out.println("owner.getStatus().equalsIgnoreCase(\"Active\") match");
 
 		if (encoder.matches(auth.getPassword(), owner.getPassword()) && owner.getStatus().equalsIgnoreCase("Active")) {
 			OwnerRespDTO ownerRespDTO = mapper.map(owner, OwnerRespDTO.class);

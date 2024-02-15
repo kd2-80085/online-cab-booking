@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,15 +21,12 @@ import com.app.booktaxi.service.AdminService;
 import com.app.booktaxi.service.CustomerService;
 import com.app.booktaxi.service.DriverService;
 import com.app.booktaxi.service.OwnerService;
-import com.app.booktaxi.service.UserEntityService;
 import com.app.security.JwtUtils;
 
 @RestController
 @RequestMapping("/home")
 public class HomeController {
 
-	@Autowired
-	private UserEntityService userService;
 	// dep : auth mgr
 	@Autowired
 	private AuthenticationManager mgr;

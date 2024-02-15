@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 INDEX VERSION 1.131+D:\CDAC Project\Day7\spring_boot_backend_template\.metadata\.plugins\org.eclipse.jdt.core
 4039352108.index
 2354531120.index
@@ -109,6 +112,7 @@ INDEX VERSION 1.131+D:\CDAC Project\Day7\spring_boot_backend_template\.metadata\
 403841115.index
 1382717959.index
 889324175.index
+<<<<<<< HEAD
 2565356412.index
 =======
 <<<<<<< HEAD
@@ -224,3 +228,6 @@ INDEX VERSION 1.131+D:\CDAC Project\Day6\spring_boot_backend_template\.metadata\
 3651137163.index
 >>>>>>> main
 >>>>>>> 2127aa95080585710e049a5d4d45060c613ea442
+=======
+2565356412.index
+>>>>>>> main

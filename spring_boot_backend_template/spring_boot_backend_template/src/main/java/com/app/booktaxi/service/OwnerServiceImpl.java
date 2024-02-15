@@ -14,14 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.booktaxi.customexception.ResourceNotFoundException;
-import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.OwnerDao;
-import com.app.booktaxi.dto.AddDriverDTO;
 import com.app.booktaxi.dto.CarUpdateDTO;
 import com.app.booktaxi.dao.UserEntityDao;
-import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.dto.AddCarDTO;
 import com.app.booktaxi.dto.DriverSignupDTO;
 import com.app.booktaxi.dto.AuthSignInDTO;
@@ -50,9 +47,6 @@ public class OwnerServiceImpl implements OwnerService {
 	private CarDao carDao;
 
 	@Autowired
-	private BookingDao bookingDao;
-
-	@Autowired
 	private DriverDao driverDao;
 
 	@Autowired
@@ -64,7 +58,6 @@ public class OwnerServiceImpl implements OwnerService {
 	@Autowired
 	private UserEntityDao userEntityDao;
 
-	// private UserRole userRole;
 	@Override
 	public OwnerSignupDTO addNewOwner(OwnerSignupDTO ownerDto) {
 		System.out.println(ownerDto);

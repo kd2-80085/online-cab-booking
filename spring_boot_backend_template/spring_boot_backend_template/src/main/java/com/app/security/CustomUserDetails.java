@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.app.booktaxi.entity.Owner;
 import com.app.booktaxi.entity.UserEntity;
 
 public class CustomUserDetails implements UserDetails {

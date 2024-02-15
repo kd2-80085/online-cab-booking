@@ -112,7 +112,7 @@ public class OwnerController {
 	// req params : in Head - (carId)
 	// in Body - (Company,Location,Model,SeatingCapacity)
 	// resp : successful CarRespDTO or exc
-	@PutMapping("/car/edit/{carId}")
+	@PutMapping("/owner/car/edit/{carId}")
 	public ResponseEntity<?> updateCar(@PathVariable Long carId, @RequestBody @Valid CarUpdateDTO carDTO) {
 		System.out.println("In update Car : " + carId + " " + carDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(ownerService.updateCarDetails(carId, carDTO));

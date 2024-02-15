@@ -45,6 +45,9 @@ public class OwnerServiceImpl implements OwnerService {
 	
 	@Autowired
 	private CarDao carDao;
+	
+	@Autowired
+	private BookingDao bookingDao;
 
 	@Autowired
 	private DriverDao driverDao;
@@ -79,6 +82,10 @@ public class OwnerServiceImpl implements OwnerService {
 		Owner owner = ownerDao.findByEmail(auth.getEmail())
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Email or Password"));
 		System.out.println(owner);
+		if (encoder.matches(auth.getPassword(), owner.getPassword()))
+				System.out.println("pass match in oserviceimpl");
+		if(owner.getStatus().equalsIgnoreCase("Active"))
+			System.out.println("owner.getStatus().equalsIgnoreCase(\"Active\") match");
 
 		if (encoder.matches(auth.getPassword(), owner.getPassword()) && owner.getStatus().equalsIgnoreCase("Active")) {
 			OwnerRespDTO ownerRespDTO = mapper.map(owner, OwnerRespDTO.class);

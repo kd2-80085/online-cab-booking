@@ -4452,6 +4452,7 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at java.base/java.lang.Class.getDeclaredMethod(Class.java:2475)
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
+<<<<<<< HEAD
 !SESSION 2024-02-14 23:01:26.881 -----------------------------------------------
 eclipse.buildId=3.9.18.202109141057-RELEASE-e419
 java.version=11.0.20
@@ -4481,6 +4482,24 @@ org.osgi.framework.BundleException: Could not resolve module: org.eclipse.tm.ter
 !MESSAGE Unable to load resource file:/D:/CDAC_PROJECT/DAY_07/spring_boot_backend_template/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
 !STACK 0
 org.eclipse.emf.ecore.resource.impl.ResourceSetImpl$1DiagnosticWrappedException: org.xml.sax.SAXParseExceptionpublicId: file:/D:/CDAC_PROJECT/DAY_07/spring_boot_backend_template/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi; systemId: file:/D:/CDAC_PROJECT/DAY_07/spring_boot_backend_template/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi; lineNumber: 2; columnNumber: 2; The markup in the document preceding the root element must be well-formed.
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
+!SESSION 2024-02-15 03:05:33.585 -----------------------------------------------
+eclipse.buildId=3.9.16.202103111951-RELEASE-e419
+java.version=11.0.20
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.springsource.sts.ide
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springsource.sts.ide
+
+!ENTRY org.eclipse.e4.ui.workbench 4 0 2024-02-15 03:06:18.189
+!MESSAGE Unable to load resource file:/D:/CDAC%20Project/Day7/spring_boot_backend_template/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+!STACK 0
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl$1DiagnosticWrappedException: org.xml.sax.SAXParseExceptionpublicId: file:/D:/CDAC%20Project/Day7/spring_boot_backend_template/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi; systemId: file:/D:/CDAC%20Project/Day7/spring_boot_backend_template/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi; lineNumber: 2; columnNumber: 2; The markup in the document preceding the root element must be well-formed.
+>>>>>>> main
 	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.handleDemandLoadException(ResourceSetImpl.java:319)
 	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:278)
 	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.getResource(ResourceSetImpl.java:406)
@@ -4507,7 +4526,11 @@ org.eclipse.emf.ecore.resource.impl.ResourceSetImpl$1DiagnosticWrappedException:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1461)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1434)
+<<<<<<< HEAD
 Caused by: org.xml.sax.SAXParseExceptionpublicId: file:/D:/CDAC_PROJECT/DAY_07/spring_boot_backend_template/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi; systemId: file:/D:/CDAC_PROJECT/DAY_07/spring_boot_backend_template/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi; lineNumber: 2; columnNumber: 2; The markup in the document preceding the root element must be well-formed.
+=======
+Caused by: org.xml.sax.SAXParseExceptionpublicId: file:/D:/CDAC%20Project/Day7/spring_boot_backend_template/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi; systemId: file:/D:/CDAC%20Project/Day7/spring_boot_backend_template/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi; lineNumber: 2; columnNumber: 2; The markup in the document preceding the root element must be well-formed.
+>>>>>>> main
 	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:204)
 	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:178)
 	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
@@ -4531,7 +4554,11 @@ Caused by: org.xml.sax.SAXParseExceptionpublicId: file:/D:/CDAC_PROJECT/DAY_07/s
 	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:274)
 	... 24 more
 
+<<<<<<< HEAD
 !ENTRY org.eclipse.e4.ui.workbench 4 0 2024-02-14 23:02:41.680
+=======
+!ENTRY org.eclipse.e4.ui.workbench 4 0 2024-02-15 03:06:18.205
+>>>>>>> main
 !MESSAGE The persisted application model has no top-level window. Reinitializing with the default application model.
 !STACK 0
 java.lang.Exception
@@ -4557,6 +4584,7 @@ java.lang.Exception
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1461)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1434)
 
+<<<<<<< HEAD
 !ENTRY org.eclipse.ui 2 0 2024-02-14 23:02:41.851
 !MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
 !SUBENTRY 1 org.eclipse.ui 2 0 2024-02-14 23:02:41.851
@@ -4570,12 +4598,21 @@ java.lang.Exception
 !ENTRY org.eclipse.jface 2 0 2024-02-14 23:02:44.838
 !MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
 !SUBENTRY 1 org.eclipse.jface 2 0 2024-02-14 23:02:44.838
+=======
+!ENTRY org.eclipse.jface 2 0 2024-02-15 03:06:22.415
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2024-02-15 03:06:22.415
+>>>>>>> main
 !MESSAGE A conflict occurred for CTRL+SHIFT+T:
 Binding(CTRL+SHIFT+T,
 	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
 		Open a type in a Java editor,
 		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+<<<<<<< HEAD
 		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3203ffa3,
+=======
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5a35efac,
+>>>>>>> main
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
@@ -4583,11 +4620,16 @@ Binding(CTRL+SHIFT+T,
 	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
 		,
 		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+<<<<<<< HEAD
 		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@49231d79,
+=======
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@70d24586,
+>>>>>>> main
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
 
+<<<<<<< HEAD
 !ENTRY org.eclipse.ui 2 2 2024-02-14 23:02:46.291
 !MESSAGE org.eclipse.jdt.junit.ResultView: Deprecated relationship "fast" should be converted to "stack".
 
@@ -4598,6 +4640,18 @@ Binding(CTRL+SHIFT+T,
 !MESSAGE org.eclipse.contribution.xref.ui.views.XReferenceView: Deprecated relationship "fast" should be converted to "stack".
 
 !ENTRY org.eclipse.ui 4 0 2024-02-14 23:02:55.772
+=======
+!ENTRY org.eclipse.ui 2 2 2024-02-15 03:06:24.134
+!MESSAGE org.eclipse.jdt.junit.ResultView: Deprecated relationship "fast" should be converted to "stack".
+
+!ENTRY org.eclipse.ui 2 2 2024-02-15 03:06:24.134
+!MESSAGE org.springframework.ide.eclipse.aop.ui.navigator.aopReferenceModelNavigator: Deprecated relationship "fast" should be converted to "stack".
+
+!ENTRY org.eclipse.ui 2 2 2024-02-15 03:06:24.134
+!MESSAGE org.eclipse.contribution.xref.ui.views.XReferenceView: Deprecated relationship "fast" should be converted to "stack".
+
+!ENTRY org.eclipse.ui 4 0 2024-02-15 03:06:28.058
+>>>>>>> main
 !MESSAGE Unable to restore working set state.
 !STACK 1
 org.eclipse.ui.WorkbenchException: The content of elements must consist of well-formed character data or markup.
@@ -4822,7 +4876,11 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The co
 	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
 	at org.eclipse.ui.XMLMemento.createReadRoot(XMLMemento.java:111)
 	... 203 more
+<<<<<<< HEAD
 !SUBENTRY 1 org.eclipse.ui 4 0 2024-02-14 23:02:55.776
+=======
+!SUBENTRY 1 org.eclipse.ui 4 0 2024-02-15 03:06:28.058
+>>>>>>> main
 !MESSAGE The content of elements must consist of well-formed character data or markup.
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The content of elements must consist of well-formed character data or markup.
@@ -5045,17 +5103,30 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The content of el
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1461)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1434)
 
+<<<<<<< HEAD
 !ENTRY org.eclipse.egit.ui 2 0 2024-02-14 23:03:09.061
 !MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
 user global configuration and to define the default location to store repositories: 'C:\Users\DELL'. If this is
+=======
+!ENTRY org.eclipse.egit.ui 2 0 2024-02-15 03:06:35.391
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\chaitanya'. If this is
+>>>>>>> main
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
 
+<<<<<<< HEAD
 !ENTRY org.eclipse.e4.ui.workbench 2 0 2024-02-14 23:03:09.465
 !MESSAGE Removing PartDescriptorImpl with the "org.springsource.ide.eclipse.commons.browser.View" id and the "Browser View" label.It points to the non available "bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" class. Bundle might have been uninstalled
 
 !ENTRY org.eclipse.jdt.launching 4 4 2024-02-14 23:03:10.383
+=======
+!ENTRY org.eclipse.e4.ui.workbench 2 0 2024-02-15 03:06:35.657
+!MESSAGE Removing PartDescriptorImpl with the "org.springsource.ide.eclipse.commons.browser.View" id and the "Browser View" label.It points to the non available "bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" class. Bundle might have been uninstalled
+
+!ENTRY org.eclipse.jdt.launching 4 4 2024-02-15 03:06:37.485
+>>>>>>> main
 !MESSAGE The content of elements must consist of well-formed character data or markup.
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The content of elements must consist of well-formed character data or markup.
@@ -5081,6 +5152,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The content of el
 	at org.eclipse.jdt.launching.JavaRuntime.addPersistedVMs(JavaRuntime.java:1934)
 	at org.eclipse.jdt.launching.JavaRuntime.initializeVMs(JavaRuntime.java:3188)
 	at org.eclipse.jdt.launching.JavaRuntime.getVMInstallTypes(JavaRuntime.java:570)
+<<<<<<< HEAD
 	at org.eclipse.jdt.internal.launching.JREPreferenceModifyListener.preApply(JREPreferenceModifyListener.java:132)
 	at org.eclipse.core.internal.preferences.PreferencesService$4.run(PreferencesService.java:453)
 	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
@@ -5100,6 +5172,58 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The content of el
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
 
 !ENTRY org.eclipse.ui 4 4 2024-02-14 23:03:10.822
+=======
+	at org.eclipse.jdt.internal.launching.environments.EnvironmentsManager.initializeCompatibilities(EnvironmentsManager.java:299)
+	at org.eclipse.jdt.internal.launching.environments.ExecutionEnvironment.init(ExecutionEnvironment.java:185)
+	at org.eclipse.jdt.internal.launching.environments.ExecutionEnvironment.getDefaultVM(ExecutionEnvironment.java:227)
+	at org.eclipse.jdt.internal.launching.JREContainerInitializer.resolveVM(JREContainerInitializer.java:179)
+	at org.eclipse.jdt.internal.launching.JREContainerInitializer.resolveVM(JREContainerInitializer.java:146)
+	at org.eclipse.jdt.internal.launching.JREContainerInitializer.initialize(JREContainerInitializer.java:63)
+	at org.eclipse.jdt.internal.core.JavaModelManager.initializeContainer(JavaModelManager.java:3195)
+	at org.eclipse.jdt.internal.core.JavaModelManager.getClasspathContainer(JavaModelManager.java:2116)
+	at org.eclipse.jdt.core.JavaCore.getClasspathContainer(JavaCore.java:3758)
+	at org.eclipse.jdt.internal.core.JavaProject.resolveClasspath(JavaProject.java:3196)
+	at org.eclipse.jdt.internal.core.JavaProject.resolveClasspath(JavaProject.java:3360)
+	at org.eclipse.jdt.internal.core.JavaProject.getResolvedClasspath(JavaProject.java:2444)
+	at org.eclipse.jdt.internal.core.JavaProject.buildStructure(JavaProject.java:502)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:596)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:326)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:312)
+	at org.eclipse.jdt.internal.core.JavaProject.getJavaProjectElementInfo(JavaProject.java:2100)
+	at org.eclipse.jdt.internal.core.JavaProject.newNameLookup(JavaProject.java:2823)
+	at org.eclipse.jdt.internal.core.JavaProject.newNameLookup(JavaProject.java:2817)
+	at org.eclipse.jdt.internal.core.JavaProject.newNameLookup(JavaProject.java:2835)
+	at org.eclipse.jdt.internal.core.JavaProject.newNameLookup(JavaProject.java:2827)
+	at org.eclipse.jdt.internal.core.JavaProject.findType(JavaProject.java:1745)
+	at org.eclipse.jdt.internal.core.JavaProject.findType(JavaProject.java:1646)
+	at org.springframework.ide.eclipse.beans.core.internal.model.BeansConfigFactory.create(BeansConfigFactory.java:51)
+	at org.springframework.ide.eclipse.beans.core.internal.model.BeansConfigFactory.create(BeansConfigFactory.java:39)
+	at org.springframework.ide.eclipse.beans.core.internal.model.BeansProject.addConfig(BeansProject.java:362)
+	at org.springframework.ide.eclipse.beans.core.internal.project.BeansProjectDescriptionHandler.endElement(BeansProjectDescriptionHandler.java:202)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.endElement(AbstractSAXParser.java:610)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanEndElement(XMLDocumentFragmentScannerImpl.java:1718)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2883)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:605)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.next(XMLNSDocumentScannerImpl.java:112)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:534)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:888)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:824)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1216)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:635)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl.parse(SAXParserImpl.java:324)
+	at org.springframework.ide.eclipse.beans.core.internal.project.BeansProjectDescriptionReader.readDescriptionFromFile(BeansProjectDescriptionReader.java:81)
+	at org.springframework.ide.eclipse.beans.core.internal.project.BeansProjectDescriptionReader.read(BeansProjectDescriptionReader.java:61)
+	at org.springframework.ide.eclipse.beans.core.internal.model.BeansProject.populateModel(BeansProject.java:1057)
+	at org.springframework.ide.eclipse.beans.core.internal.model.BeansProject.getConfigs(BeansProject.java:706)
+	at org.springframework.ide.eclipse.beans.core.internal.model.BeansProject.accept(BeansProject.java:175)
+	at org.springframework.ide.eclipse.beans.core.internal.model.BeansModel.start(BeansModel.java:152)
+	at org.springframework.ide.eclipse.beans.core.BeansCorePlugin$2.run(BeansCorePlugin.java:149)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.ui 4 4 2024-02-15 03:06:43.566
+>>>>>>> main
 !MESSAGE Unable to create part
 !STACK 1
 org.eclipse.ui.PartInitException: Plug-in org.springsource.ide.eclipse.commons.gettingstarted was unable to load class org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard.
@@ -5199,14 +5323,22 @@ Caused by: org.eclipse.core.runtime.CoreException: Plug-in org.springsource.ide.
 	at org.eclipse.ui.internal.registry.EditorDescriptor.createEditor(EditorDescriptor.java:231)
 	at org.eclipse.ui.internal.EditorReference.createPart(EditorReference.java:321)
 	... 83 more
+<<<<<<< HEAD
 Caused by: java.lang.ClassNotFoundException: org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard cannot be found by org.springsource.ide.eclipse.commons.gettingstarted_3.9.18.202109131132-RELEASE
+=======
+Caused by: java.lang.ClassNotFoundException: org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard cannot be found by org.springsource.ide.eclipse.commons.gettingstarted_3.9.16.202103111541-RELEASE
+>>>>>>> main
 	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:519)
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:171)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
 	at org.eclipse.osgi.internal.framework.EquinoxBundle.loadClass(EquinoxBundle.java:617)
 	at org.eclipse.core.internal.registry.osgi.RegistryStrategyOSGI.createExecutableExtension(RegistryStrategyOSGI.java:196)
 	... 91 more
+<<<<<<< HEAD
 !SUBENTRY 1 org.eclipse.ui 4 1 2024-02-14 23:03:10.824
+=======
+!SUBENTRY 1 org.eclipse.ui 4 1 2024-02-15 03:06:43.566
+>>>>>>> main
 !MESSAGE Plug-in org.springsource.ide.eclipse.commons.gettingstarted was unable to load class org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard.
 !STACK 1
 org.eclipse.core.runtime.CoreException: Plug-in org.springsource.ide.eclipse.commons.gettingstarted was unable to load class org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard.
@@ -5303,17 +5435,28 @@ org.eclipse.core.runtime.CoreException: Plug-in org.springsource.ide.eclipse.com
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1461)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1434)
+<<<<<<< HEAD
 Caused by: java.lang.ClassNotFoundException: org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard cannot be found by org.springsource.ide.eclipse.commons.gettingstarted_3.9.18.202109131132-RELEASE
+=======
+Caused by: java.lang.ClassNotFoundException: org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard cannot be found by org.springsource.ide.eclipse.commons.gettingstarted_3.9.16.202103111541-RELEASE
+>>>>>>> main
 	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:519)
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:171)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
 	at org.eclipse.osgi.internal.framework.EquinoxBundle.loadClass(EquinoxBundle.java:617)
 	at org.eclipse.core.internal.registry.osgi.RegistryStrategyOSGI.createExecutableExtension(RegistryStrategyOSGI.java:196)
 	... 91 more
+<<<<<<< HEAD
 !SUBENTRY 2 org.eclipse.equinox.registry 4 1 2024-02-14 23:03:10.825
 !MESSAGE Plug-in org.springsource.ide.eclipse.commons.gettingstarted was unable to load class org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard.
 !STACK 0
 java.lang.ClassNotFoundException: org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard cannot be found by org.springsource.ide.eclipse.commons.gettingstarted_3.9.18.202109131132-RELEASE
+=======
+!SUBENTRY 2 org.eclipse.equinox.registry 4 1 2024-02-15 03:06:43.566
+!MESSAGE Plug-in org.springsource.ide.eclipse.commons.gettingstarted was unable to load class org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard.
+!STACK 0
+java.lang.ClassNotFoundException: org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard cannot be found by org.springsource.ide.eclipse.commons.gettingstarted_3.9.16.202103111541-RELEASE
+>>>>>>> main
 	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:519)
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:171)
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
@@ -5411,7 +5554,11 @@ java.lang.ClassNotFoundException: org.springsource.ide.eclipse.commons.gettingst
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1461)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1434)
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:03:47.001
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:07:11.473
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -5443,7 +5590,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:03:58.445
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:14:25.762
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -5475,7 +5626,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:05:26.840
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:14:39.764
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -5507,7 +5662,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:06:21.472
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:15:01.280
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -5539,7 +5698,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:06:35.156
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:15:14.781
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -5571,7 +5734,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:06:46.359
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:15:33.472
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -5603,6 +5770,7 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:07:46.920
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
@@ -5732,6 +5900,9 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	... 22 more
 
 !ENTRY org.eclipse.jdt.ui 4 10001 2024-02-14 23:12:23.420
+=======
+!ENTRY org.eclipse.jdt.ui 4 10001 2024-02-15 03:26:23.876
+>>>>>>> main
 !MESSAGE Internal Error
 !STACK 1
 org.eclipse.jdt.internal.ui.JavaUIException: Problems reading information from XML 'QualifiedTypeNameHistory.xml'
@@ -5746,12 +5917,18 @@ org.eclipse.jdt.internal.ui.JavaUIException: Problems reading information from X
 	at org.eclipse.jdt.ui.text.java.CompletionProposalComparator.compare(CompletionProposalComparator.java:61)
 	at org.eclipse.jdt.ui.text.java.CompletionProposalComparator.compare(CompletionProposalComparator.java:1)
 	at org.eclipse.jdt.internal.ui.text.java.RelevanceSorter.compare(RelevanceSorter.java:40)
+<<<<<<< HEAD
 	at java.base/java.util.TimSort.countRunAndMakeAscending(TimSort.java:355)
 	at java.base/java.util.TimSort.sort(TimSort.java:220)
+=======
+	at java.base/java.util.TimSort.binarySort(TimSort.java:296)
+	at java.base/java.util.TimSort.sort(TimSort.java:239)
+>>>>>>> main
 	at java.base/java.util.Arrays.sort(Arrays.java:1441)
 	at java.base/java.util.Arrays$ArrayList.sort(Arrays.java:4405)
 	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.sortProposals(CompletionProposalPopup.java:1993)
 	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.computeProposals(CompletionProposalPopup.java:584)
+<<<<<<< HEAD
 	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.lambda$0(CompletionProposalPopup.java:507)
 	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:74)
 	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.showProposals(CompletionProposalPopup.java:502)
@@ -5795,6 +5972,14 @@ org.eclipse.jdt.internal.ui.JavaUIException: Problems reading information from X
 	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4930)
 	at org.eclipse.swt.internal.win32.OS.DispatchMessage(Native Method)
 	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3624)
+=======
+	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.computeFilteredProposals(CompletionProposalPopup.java:1510)
+	at org.eclipse.jface.text.contentassist.CompletionProposalPopup$1.run(CompletionProposalPopup.java:367)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4001)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3629)
+>>>>>>> main
 	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1157)
 	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
 	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
@@ -5833,8 +6018,13 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The co
 	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:246)
 	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
 	at org.eclipse.jdt.internal.corext.util.History.load(History.java:256)
+<<<<<<< HEAD
 	... 80 more
 !SUBENTRY 1 org.eclipse.jdt.ui 4 4 2024-02-14 23:12:23.420
+=======
+	... 43 more
+!SUBENTRY 1 org.eclipse.jdt.ui 4 4 2024-02-15 03:26:23.877
+>>>>>>> main
 !MESSAGE Problems reading information from XML 'QualifiedTypeNameHistory.xml'
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The content of elements must consist of well-formed character data or markup.
@@ -5862,12 +6052,18 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The content of el
 	at org.eclipse.jdt.ui.text.java.CompletionProposalComparator.compare(CompletionProposalComparator.java:61)
 	at org.eclipse.jdt.ui.text.java.CompletionProposalComparator.compare(CompletionProposalComparator.java:1)
 	at org.eclipse.jdt.internal.ui.text.java.RelevanceSorter.compare(RelevanceSorter.java:40)
+<<<<<<< HEAD
 	at java.base/java.util.TimSort.countRunAndMakeAscending(TimSort.java:355)
 	at java.base/java.util.TimSort.sort(TimSort.java:220)
+=======
+	at java.base/java.util.TimSort.binarySort(TimSort.java:296)
+	at java.base/java.util.TimSort.sort(TimSort.java:239)
+>>>>>>> main
 	at java.base/java.util.Arrays.sort(Arrays.java:1441)
 	at java.base/java.util.Arrays$ArrayList.sort(Arrays.java:4405)
 	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.sortProposals(CompletionProposalPopup.java:1993)
 	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.computeProposals(CompletionProposalPopup.java:584)
+<<<<<<< HEAD
 	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.lambda$0(CompletionProposalPopup.java:507)
 	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:74)
 	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.showProposals(CompletionProposalPopup.java:502)
@@ -5911,6 +6107,14 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The content of el
 	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4930)
 	at org.eclipse.swt.internal.win32.OS.DispatchMessage(Native Method)
 	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3624)
+=======
+	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.computeFilteredProposals(CompletionProposalPopup.java:1510)
+	at org.eclipse.jface.text.contentassist.CompletionProposalPopup$1.run(CompletionProposalPopup.java:367)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4001)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3629)
+>>>>>>> main
 	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1157)
 	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
 	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
@@ -5934,7 +6138,11 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 2; The content of el
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1461)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1434)
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:12:35.909
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:29:12.289
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -5966,7 +6174,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:12:57.397
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:30:41.272
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -5998,7 +6210,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:13:18.142
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:45:53.513
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -6030,7 +6246,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:13:35.793
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:45:57.530
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -6062,7 +6282,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:15:22.772
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:46:37.205
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -6094,7 +6318,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:15:52.115
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:47:20.488
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -6126,7 +6354,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:16:29.335
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:47:52.782
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -6158,7 +6390,11 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
 
+<<<<<<< HEAD
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:17:20.039
+=======
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-15 03:58:28.880
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -6189,6 +6425,7 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at java.base/java.lang.Class.getDeclaredMethod(Class.java:2475)
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
+<<<<<<< HEAD
 
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-14 23:17:54.139
 !MESSAGE Error occured processing 'com.app.Application'
@@ -6676,3 +6913,10 @@ Contains: File does not exist: E:\Installations\sts-bundle\sts-3.9.18.RELEASE\pl
 
 !ENTRY org.eclipse.pde.core 4 0 2024-02-14 23:32:43.007
 !MESSAGE File does not exist: E:\Installations\sts-bundle\sts-3.9.18.RELEASE\plugins\org.eclipse.tm.terminal.view.core_4.7.0.202008310315.jar
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 2127aa95080585710e049a5d4d45060c613ea442
+=======
+>>>>>>> main
+>>>>>>> main

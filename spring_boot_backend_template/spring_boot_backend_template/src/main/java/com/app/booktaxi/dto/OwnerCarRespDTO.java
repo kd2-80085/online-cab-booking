@@ -8,6 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class OwnerCarRespDTO {
+	
+	private Long id;
 
 	private String model;
 	

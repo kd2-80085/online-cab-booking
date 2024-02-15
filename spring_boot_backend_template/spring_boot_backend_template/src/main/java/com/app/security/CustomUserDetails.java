@@ -7,20 +7,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.app.booktaxi.entity.Owner;
 import com.app.booktaxi.entity.UserEntity;
 
 public class CustomUserDetails implements UserDetails {
-	
-    private UserEntity user;
-	
-	//private Owner user;
+
+	private UserEntity user;
+
+	// private Owner user;
 
 	public CustomUserDetails(UserEntity user) {
 		super();
 		this.user = user;
 	}
-	
+
 //	public CustomUserDetails(Owner user) {
 //		super();
 //		this.user = user;
@@ -29,17 +28,15 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return List.of
-				(new SimpleGrantedAuthority(user.getRole().toString()));
+		return List.of(new SimpleGrantedAuthority(user.getRole().toString()));
 	}
-	
+
 //	@Override
 //	public Collection<? extends GrantedAuthority> getAuthorities() {
 //		// TODO Auto-generated method stub
 //		return List.of
 //				(new SimpleGrantedAuthority("owner"));
 //	}
-
 
 	@Override
 	public String getPassword() {

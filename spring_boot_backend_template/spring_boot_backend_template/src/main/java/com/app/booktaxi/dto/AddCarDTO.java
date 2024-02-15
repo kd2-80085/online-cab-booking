@@ -1,7 +1,7 @@
 package com.app.booktaxi.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +19,8 @@ public class AddCarDTO {
 	private String company;
 	
 	//private byte[] image;
-	
-	@NotBlank(message = "Can not be Empty")
+
+	@NotNull(message="Seating Capacity required")
 	private int seatingCapacity;
 	
 	

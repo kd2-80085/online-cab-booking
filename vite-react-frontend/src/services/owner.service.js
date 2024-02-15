@@ -1,12 +1,12 @@
 
-import httpClient from '../http-common';
+import httpClient from './http-common';
 
 const getAll = () => {
   return httpClient.get('');
 };
 
-const create = (data) => {
-  return httpClient.post('', data);
+const ownerSignup = (data) => {
+  return httpClient.post('owner/signup', data);
 };
 
 const get = (id) => {
@@ -20,4 +20,5 @@ const update = (data) => {
 const remove = (id) => {
   return httpClient.delete(`/${id}`);
 };
-export default { getAll, create, get, update, remove };
+
+export default { getAll, ownerSignup, get, update, remove };

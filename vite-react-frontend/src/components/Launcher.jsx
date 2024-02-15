@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard";
 import NotFound from "./NotFound";
 import Login from "./Login";
 import DefaultLayout from "./layout/DefaultLayout";
+import SignUp from "./register/SignUp";
 
 function Launcher() {
   return (
@@ -24,6 +25,8 @@ function Launcher() {
         <Route exact path="/about" element={<About />} />
         <Route exact path="/db" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+          
         </Route>
         {/* <Route path='/employees/edit/:id' element={<AddEmployee />} /> */}
         <Route path="*/*" element={<NotFound />} />

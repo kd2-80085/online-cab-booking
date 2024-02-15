@@ -71,9 +71,6 @@ public class CustomerServiceImpl implements CustomerService {
 	private PaymentDao paymentDao;
 
 	@Autowired
-	private PaymentDao paymentDao;
-
-	@Autowired
 	private BookingDao bookingDao;
 
 	@Autowired

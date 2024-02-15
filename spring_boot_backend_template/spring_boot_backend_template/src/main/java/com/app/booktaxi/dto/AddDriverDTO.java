@@ -27,5 +27,4 @@ public class AddDriverDTO {
 	private String mobile;
 	
 	private String licenceNo;
-	private String status;
 }

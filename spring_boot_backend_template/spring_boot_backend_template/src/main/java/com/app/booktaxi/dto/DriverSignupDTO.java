@@ -2,7 +2,6 @@ package com.app.booktaxi.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -24,7 +23,7 @@ public class DriverSignupDTO {
 	@NotBlank(message = "email required....")
 	@Email(message = "Invalid email format!!")
 	private String email;
-	
+  
 	@NotBlank(message = "Password is Required")
 	@Size(min=8,max = 20,message = "Password Length Must be Between 8 to 20")
 	private String password;

@@ -1,11 +1,9 @@
 package com.app.booktaxi.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
-import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +21,12 @@ import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
+import com.app.booktaxi.dto.DriverUpdateProfileDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
-import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.entity.Car;
-import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Feedback;
-import com.app.booktaxi.entity.Owner;
 
 @Transactional
 @Service
@@ -160,5 +156,25 @@ public class DriverServiceImpl implements DriverService {
 
 		return feedbackRespDTOList;
 	}
+
+	@Override
+	public DriverRespDTO updateProfileDetails(Long driverId, DriverUpdateProfileDTO driverDto) {
+	    Driver driver = driverDao.findById(driverId)
+	            .orElseThrow(() -> new ResourceNotFoundException("Driver Not Found"));
+	    System.out.println("Driver = " + driver);
+
+	    driver.setFirstName(driverDto.getFirstName());
+	    driver.setLastName(driverDto.getLastName());
+	    driver.setEmail(driverDto.getEmail());
+	    driver.setMobile(driverDto.getMobile());
+	    driver.setLicenceNo(driverDto.getLicenceNo());
+
+	    Driver updatedDriver = driverDao.save(driver);
+	    System.out.println(" updated " + updatedDriver);
+	    DriverRespDTO driverRespDto = mapper.map(updatedDriver, DriverRespDTO.class);
+
+	    return driverRespDto;
+	}
+
 
 }

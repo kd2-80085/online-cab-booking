@@ -26,6 +26,8 @@ public interface AdminService {
 
 	AdminRespDTO doLogin( AuthSignInDTO auth);
 
+	List<BookingRespDTO> getAllBookings(int pageNumber, int pageSize);
+
 	AdminSignupDTO addNewAdmin( AdminSignupDTO adminDto);
 
 }

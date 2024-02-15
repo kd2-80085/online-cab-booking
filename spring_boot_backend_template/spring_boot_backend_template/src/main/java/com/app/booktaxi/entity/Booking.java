@@ -45,7 +45,7 @@ public class Booking extends BaseEntity{
 	private String bookingStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "trip_id",nullable = false)
+	@JoinColumn(name = "trip_id",nullable = true)
 	private Trip trip;
 	
 	@ManyToOne

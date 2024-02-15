@@ -31,9 +31,12 @@
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+>>>>>>> main
 >>>>>>> main
 	<section name="OptionalMessageDialog.hide.">
 		<item key="org.eclipse.jdt.ui.typecomment.deprecated" value="true"/>
@@ -42,6 +45,8 @@
 		<item key="create_constructor" value="false"/>
 		<item key="create_unimplemented" value="true"/>
 	</section>
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
 =======
 	<section name="org.eclipse.jdt.internal.ui.typehierarchy.QuickHierarchy">
@@ -58,6 +63,7 @@
 	</section>
 >>>>>>> 2127aa95080585710e049a5d4d45060c613ea442
 =======
+>>>>>>> main
 >>>>>>> main
 >>>>>>> main
 </section>

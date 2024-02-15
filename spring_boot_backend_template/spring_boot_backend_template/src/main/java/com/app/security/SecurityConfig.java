@@ -31,23 +31,30 @@ public class SecurityConfig {
 	private CustomAuthenticationEntryPoint authEntry;
 
 	@Bean
-	public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception {
-		// URL based authorization rules
-		http.cors().and().
-		// disable CSRF token generation n verification
-				csrf().disable().exceptionHandling().authenticationEntryPoint(authEntry).and().authorizeRequests()
-				.antMatchers("/home/signin", "/owner/signup", "/customer/signup", "/v*/api-doc*/**", "/swagger-ui/**")
-				.permitAll()
-				// only required for JS clnts (react / angular) : for the pre flight requests
-				.antMatchers(HttpMethod.OPTIONS).permitAll().antMatchers("/admin/cars/{carId}").hasRole("ADMIN")
-				.antMatchers("/admin/drivers/{carId}").hasRole("ADMIN").antMatchers("/admin/owners/{ownerId}")
-				.hasRole("ADMIN").anyRequest().authenticated() // to do authentication using jwt
-				.and()
-				// to tell spring sec : not to use HttpSession to store user's auth details
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				// inserting jwt filter before sec filter
-				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
+	public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception
+	{
+		//URL based authorization rules
+		http.cors()
+		.and().
+		//disable CSRF token generation n verification
+		csrf().disable()
+		.exceptionHandling().authenticationEntryPoint(authEntry)
+		.and().authorizeRequests()
+		.antMatchers("/admin/bookings/**","/home/signin","/owner/signup","/customer/signup","/admin/signup",
+				"/v*/api-doc*/**","/swagger-ui/**").permitAll()
+		// only required for JS clnts (react / angular) : for the pre flight requests
+		.antMatchers(HttpMethod.OPTIONS).permitAll()
+		.antMatchers("/admin/cars/{carId}").hasRole("ADMIN")
+		.antMatchers("/admin/drivers/{carId}").hasRole("ADMIN")
+		.antMatchers("/admin/owners/{ownerId}").hasRole("ADMIN")
+		.anyRequest().authenticated()  //to do authentication using jwt
+		.and()
+		//to tell spring sec : not to use HttpSession to store user's auth details
+		.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+		and()
+		//inserting jwt filter before sec filter
+		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
 

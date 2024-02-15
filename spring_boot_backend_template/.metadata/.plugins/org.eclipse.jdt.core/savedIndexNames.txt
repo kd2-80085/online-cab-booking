@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+INDEX VERSION 1.131+D:\CDAC_Project\Day8\spring_boot_backend_template\.metadata\.plugins\org.eclipse.jdt.core
+3651137163.index
+=======
+<<<<<<< HEAD
 INDEX VERSION 1.131+D:\CDAC_PROJECT\DAY_07\spring_boot_backend_template\.metadata\.plugins\org.eclipse.jdt.core
 =======
 <<<<<<< HEAD
@@ -308,5 +312,6 @@ INDEX VERSION 1.131+D:\CDAC_PROJECT\DAY_06\spring_boot_backend_template\.metadat
 >>>>>>> 2127aa95080585710e049a5d4d45060c613ea442
 =======
 2565356412.index
+>>>>>>> main
 >>>>>>> main
 >>>>>>> main

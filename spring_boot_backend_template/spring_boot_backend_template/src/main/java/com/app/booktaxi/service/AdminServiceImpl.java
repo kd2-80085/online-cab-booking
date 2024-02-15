@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -180,6 +181,28 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public List<BookingRespDTO> getAllBookings(int pageNumber, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Page<Booking> bookings = bookingDao.findAll(pageable);
+		
+		System.out.println("List of Bookings : "+ bookings);
+		
+		List<BookingRespDTO> bookingRespDtoList = bookings.stream().map(booking -> {
+			BookingRespDTO bookRespDto = mapper.map(booking, BookingRespDTO.class);
+
+			bookRespDto.setPickUpLocation(booking.getPickupLocation());
+			bookRespDto.setCarId(booking.getCar().getId());
+			bookRespDto.setCustomerId(booking.getCustomer().getId());
+			bookRespDto.setDriverId(booking.getDriver().getId());
+			if(booking.getTrip() != null)
+				bookRespDto.setTripId(booking.getTrip().getId());
+			// bookDto.setPaymentId(booking.getPayment().getId());
+
+			return bookRespDto;
+		}).collect(Collectors.toList());
+		return bookingRespDtoList;
+	}
+		
 	public AdminSignupDTO addNewAdmin(@Valid AdminSignupDTO adminDto) {
 		System.out.println(adminDto);
 

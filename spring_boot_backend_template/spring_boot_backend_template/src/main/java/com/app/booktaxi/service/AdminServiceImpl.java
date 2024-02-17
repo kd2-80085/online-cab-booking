@@ -83,8 +83,7 @@ public class AdminServiceImpl implements AdminService {
 		new ResourceNotFoundException("Invalid Email or Password")
 		); 
 		System.out.println(admin);
-	
-		if (auth.getPassword().equalsIgnoreCase(admin.getPassword()))  {
+		if (encoder.matches(auth.getPassword(),admin.getPassword()))  {
 			return mapper.map(admin, AdminRespDTO.class);
 		}
 		return null;
@@ -147,9 +146,11 @@ public class AdminServiceImpl implements AdminService {
 				.orElseThrow(() -> new ResourceNotFoundException("Feedbacks Not Found"));
 		
 		List<FeedbackRespDTO> feedbackRespDTOList = feedbackList.stream().map(feedback -> {
-			FeedbackRespDTO feedbackDto = mapper.map(feedback, FeedbackRespDTO.class);
-			feedbackDto.setDriverId(driverId);
-			return feedbackDto;
+			FeedbackRespDTO feedbackRespDto = mapper.map(feedback, FeedbackRespDTO.class);
+			feedbackRespDto.setDriverId(driverId);
+			feedbackRespDto.setFirstName(driver.getFirstName());
+			feedbackRespDto.setLastName(driver.getLastName());
+			return feedbackRespDto;
 		}).collect(Collectors.toList());
 		
 		return feedbackRespDTOList;

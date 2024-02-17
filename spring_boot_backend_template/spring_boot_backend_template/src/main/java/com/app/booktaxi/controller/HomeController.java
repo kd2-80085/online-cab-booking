@@ -140,6 +140,7 @@ public class HomeController {
 		Object responseDto = null;
 		switch (role) {
 		case "admin":
+			System.out.println("in admin switch case");
 			responseDto = adminService.doLogin(reqDTO);
 			break;
 		case "customer":

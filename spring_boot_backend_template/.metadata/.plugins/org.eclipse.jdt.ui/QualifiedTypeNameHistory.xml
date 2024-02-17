@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+<<<<<<< HEAD
     <fullyQualifiedTypeName name="javax.validation.constraints.NotBlank"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
@@ -11,4 +12,48 @@
     <fullyQualifiedTypeName name="com.app.booktaxi.customexception.ResourceNotFoundException"/>
     <fullyQualifiedTypeName name="com.app.booktaxi.dto.DriverRespDTO"/>
     <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+=======
+<<<<<<< HEAD
+    <fullyQualifiedTypeName name="com.app.booktaxi.dto.AdminSignupDTO"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.entity.Admin"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.dao.UserEntityDao"/>
+    <fullyQualifiedTypeName name="io.jsonwebtoken.io.Encoder"/>
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CrossOrigin"/>
+    <fullyQualifiedTypeName name="org.springframework.web.servlet.config.annotation.WebMvcConfigurer"/>
+    <fullyQualifiedTypeName name="org.springframework.web.servlet.config.annotation.CorsRegistry"/>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
+<<<<<<< HEAD
+    <fullyQualifiedTypeName name="com.app.booktaxi.dao.BookingDao"/>
+    <fullyQualifiedTypeName name="lombok.Getter"/>
+    <fullyQualifiedTypeName name="lombok.Setter"/>
+    <fullyQualifiedTypeName name="lombok.ToString"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.entity.Distance"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.dto.DistanceRespDTO"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.entity.Booking"/>
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <fullyQualifiedTypeName name="javax.validation.constraints.NotNull"/>
+    <fullyQualifiedTypeName name="javax.validation.constraints.NotBlank"/>
+    <fullyQualifiedTypeName name="javax.validation.Valid"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.dto.CarRespDTO"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.dto.OwnerCarRespDTO"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.dto.OwnerRespDTO"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.entity.Owner"/>
+=======
+    <fullyQualifiedTypeName name="com.app.booktaxi.entity.Payment"/>
+>>>>>>> main
+>>>>>>> 2127aa95080585710e049a5d4d45060c613ea442
+=======
+>>>>>>> main
+>>>>>>> main
+>>>>>>> main
+>>>>>>> main
 </qualifiedTypeNameHistroy>

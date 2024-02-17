@@ -1,0 +1,43 @@
+.driver-feedback-container {
+  padding: 20px;
+  background-color: #f0f7ff; /* Light blue background */
+}
+
+.feedback-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #336699; /* Dark blue text color */
+}
+
+.feedback-table-container {
+  overflow-x: auto;
+}
+
+.feedback-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.feedback-table th,
+.feedback-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Light gray border */
+}
+
+.feedback-table th {
+  background-color: #336699; /* Dark blue background */
+  color: #fff; /* White text color */
+}
+
+.feedback-table td {
+  background-color: #fff; /* White background */
+}
+
+.feedback-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray background for even rows */
+}
+
+.feedback-table tr:hover {
+  background-color: #e0e0e0; /* Gray background on hover */
+}

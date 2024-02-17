@@ -72,16 +72,6 @@ public class Owner extends BaseEntity{
 		this.cars.remove(c);
 		c.setOwner(null);
 	}
-	
-	public void addDriver(Driver d) {
-		this.drivers.add(d);
-		d.setOwner(this);
-	}
-	
-	public void removeDriver(Driver d) {
-		this.drivers.remove(d);
-		d.setOwner(null);
-	}
   
 	public boolean getIsDriver() {
 		return this.isDriver;
@@ -90,5 +80,4 @@ public class Owner extends BaseEntity{
 	public void setIsDriver(boolean isDriver) {
 		this.isDriver = isDriver;
 	}
-
 }

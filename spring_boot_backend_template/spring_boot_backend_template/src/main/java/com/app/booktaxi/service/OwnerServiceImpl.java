@@ -124,14 +124,12 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public DriverRespDTO addDriverDetails(DriverSignupDTO newDriver,Long ownerId) {
-		Owner owner = ownerDao.findById(ownerId)
-				.orElseThrow(()-> new ResourceNotFoundException("Owner Not Found"));
+	public DriverRespDTO addDriverDetails(DriverSignupDTO newDriver) {
+
 		Driver driver = mapper.map(newDriver, Driver.class);
 
 		driver.setPassword(encoder.encode(driver.getPassword()));
 		driver.setStatus("Pending");
-		driver.setOwner(owner);
 		Driver persistentDriver = driverDao.save(driver);// Since want to send generated driver id to the REST clnt :
 															// save it explicitly!
 		UserEntity user = mapper.map(persistentDriver, UserEntity.class);

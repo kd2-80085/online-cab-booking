@@ -14,4 +14,5 @@ public interface DriverDao extends JpaRepository<Driver, Long> {
 
 	List<Driver> findByOwner(Owner owner);
 
+
 }

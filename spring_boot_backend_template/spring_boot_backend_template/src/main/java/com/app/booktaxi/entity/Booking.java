@@ -1,7 +1,6 @@
 package com.app.booktaxi.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,7 +27,7 @@ distance   pickup_time       pick_up_location      drop_location
 @Table(name = "bookings")
 @Getter
 @Setter
-@ToString(exclude = {"customer","car","trip","driver","payment","feedbacks"},callSuper = true)
+@ToString(exclude = {"customer","car","trip","driver","payments","feedbacks"},callSuper = true)
 public class Booking extends BaseEntity{
 	
 	@Column(name = "booking_date_time")
@@ -46,7 +45,7 @@ public class Booking extends BaseEntity{
 	private String bookingStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "trip_id",nullable = false)
+	@JoinColumn(name = "trip_id",nullable = true)
 	private Trip trip;
 	
 	@ManyToOne

@@ -5,8 +5,8 @@ import com.app.booktaxi.dto.PaymentReqDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
+import com.app.booktaxi.dto.DistanceRespDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
-import com.app.booktaxi.entity.Car;
 
 import java.util.List;
 
@@ -45,5 +45,7 @@ public interface CustomerService {
 	Object updateProfileDetails(Long customerId, CustomerUpdateProfileDTO custDTO);
 
 	Object updatePassword(Long customerId, CustomerUpdatePwdDTO passDTO);
+
+	List<DistanceRespDTO> getDistanceList();
 
 }

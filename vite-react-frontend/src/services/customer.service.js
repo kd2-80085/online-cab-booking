@@ -37,7 +37,6 @@ const getCabs = ( token, pageNumber = 0, pageSize = 5) => {
   return httpClient.get(`customer/cabs`, { headers, params });
 };
 
-
 //Post methods
 const custSignup = (data) => {
   return httpClient.post(`customer/signup`, data);
@@ -55,8 +54,6 @@ const bookCar = (token, booking) => {
 
   return httpClient.post('customer/cars/payment/bookcar', booking, { headers });
 };
-
-
 
 const savePayment = (data) => {
   return httpClient.post(`/cars/payment/bookcar/payment`, data);

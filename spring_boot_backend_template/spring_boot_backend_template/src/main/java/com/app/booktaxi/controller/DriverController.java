@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
-import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.DriverUpdateProfileDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
-import com.app.booktaxi.service.CarService;
 import com.app.booktaxi.service.DriverService;
 
 @RestController

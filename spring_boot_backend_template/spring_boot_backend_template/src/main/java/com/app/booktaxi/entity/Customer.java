@@ -13,8 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.List;
 import java.util.Set;
 
@@ -49,7 +47,7 @@ public class Customer extends BaseEntity {
 	@Column(length = 50)
 	private String email;
 	
-	@Column(length = 50)
+	@Column(length = 80)
 	private String password;
 	
 	@Column(length = 10)

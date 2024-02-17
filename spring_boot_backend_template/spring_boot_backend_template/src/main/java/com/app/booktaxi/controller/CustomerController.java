@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
-import com.app.booktaxi.dto.CustomerRespDTO;
 import com.app.booktaxi.dto.BookingReqDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.PaymentReqDTO;
@@ -28,7 +26,6 @@ import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
-import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.service.CustomerService;
 
 @RestController
@@ -181,7 +178,7 @@ public class CustomerController {
 				.body(custService.updateProfileDetails(customerId,custDTO));
 	}
 	
-	// URL : http://localhost:8080/customer/profile/{customerId}
+	// URL : http://localhost:8080/customer/password/{customerId}
 			// Method : PUT
 			// req params : in Head - (customerId)   
 		    //              in Body - (oldPassword, newPassword)
@@ -192,5 +189,16 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(custService.updatePassword(customerId,passDTO));
 	}
+	
+	// URL : http://localhost:8080/customer/bookings/distance
+				// Method : GET
+				// req params : in Head - (customerId) 
+				// resp : (DISTANCE_RESP_DTO - pickup location , drop location, distances)
+		@GetMapping("/bookings/distance")
+		public ResponseEntity<?> getDistanceList(){
+			System.out.println("In getDistanceList  ");
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(custService.getDistanceList());
+		}
 
 }

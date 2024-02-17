@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.booktaxi.dao.OwnerDao;
 import com.app.booktaxi.dao.UserEntityDao;
-import com.app.booktaxi.entity.Owner;
 import com.app.booktaxi.entity.UserEntity;
 
 @Service
@@ -18,17 +16,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 	// dep
 	@Autowired
 	private UserEntityDao dao;
-	//private OwnerDao dao;
+	// private OwnerDao dao;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		UserEntity user = dao.findByEmail(email)
-				.orElseThrow(() ->
-				new UsernameNotFoundException("Invalid email...."));
-		//user :persistent
+		UserEntity user = dao.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Invalid email...."));
+		// user :persistent
 		return new CustomUserDetails(user);
 	}
-	
+
 //	@Override
 //	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 //		Owner user = dao.findByEmail(email)

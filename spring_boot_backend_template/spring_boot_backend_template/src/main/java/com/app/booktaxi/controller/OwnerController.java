@@ -18,17 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.app.booktaxi.dto.AddCarDTO;
 import com.app.booktaxi.dto.DriverSignupDTO;
-import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.CarUpdateDTO;
-import com.app.booktaxi.dto.CustomerSignupDTO;
-import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
-import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.OwnerCarRespDTO;
 import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 import com.app.booktaxi.dto.OwnerUpdatePwdDTO;
-import com.app.booktaxi.dto.DriverSignupDTO;
 import com.app.booktaxi.service.OwnerService;
 
 @RestController
@@ -54,10 +49,10 @@ public class OwnerController {
 	// URL : http://localhost:8080/owner/addDriver
 	// Method : post
 	// resp : successful driverRespDTO or exc
-	@PostMapping("/addDriver")
-	public ResponseEntity<?> addDriverDetails(@RequestBody @Valid DriverSignupDTO dto) {
+	@PostMapping("/addDriver/{ownerId}")
+	public ResponseEntity<?> addDriverDetails(@RequestBody @Valid DriverSignupDTO dto, @PathVariable @NotNull Long ownerId) {
 		System.out.println("in add driver Owner Controller" + dto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.addDriverDetails(dto));
+		return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.addDriverDetails(dto,ownerId));
 	}
 
 	// add car
@@ -66,8 +61,17 @@ public class OwnerController {
 	// resp : successful carRespDTO or exc
 	@PostMapping("/addCar/{ownerId}")
 	public ResponseEntity<?> addCarDetails(@RequestBody @Valid AddCarDTO dto, @PathVariable @NotNull Long ownerId) {
-		System.out.println("in add car Owner Controller" + dto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.addCarDetails(dto, ownerId));
+		//System.out.println("in add car Owner Controller" + dto);
+		//return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.addCarDetails(dto, ownerId));
+		Object carRespDto = ownerService.addCarDetails(dto, ownerId);
+		System.out.println(carRespDto);
+		if (carRespDto == null) {
+			// If resource already exists, return 409 Conflict status
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Already Exists");
+	    }
+		// If resource does not exist, proceed with creation logic
+		// Return 201 Created status if resource is successfully created
+		return ResponseEntity.status(HttpStatus.CREATED).body(carRespDto);
 	}
 
 	// view all cars
@@ -77,7 +81,7 @@ public class OwnerController {
 	// resp : successful carRespDTO or exc
 	@GetMapping("/cars/{ownerId}")
 	public ResponseEntity<?> getCars(@RequestParam(defaultValue = "0", required = false) int pageNumber,
-			@RequestParam(defaultValue = "3", required = false) int pageSize, @PathVariable Long ownerId) {
+			@RequestParam(defaultValue = "10", required = false) int pageSize, @PathVariable Long ownerId) {
 		System.out.println("in getCars " + ownerId);
 		List<OwnerCarRespDTO> carList = ownerService.getAllCars(pageNumber, pageSize, ownerId);
 		if (carList.isEmpty())
@@ -94,7 +98,7 @@ public class OwnerController {
 	// resp : successful DriverRespDTO or exc
 	@GetMapping("/drivers/{ownerId}")
 	public ResponseEntity<?> getDrivers(@RequestParam(defaultValue = "0", required = false) int pageNumber,
-			@RequestParam(defaultValue = "3", required = false) int pageSize, @PathVariable Long ownerId) {
+			@RequestParam(defaultValue = "10", required = false) int pageSize, @PathVariable Long ownerId) {
 		System.out.println("in getDrivers " + ownerId);
 		List<DriverRespDTO> driverList = ownerService.getAllDrivers(pageNumber, pageSize, ownerId);
 		if (driverList.isEmpty())
@@ -108,7 +112,7 @@ public class OwnerController {
 	// req params : in Head - (carId)
 	// in Body - (Company,Location,Model,SeatingCapacity)
 	// resp : successful CarRespDTO or exc
-	@PutMapping("/owner/car/edit/{carId}")
+	@PutMapping("/car/edit/{carId}")
 	public ResponseEntity<?> updateCar(@PathVariable Long carId, @RequestBody @Valid CarUpdateDTO carDTO) {
 		System.out.println("In update Car : " + carId + " " + carDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(ownerService.updateCarDetails(carId, carDTO));

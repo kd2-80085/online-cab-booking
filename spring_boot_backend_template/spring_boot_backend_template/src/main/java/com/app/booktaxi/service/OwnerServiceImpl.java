@@ -1,11 +1,8 @@
 package com.app.booktaxi.service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
@@ -21,17 +18,12 @@ import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.OwnerDao;
-import com.app.booktaxi.dto.AddDriverDTO;
 import com.app.booktaxi.dto.CarUpdateDTO;
 import com.app.booktaxi.dao.UserEntityDao;
-import com.app.booktaxi.entity.Booking;
 import com.app.booktaxi.dto.AddCarDTO;
 import com.app.booktaxi.dto.DriverSignupDTO;
 import com.app.booktaxi.dto.AuthSignInDTO;
-import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
-import com.app.booktaxi.dto.CustomerRespDTO;
-import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.OwnerCarRespDTO;
 import com.app.booktaxi.dto.OwnerRespDTO;
@@ -40,7 +32,6 @@ import com.app.booktaxi.dto.OwnerUpdateProfileDTO;
 import com.app.booktaxi.dto.OwnerUpdatePwdDTO;
 
 import com.app.booktaxi.entity.Car;
-import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Owner;
 import com.app.booktaxi.entity.UserEntity;
@@ -52,26 +43,22 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Autowired
 	private OwnerDao ownerDao;
-	
+
 	@Autowired
 	private CarDao carDao;
-	
-	@Autowired
-	private BookingDao bookingDao;
 
 	@Autowired
 	private DriverDao driverDao;
 
-  @Autowired
+	@Autowired
 	private ModelMapper mapper;
-  
+
 	@Autowired
 	private PasswordEncoder encoder;
-  
-  @Autowired
+
+	@Autowired
 	private UserEntityDao userEntityDao;
 
-	// private UserRole userRole;
 	@Override
 	public OwnerSignupDTO addNewOwner(OwnerSignupDTO ownerDto) {
 		System.out.println(ownerDto);
@@ -94,8 +81,8 @@ public class OwnerServiceImpl implements OwnerService {
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Email or Password"));
 		System.out.println(owner);
 		if (encoder.matches(auth.getPassword(), owner.getPassword()))
-				System.out.println("pass match in oserviceimpl");
-		if(owner.getStatus().equalsIgnoreCase("Active"))
+			System.out.println("pass match in oserviceimpl");
+		if (owner.getStatus().equalsIgnoreCase("Active"))
 			System.out.println("owner.getStatus().equalsIgnoreCase(\"Active\") match");
 
 		if (encoder.matches(auth.getPassword(), owner.getPassword()) && owner.getStatus().equalsIgnoreCase("Active")) {
@@ -123,10 +110,9 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	public String deleteOwner(@NotNull Long ownerId) {
-		Owner owner=ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
-		List<Car> ocars= carDao.findAllByOwner(owner);
-		for (Car car : ocars)
-		{    
+		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
+		List<Car> ocars = carDao.findAllByOwner(owner);
+		for (Car car : ocars) {
 			car.setServiceStatus("inactive");
 			carDao.save(car);
 		}
@@ -138,12 +124,14 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public DriverRespDTO addDriverDetails(DriverSignupDTO newDriver) {
-
+	public DriverRespDTO addDriverDetails(DriverSignupDTO newDriver,Long ownerId) {
+		Owner owner = ownerDao.findById(ownerId)
+				.orElseThrow(()-> new ResourceNotFoundException("Owner Not Found"));
 		Driver driver = mapper.map(newDriver, Driver.class);
 
 		driver.setPassword(encoder.encode(driver.getPassword()));
 		driver.setStatus("Pending");
+		driver.setOwner(owner);
 		Driver persistentDriver = driverDao.save(driver);// Since want to send generated driver id to the REST clnt :
 															// save it explicitly!
 		UserEntity user = mapper.map(persistentDriver, UserEntity.class);
@@ -157,14 +145,24 @@ public class OwnerServiceImpl implements OwnerService {
 		Driver driver = driverDao.findById(newCar.getDriverId())
 				.orElseThrow(() -> new ResourceNotFoundException("Driver Not Dound"));
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not Found"));
-		Car car = mapper.map(newCar, Car.class);
-		car.setDriver(driver);
-		car.setOwner(owner);
-		Car persistentCar = carDao.save(car);
-		CarRespDTO respCarDto = mapper.map(persistentCar, CarRespDTO.class);
-		respCarDto.setOwnerId(ownerId);
-		respCarDto.setDriverId(newCar.getDriverId());
-		return respCarDto;
+		List<Car> carList = carDao.findAll();
+		for (Car car : carList) {
+			if (car.getRegistrationNo().equals(newCar.getRegistrationNo()))
+				return null;
+		}
+		Car carFindByDriver = carDao.findAllByDriver(driver);
+		if (carFindByDriver == null) {
+			Car car = mapper.map(newCar, Car.class);
+			car.setDriver(driver);
+			car.setOwner(owner);
+			Car persistentCar = carDao.save(car);
+			CarRespDTO respCarDto = mapper.map(persistentCar, CarRespDTO.class);
+			respCarDto.setOwnerId(ownerId);
+			respCarDto.setDriverId(newCar.getDriverId());
+			return respCarDto;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -193,17 +191,20 @@ public class OwnerServiceImpl implements OwnerService {
 
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Invalid OwnerId"));
 
-		List<Car> carList = carDao.findAllByOwner(owner, pageable)
-				.orElseThrow(() -> new ResourceNotFoundException("No car registered till now"));
-		// System.out.println("in carList values = "+carList);
-
-		List<DriverRespDTO> driverList = carList.stream().map(car -> {
-			DriverRespDTO driverDTO = mapper.map(car.getDriver(), DriverRespDTO.class);
-			driverDTO.setCarId(car.getDriver().getId());
+		List<Driver> driverList = driverDao.findByOwner(owner);
+		
+		
+		List<DriverRespDTO> driverRespList = driverList.stream().map(driver -> {
+			DriverRespDTO driverDTO = mapper.map(driver, DriverRespDTO.class);
+			Car car = driver.getCar();
+			if(car != null)
+			driverDTO.setCarId(car.getId());
 			return driverDTO;
 		}).collect(Collectors.toList());
-		// System.out.println("driverList values = "+driverList);
-		return driverList;
+		
+		System.out.println("driverList values = "+driverRespList);
+		
+		return driverRespList;
 	}
 
 	@Override

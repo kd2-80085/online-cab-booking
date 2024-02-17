@@ -20,5 +20,5 @@ public interface CarDao extends JpaRepository<Car, Long> {
 
 	List<Car> findAllByOwner(Owner owner);
 
-
+	Car findAllByDriver(Driver driver);
 }

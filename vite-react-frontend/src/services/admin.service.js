@@ -2,24 +2,28 @@
 import httpClient from './http-common';
 
 //GET methods
-const getCars = (id, pageNumber = 0, pageSize = 3) => {
-  return httpClient.get(`/cars/${id}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+const getCars = (pageNumber = 0, pageSize = 3) => {
+  return httpClient.get(`admin/cars/?pageNumber=${pageNumber}&pageSize=${pageSize}`);
 };
 
 const getPaymentDetails = (bookId,payId) => {
-  return httpClient.get(`/bookings/payments/${bookId}/${payId}`);
+  return httpClient.get(`admin/bookings/payments/${bookId}/${payId}`);
 };
 
-const getDrivers = (id, pageNumber = 0, pageSize = 3) => {
-  return httpClient.get(`/drivers/${id}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+const getDrivers = (pageNumber = 0, pageSize = 3) => {
+  return httpClient.get(`admin/drivers/?pageNumber=${pageNumber}&pageSize=${pageSize}`);
 };
 
 const getFeedback = (id) => {
-  return httpClient.get(`/drivers/feedbacks/${id}`);
+  return httpClient.get(`admin/drivers/feedbacks/${id}`);
 };
 
 const getTrips = (id) => {
-  return httpClient.get(`/trips/bookings/${id}`);
+  return httpClient.get(`admin/trips/bookings/${id}`);
+};
+
+const getBookings = (pageNumber = 0, pageSize = 3) => {
+  return httpClient.get(`admin/bookings/?pageNumber=${pageNumber}&pageSize=${pageSize}`);
 };
 
 //POST methods
@@ -29,29 +33,30 @@ const adminSignup = (data) => {
 
 //PUT methods
 const updateCarStatus = (id) => {
-  return httpClient.put(`/cars/${id}`);
+  return httpClient.put(`admin/cars/${id}`);
 };
 
 const updateOwnerStatus = (id) => {
-  return httpClient.put(`/owners/${id}`);
+  return httpClient.put(`admin/owners/${id}`);
 };
 
 const updateDriverStatus = (id) => {
-  return httpClient.put(`/drivers/${id}`);
+  return httpClient.put(`admin/drivers/${id}`);
 };
 
 const deleteCar = (id) => {
-  return httpClient.delete(`/cars/${id}`);
+  return httpClient.delete(`admin/cars/${id}`);
 };
 
 const deleteDriver  = (id) => {
-  return httpClient.delete(`/drivers/${id}`);
+  return httpClient.delete(`admin/drivers/${id}`);
 };
 
 const deleteOwner  = (id) => {
-  return httpClient.delete(`/owners/${id}`);
+  return httpClient.delete(`admin/owners/${id}`);
 };
 
-export default {getCars, getPaymentDetails, getDrivers, getFeedback,
-                getTrips, adminSignup, updateCarStatus, updateOwnerStatus,
+export default { getCars, getPaymentDetails, getDrivers, getFeedback,
+                getTrips,getBookings, adminSignup, updateCarStatus, updateOwnerStatus,
                 updateDriverStatus, deleteCar, deleteDriver, deleteOwner } ;
+

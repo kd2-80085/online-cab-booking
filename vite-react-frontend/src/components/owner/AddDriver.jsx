@@ -41,6 +41,8 @@ function AddDriver() {
     setLicence(event.target.value);
   };
 
+  const { ownerId } = useParams();
+ console.log("using the useParams hook: ownerId "+ownerId);
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -55,7 +57,7 @@ function AddDriver() {
 
     setErrorMessage("");
 
-    const id = 1;
+    
     var driverDetails = {
         firstName: firstname,
         lastName: lastname,
@@ -65,7 +67,7 @@ function AddDriver() {
         licenceNo : licence
     }
     ownerService
-    .addDriver(id,driverDetails)
+    .addDriver(ownerId,driverDetails)
     .then((response) => {
         console.log("Driver Added Successfully",response.data);
         navigate("/ownerdash");

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.booktaxi.dto.AuthSignInDTO;
-import com.app.booktaxi.dto.SigninResponse;
+import com.app.booktaxi.dto.SigninResponseDTO;
 import com.app.booktaxi.service.AdminService;
 import com.app.booktaxi.service.CustomerService;
 import com.app.booktaxi.service.DriverService;
@@ -140,7 +140,6 @@ public class HomeController {
 		Object responseDto = null;
 		switch (role) {
 		case "admin":
-			System.out.println("in admin switch case");
 			responseDto = adminService.doLogin(reqDTO);
 			break;
 		case "customer":
@@ -161,7 +160,7 @@ public class HomeController {
 			System.out.println(verifiedAuth.getClass()); // Custom user details
 			// => auth success
 			return ResponseEntity
-					.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), "Successful Authentication!!!"));
+					.ok(new SigninResponseDTO(utils.generateJwtToken(verifiedAuth), responseDto));
 			// return ResponseEntity.ok(responseDto);
 		} else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");

@@ -4,8 +4,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ownerService from "../../services/owner.service";
 import { Link } from "react-router-dom";
 
-function OwnerDashboard() {
-
+function OwnerDashBoard() {
+  const owner = JSON.parse(sessionStorage.getItem("loginUser"));
+  console.log("owner object " + owner);
+  console.log("oid " + owner.id);
+  
+        const ownerId =owner.id;
   var Token = sessionStorage.getItem("jwtToken");
 
   const [drivers, setDrivers] = useState([]);
@@ -15,7 +19,7 @@ function OwnerDashboard() {
   
 
   useEffect(() => {
-      const ownerId = 1;
+
   ownerService
           .getDrivers(ownerId)  
           .then(response => {
@@ -61,11 +65,11 @@ function OwnerDashboard() {
         <tbody>
           <tr>
             <td colSpan={-1}>
-            <Link to="/adddriver" className="btn btn-success" >Add Driver</Link> <br/> <br/>
+            <Link to={`/adddriver/${ownerId}`} className="btn btn-success" >Add Driver</Link> <br/> <br/>
               {/* <button className="btn btn-success" >
                 View Bookings
               </button> */}
-               <Link to="/addcar" className="btn btn-success" >Add Car</Link>
+               <Link to={`/addcar/${ownerId}`}  className="btn btn-success" >Add Car</Link>
             </td> 
             <td>
            
@@ -117,4 +121,4 @@ function OwnerDashboard() {
   );
 }
 
-export default OwnerDashboard;
+export default OwnerDashBoard;

@@ -49,8 +49,8 @@ function Launcher() {
         <Route path='/carlist' element={<CarList />} />
         {/* Owner Routes */}
         <Route path='/ownerdash' element={<OwnerDashboard />} />
-        <Route path='/adddriver' element={<AddDriver />} />
-        <Route path='/addcar' element={<AddCar />} />
+        <Route path="/adddriver/:ownerId" element={<AddDriver />} />
+        <Route path="/addcar/:ownerId" element={<AddCar />} />
 
 
         </Route>

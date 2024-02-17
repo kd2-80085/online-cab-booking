@@ -7,7 +7,6 @@ function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -43,19 +42,18 @@ function Login() {
         console.log("User logged in successfully", response.data);
         var result = response.data;
         console.log(result.jwt);
+        // Log the actual content of mesg
+        console.log("mesg object:", result.mesg);
+       // localStorage.setItem("jwtToken", result.jwt);
+       window.sessionStorage.setItem("loginUser",JSON.stringify(result.mesg) );
+       window.sessionStorage.setItem("jwtToken", result.jwt);
 
-        // Save the token in localStorage if "Remember Me" is checked
-        // if (rememberMe) {
-        //   localStorage.setItem("jwtToken", result.jwt);
-        // } else {
-          // Save the token in sessionStorage if "Remember Me" is not checked
-          window.sessionStorage.setItem("jwtToken", result.jwt);
         // }
 
         navigate("/db");
       })
       .catch((error) => {
-        console.log("something went wrong" + error.response);
+        console.log("something went wrong " + error.response);
       });
   };
 
@@ -136,7 +134,7 @@ function Login() {
                     </label>
                   </div> */}
 
-{/* <div className="mb-4 form-check">
+                  {/* <div className="mb-4 form-check">
         <input
           type="checkbox"
           className="form-check-input"

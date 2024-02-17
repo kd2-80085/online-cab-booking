@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useState, useEffect}  from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import customerService from "../../services/customer.service";
+import ownerService from "../../services/owner.service";
 
-function CustomerSignUp() {
+function AddDriver() {
 
   // Define the state variables for the input fields
   const [firstname, setFirstname] = useState("");
@@ -11,6 +11,7 @@ function CustomerSignUp() {
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [licence, setLicence] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
@@ -36,6 +37,10 @@ function CustomerSignUp() {
     setPassword(event.target.value);
   };
 
+  const handleLicenceChange = (event) => {
+    setLicence(event.target.value);
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -43,25 +48,27 @@ function CustomerSignUp() {
      console.log("Current state:", { firstname, lastname, email, password, mobile });
 
     // Perform your validation logic here
-    if (firstname === "" || lastname === "" || mobile === "" || email === "" || password === "") {
+    if (firstname === "" || lastname === "" || mobile === "" || email === "" || password === "" || licence === "") {
       setErrorMessage("All fields are required");
       return;
     }
 
     setErrorMessage("");
 
-    var signupDetails = {
+    const id = 1;
+    var driverDetails = {
         firstName: firstname,
         lastName: lastname,
         email: email,
         password: password,
-        mobile: mobile
+        mobile: mobile,
+        licenceNo : licence
     }
-    customerService
-    .custSignup(signupDetails)
+    ownerService
+    .addDriver(id,driverDetails)
     .then((response) => {
-        console.log("Customer Registered Successfully",response.data);
-        navigate("/");
+        console.log("Driver Added Successfully",response.data);
+        navigate("/ownerdash");
     })
     .catch((error) => {
         console.log("Something Went Wrong"+error.response);
@@ -75,7 +82,7 @@ function CustomerSignUp() {
     <div className="container-fluid ">
         <div className="responsive">
             <div className="card-body">
-                <h3 className="card-title">Customer Sign Up</h3>
+                <h3 className="card-title">Driver Register</h3>
                 <form onSubmit={handleFormSubmit} >
                     <div className="form-group">
                         <label htmlFor="firstName">First Name</label>
@@ -107,6 +114,12 @@ function CustomerSignUp() {
                          placeholder="Enter your password"
                          onChange={handlePasswordChange} />
                     </div>
+                    <div className="form-group">
+                        <label htmlFor="licence">Driving Licence</label>
+                        <input type="text" className="form-control" id="licence" 
+                         placeholder="Enter your driving licence no."
+                         onChange={handleLicenceChange} />
+                    </div>
                     <button type="submit" className="btn btn-primary">Register</button>
                 </form>
             </div>
@@ -117,4 +130,4 @@ function CustomerSignUp() {
     );
 }
 
-export default CustomerSignUp;
+export default AddDriver;

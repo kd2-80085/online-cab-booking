@@ -34,7 +34,7 @@ public class AdminSignupDTO {
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@NotBlank(message = "Password is required")
-	@Size(min=8,max = 20,message = "Password Length Must be Between 5 to 20")
+	@Size(min=8,max = 20,message = "Password Length Must be Between 8 to 20")
 	private String password;
 	
 	@NotBlank(message = "Mobile no. is Required")

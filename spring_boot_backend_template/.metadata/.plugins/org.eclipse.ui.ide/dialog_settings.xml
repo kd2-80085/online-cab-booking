@@ -102,4 +102,12 @@
 		<item value="org.springsource.sts.package:3.9.18.202109141057-RELEASE-e419"/>
 		<item value="org.springsource.sts:3.9.18.202109141057-RELEASE"/>
 	</list>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="375"/>
+		<item key="DIALOG_Y_ORIGIN" value="66"/>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
+	</section>
 </section>

@@ -27,11 +27,6 @@ public class CustomerCarDTO {
 	
 	private String taxiType;
 	
-	private String location;
-
-	private Long driverId;
-	
-	
 //	@JsonProperty(access = Access.WRITE_ONLY)
 //	private String status;
 	

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+!SESSION 2024-02-17 22:55:23.519 -----------------------------------------------
+=======
 !SESSION 2024-02-15 16:13:21.502 -----------------------------------------------
+>>>>>>> main
 eclipse.buildId=3.9.18.202109141057-RELEASE-e419
 java.version=11.0.20
 java.vendor=Oracle Corporation
@@ -6,6 +10,47 @@ BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_IN
 Framework arguments:  -product org.springsource.sts.ide
 Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springsource.sts.ide
 
+<<<<<<< HEAD
+This is a continuation of log file E:\CdacProject\day10\spring_boot_backend_template\.metadata\.bak_0.log
+Created Time: 2024-02-17 22:55:34.642
+!SESSION 2024-02-17 22:55:23.519 -----------------------------------------------
+eclipse.buildId=3.9.18.202109141057-RELEASE-e419
+java.version=11.0.20
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.springsource.sts.ide
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springsource.sts.ide
+
+!ENTRY org.eclipse.jface 2 0 2024-02-17 22:55:34.642
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2024-02-17 22:55:34.642
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@69542112,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@35a81281,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2024-02-17 22:55:44.413
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\sanka'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui 4 4 2024-02-17 22:55:46.677
+=======
 This is a continuation of log file D:\CDAC_Project\Day8\spring_boot_backend_template\.metadata\.bak_1.log
 Created Time: 2024-02-15 16:13:57.706
 
@@ -4061,6 +4106,7 @@ Java Model Exception: Java Model Status [C:\Users\chaitanya\.m2\repository\com\f
 !MESSAGE C:\Users\chaitanya\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.13.5\jackson-core-2.13.5.jar does not exist
 
 !ENTRY org.eclipse.ui 4 4 2024-02-15 16:14:00.259
+>>>>>>> main
 !MESSAGE Unable to create part
 !STACK 1
 org.eclipse.ui.PartInitException: Plug-in org.springsource.ide.eclipse.commons.gettingstarted was unable to load class org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard.
@@ -4166,7 +4212,11 @@ Caused by: java.lang.ClassNotFoundException: org.springsource.ide.eclipse.common
 	at org.eclipse.osgi.internal.framework.EquinoxBundle.loadClass(EquinoxBundle.java:617)
 	at org.eclipse.core.internal.registry.osgi.RegistryStrategyOSGI.createExecutableExtension(RegistryStrategyOSGI.java:196)
 	... 90 more
+<<<<<<< HEAD
+!SUBENTRY 1 org.eclipse.ui 4 1 2024-02-17 22:55:46.677
+=======
 !SUBENTRY 1 org.eclipse.ui 4 1 2024-02-15 16:14:00.261
+>>>>>>> main
 !MESSAGE Plug-in org.springsource.ide.eclipse.commons.gettingstarted was unable to load class org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard.
 !STACK 1
 org.eclipse.core.runtime.CoreException: Plug-in org.springsource.ide.eclipse.commons.gettingstarted was unable to load class org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard.
@@ -4269,6 +4319,9 @@ Caused by: java.lang.ClassNotFoundException: org.springsource.ide.eclipse.common
 	at org.eclipse.osgi.internal.framework.EquinoxBundle.loadClass(EquinoxBundle.java:617)
 	at org.eclipse.core.internal.registry.osgi.RegistryStrategyOSGI.createExecutableExtension(RegistryStrategyOSGI.java:196)
 	... 90 more
+<<<<<<< HEAD
+!SUBENTRY 2 org.eclipse.equinox.registry 4 1 2024-02-17 22:55:46.693
+=======
 !SUBENTRY 2 org.eclipse.equinox.registry 4 1 2024-02-15 16:14:00.261
 !MESSAGE Plug-in org.springsource.ide.eclipse.commons.gettingstarted was unable to load class org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard.
 !STACK 0
@@ -4617,6 +4670,7 @@ Caused by: java.lang.ClassNotFoundException: org.springsource.ide.eclipse.common
 	at org.eclipse.core.internal.registry.osgi.RegistryStrategyOSGI.createExecutableExtension(RegistryStrategyOSGI.java:196)
 	... 90 more
 !SUBENTRY 2 org.eclipse.equinox.registry 4 1 2024-02-15 22:02:27.209
+>>>>>>> main
 !MESSAGE Plug-in org.springsource.ide.eclipse.commons.gettingstarted was unable to load class org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard.
 !STACK 0
 java.lang.ClassNotFoundException: org.springsource.ide.eclipse.commons.gettingstarted.dashboard.WelcomeDashboard cannot be found by org.springsource.ide.eclipse.commons.gettingstarted_3.9.18.202109131132-RELEASE
@@ -4716,6 +4770,9 @@ java.lang.ClassNotFoundException: org.springsource.ide.eclipse.commons.gettingst
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1461)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1434)
 
+<<<<<<< HEAD
+!ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-17 23:07:36.013
+=======
 !ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2024-02-15 22:02:46.203
 !MESSAGE Connection to https://dist.springsource.com/release/STS/doc/updates.xml failed on No such host is known (dist.springsource.com). Retry attempt 0 started
 !STACK 0
@@ -4803,6 +4860,7 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	... 22 more
 
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-13 20:19:31.468
+>>>>>>> main
 !MESSAGE Error occured processing 'com.app.Application'
 !STACK 0
 org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.SpringBootConfiguration] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].; nested exception is java.lang.NoSuchMethodException: org.springframework.context.annotation.Configuration.proxyBeanMethods()
@@ -4833,6 +4891,8 @@ Caused by: java.lang.NoSuchMethodException: org.springframework.context.annotati
 	at java.base/java.lang.Class.getDeclaredMethod(Class.java:2475)
 	at org.springframework.core.annotation.AnnotationUtils$AliasDescriptor.<init>(AnnotationUtils.java:2121)
 	... 22 more
+<<<<<<< HEAD
+=======
 
 !ENTRY org.springframework.ide.eclipse.beans.core 1 0 2024-02-13 20:22:10.470
 !MESSAGE Error occured processing 'com.app.Application'
@@ -7815,5 +7875,6 @@ Contains: File does not exist: E:\Installations\sts-bundle\sts-3.9.18.RELEASE\pl
 =======
 >>>>>>> 2127aa95080585710e049a5d4d45060c613ea442
 =======
+>>>>>>> main
 >>>>>>> main
 >>>>>>> main

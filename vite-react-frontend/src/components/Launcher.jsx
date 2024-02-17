@@ -3,22 +3,17 @@ import "../css/common.css";
 import { Link, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
-import Dashboard from "./Dashboard";
+import Dashboard from "./customer/Dashboard";
 import NotFound from "./NotFound";
 import Login from "./Login";
 import DefaultLayout from "./layout/DefaultLayout";
 import SignUp from "./register/SignUp";
 import BookingList from "./admin/BookingList";
-<<<<<<< HEAD
-
+import BookTaxi2 from "./customer/BookTaxi2";
 import CarList from "./owner/CarList";
 import OwnerDashBoard from "./owner/OwnerDashboard";
 import AddDriver from "./owner/AddDriver";
 import AddCar from "./owner/AddCar";
-
-=======
-import TaxiBooking from "./customer/TaxiBooking";
->>>>>>> main
 
 function Launcher() {
   return (
@@ -38,16 +33,13 @@ function Launcher() {
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/bookings' element={<BookingList />} />
-<<<<<<< HEAD
-         
+        <Route path="/booktaxi/:taxiId/:driverId" element={<BookTaxi2 />} />       
         
         <Route path='/carlist' element={<CarList />} />
         <Route path='/ownerdash' element={<OwnerDashBoard />} />
         <Route path='/adddriver' element={<AddDriver />} />
         <Route path='/addcar' element={<AddCar />} />
-=======
         <Route path='/booktaxi' element={<TaxiBooking />} />  
->>>>>>> main
         </Route>
 
         {/* <Route path='/employees/edit/:id' element={<AddEmployee />} /> */}

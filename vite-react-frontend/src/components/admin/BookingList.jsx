@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './BookingList.css'; // Import your custom CSS file
-
+import adminService from '../../services/admin.service';
 const BookingList = () => {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/admin/bookings/?pageNumber=0&pageSize=2')
+adminService.getBookings()
             .then(response => {
                 setBookings(response.data);
                 setLoading(false);

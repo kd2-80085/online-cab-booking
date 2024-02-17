@@ -16,6 +16,8 @@ const AddCar = () => {
 
   const navigate = useNavigate();
 
+  const { ownerId } = useParams();
+ console.log("using the useParams hook: ownerId "+ownerId);
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validate form data before submitting
@@ -29,7 +31,6 @@ const AddCar = () => {
     // Perform actions with the form data (e.g., submit to backend)
     console.log('Form submitted:', { model, company, seatingCapacity, status, driverId, registrationNo, taxiType, location });
 
-    const id = 1;
 
     var carDetails = {
         model : model,
@@ -43,7 +44,7 @@ const AddCar = () => {
      }
 
      ownerService
-      .addCar(id,carDetails)
+      .addCar(ownerId,carDetails)
       .then(response => {
         console.log("Car Added Successfully "+response.data);
         navigate("/ownerdash")

@@ -2,19 +2,17 @@ package com.app.booktaxi.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.websocket.Encoder;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +27,10 @@ import com.app.booktaxi.dao.PaymentDao;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
+import com.app.booktaxi.dto.DistanceRespDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
 import com.app.booktaxi.dto.PaymentReqDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
-import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
 import com.app.booktaxi.dto.CustomerPaymentRespDTO;
@@ -150,14 +148,15 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<CustomerCarDTO> getCarsByLocation(int pageNumber, int pageSize, String location) {
+	public List<CustomerCarDTO> getCars(int pageNumber, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		List<Car> carList1 = carDao.findAll( );
 
-		List<Car> carList = carDao.findByLocation(location, pageable);
-		List<CustomerCarDTO> customerCarDTOList = carList.stream()
+		List<CustomerCarDTO> customerCarDTOList = carList1.stream()
 				.filter(car -> car.getStatus().equalsIgnoreCase("available")).map(cars -> {
 					System.out.println(" in cars" + cars);
 					CustomerCarDTO carDTO = mapper.map(cars, CustomerCarDTO.class);
+					carDTO.setDriverId(cars.getDriver().getId());
 					carDTO.setDriverName(cars.getDriver().getFirstName().concat(" " + cars.getDriver().getLastName()));
 					carDTO.setDriverMobile(cars.getDriver().getMobile());
 					return carDTO;
@@ -184,9 +183,11 @@ public class CustomerServiceImpl implements CustomerService {
 		newBooking.setDriver(driver);
 		newBooking.setCustomer(customer);
 		newBooking.setBookingStatus("pending");
+		newBooking.setBookingDateTime(LocalDateTime.now());
 		Booking savedBooking = bookingDao.save(newBooking);
 		if (savedBooking != null) {
 			BookingReqDTO bookDTO = mapper.map(savedBooking, BookingReqDTO.class);
+			System.out.println("Distance    **** "+ distance.getDistance() );
 			bookDTO.setAmount(distance.getDistance() * 20);
 			bookDTO.setCarId(car.getId());
 			bookDTO.setCustomerId(customer.getId());
@@ -273,5 +274,19 @@ public class CustomerServiceImpl implements CustomerService {
 			return "Password Updation Failed";
 		}
 		return "Invalid Password";
+	}
+
+	@Override
+	public List<DistanceRespDTO> getDistanceList() {
+		List<Distance> distanceList = distDao.findAll();
+		System.out.println(distanceList);
+		List<DistanceRespDTO> distanceRespDtoList = distanceList.stream().
+				map(distance -> {
+						DistanceRespDTO distRespDto = mapper.map(distance, DistanceRespDTO.class);
+						System.out.println(distRespDto);
+						return distRespDto;
+					}
+				).collect(Collectors.toList()); 
+		return distanceRespDtoList;
 	}
 }

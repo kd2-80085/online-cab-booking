@@ -13,28 +13,20 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.booktaxi.dto.AdminRespDTO;
 import com.app.booktaxi.dto.AuthSignInDTO;
-import com.app.booktaxi.dto.CustomerRespDTO;
-import com.app.booktaxi.dto.DriverRespDTO;
-import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.SigninResponse;
 import com.app.booktaxi.service.AdminService;
 import com.app.booktaxi.service.CustomerService;
 import com.app.booktaxi.service.DriverService;
 import com.app.booktaxi.service.OwnerService;
-import com.app.booktaxi.service.UserEntityService;
 import com.app.security.JwtUtils;
 
 @RestController
 @RequestMapping("/home")
 public class HomeController {
 
-	@Autowired
-	private UserEntityService userService;
 	// dep : auth mgr
 	@Autowired
 	private AuthenticationManager mgr;
@@ -44,7 +36,7 @@ public class HomeController {
 
 	@Autowired
 	private AdminService adminService;
-
+	
 	@Autowired
 	private CustomerService custService;
   
@@ -168,7 +160,7 @@ public class HomeController {
 			System.out.println(verifiedAuth.getClass()); // Custom user details
 			// => auth success
 			return ResponseEntity
-					.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), "Successful Authentication!!!"));
+					.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), responseDto));
 			// return ResponseEntity.ok(responseDto);
 		} else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");

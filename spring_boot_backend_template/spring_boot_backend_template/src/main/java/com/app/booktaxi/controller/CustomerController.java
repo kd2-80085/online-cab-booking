@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
-import com.app.booktaxi.dto.CustomerRespDTO;
 import com.app.booktaxi.dto.BookingReqDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.PaymentReqDTO;
@@ -28,7 +26,6 @@ import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
-import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.service.CustomerService;
 
 @RestController
@@ -87,22 +84,24 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(custService.addNewFeedback(fdto));
 	}
 	
-	// URL : http://localhost:8080/customer/bookings/{location}
+	// URL  : http://localhost:8080/customer/cabs/?pageNumber=0&pageSize=5
 			// Method : GET
-			// req params : in Head - (location)      
 			// resp : (id, model, company, image, seatingCapacity, driverName,
 	        //          driverMobile, registrationNumber, taxiType )
-	@GetMapping("/bookings/cars/{location}")
+	@GetMapping("/cabs")
 	public ResponseEntity<?> getCars(@RequestParam (defaultValue = "0",required = false) int pageNumber,
-			                         @RequestParam (defaultValue = "5",required = false) int pageSize,
-			                         @PathVariable String location)
+			                         @RequestParam (defaultValue = "5",required = false) int pageSize
+			                         )
 	{
+		String location="pune";
 		System.out.println("In getCars = "+location+" ,"+pageNumber+" ,"+pageSize);
-		List<CustomerCarDTO> carList = custService.getCarsByLocation(pageNumber,pageSize,location);
+		List<CustomerCarDTO> carList = custService.getCars(pageNumber,pageSize);
 		if(carList.isEmpty())
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		else
+		else {
+			System.out.println("carList "+carList);
 		return new ResponseEntity<>(carList, HttpStatus.OK);
+		}
 	}
 
 	// URL : http://localhost:8080/customer/cars/bookcar
@@ -113,7 +112,7 @@ public class CustomerController {
 	// resp : (booking id with other details)
 	@PostMapping("/cars/payment/bookcar")
 	public ResponseEntity<?> bookCab(@RequestBody @Valid BookingReqDTO bookingReqDto) {
-		System.out.println(bookingReqDto);
+		System.out.println("bookingReqDto "+bookingReqDto);
 		System.out.println("in book cab");
 		return ResponseEntity.status(HttpStatus.CREATED).body(custService.bookCab(bookingReqDto));
 	}
@@ -181,7 +180,7 @@ public class CustomerController {
 				.body(custService.updateProfileDetails(customerId,custDTO));
 	}
 	
-	// URL : http://localhost:8080/customer/profile/{customerId}
+	// URL : http://localhost:8080/customer/password/{customerId}
 			// Method : PUT
 			// req params : in Head - (customerId)   
 		    //              in Body - (oldPassword, newPassword)
@@ -192,5 +191,16 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(custService.updatePassword(customerId,passDTO));
 	}
+	
+	// URL : http://localhost:8080/customer/bookings/distance
+				// Method : GET
+				// req params : in Head - (customerId) 
+				// resp : (DISTANCE_RESP_DTO - pickup location , drop location, distances)
+		@GetMapping("/bookings/distance")
+		public ResponseEntity<?> getDistanceList(){
+			System.out.println("In getDistanceList  ");
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(custService.getDistanceList());
+		}
 
 }

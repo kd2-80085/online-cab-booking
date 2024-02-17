@@ -1,5 +1,6 @@
 package com.app.booktaxi.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,14 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class SigninResponse {
-
-    private String jwt;
-    private Object mesg;
-
-    public SigninResponse(String jwt, Object responseDto) {
-        this.jwt = jwt;
-        this.mesg = responseDto;
-    }
+	private String jwt;
+	private String mesg;
 }
-

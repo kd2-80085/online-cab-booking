@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <<<<<<< HEAD
+    <fullyQualifiedTypeName name="javax.validation.constraints.NotBlank"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
+    <fullyQualifiedTypeName name="javax.persistence.CascadeType"/>
+    <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
+    <fullyQualifiedTypeName name="javax.persistence.JoinColumn"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+    <fullyQualifiedTypeName name="javax.validation.constraints.NotNull"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.customexception.ResourceNotFoundException"/>
+    <fullyQualifiedTypeName name="com.app.booktaxi.dto.DriverRespDTO"/>
+    <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+=======
+<<<<<<< HEAD
     <fullyQualifiedTypeName name="com.app.booktaxi.dto.AdminSignupDTO"/>
     <fullyQualifiedTypeName name="com.app.booktaxi.entity.Admin"/>
     <fullyQualifiedTypeName name="com.app.booktaxi.dao.UserEntityDao"/>
@@ -39,6 +52,7 @@
 >>>>>>> main
 >>>>>>> 2127aa95080585710e049a5d4d45060c613ea442
 =======
+>>>>>>> main
 >>>>>>> main
 >>>>>>> main
 >>>>>>> main

@@ -140,6 +140,7 @@ public class HomeController {
 		Object responseDto = null;
 		switch (role) {
 		case "admin":
+			System.out.println("in admin switch case");
 			responseDto = adminService.doLogin(reqDTO);
 			break;
 		case "customer":
@@ -160,7 +161,7 @@ public class HomeController {
 			System.out.println(verifiedAuth.getClass()); // Custom user details
 			// => auth success
 			return ResponseEntity
-					.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), responseDto));
+					.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), "Successful Authentication!!!"));
 			// return ResponseEntity.ok(responseDto);
 		} else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");

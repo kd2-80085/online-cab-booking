@@ -80,4 +80,14 @@ public class Owner extends BaseEntity{
 	public void setIsDriver(boolean isDriver) {
 		this.isDriver = isDriver;
 	}
+	
+	public void addDriver(Driver d) {
+		this.drivers.add(d);
+		d.setOwner(this);
+	}
+	
+	public void removeDriver(Driver d) {
+		this.drivers.remove(d);
+		d.setOwner(null);
+	}
 }

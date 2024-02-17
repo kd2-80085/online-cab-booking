@@ -1,7 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useState, useEffect}  from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import customerService from "../../services/customer.service";
+import customerService from "../services/customer.service";
+
 
 function CustomerSignUp() {
 
@@ -58,7 +59,7 @@ function CustomerSignUp() {
         mobile: mobile
     }
     customerService
-    .custSignup(signupDetails)
+    .signup(signupDetails)
     .then((response) => {
         console.log("Customer Registered Successfully",response.data);
         navigate("/");
@@ -72,10 +73,10 @@ function CustomerSignUp() {
   };
 
     return (
-    <div className="container-fluid ">
+    <div className="container ">
         <div className="responsive">
             <div className="card-body">
-                <h3 className="card-title">Customer Sign Up</h3>
+                <h3 className="card-title">Sign Up</h3>
                 <form onSubmit={handleFormSubmit} >
                     <div className="form-group">
                         <label htmlFor="firstName">First Name</label>

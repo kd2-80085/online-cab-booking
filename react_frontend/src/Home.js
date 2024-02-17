@@ -7,6 +7,10 @@ const Home = () => {
     <>
       <h1>Welcome Home</h1>
       <Link to="/login">Go to Login</Link>
+<<<<<<< HEAD
+      <Link to="/custsignup">Go To Register</Link>
+=======
+>>>>>>> main
       <button href="/"></button>
     </>
   );

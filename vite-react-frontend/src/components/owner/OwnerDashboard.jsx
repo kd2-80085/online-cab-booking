@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ownerService from "../../services/owner.service";
 import { Link } from "react-router-dom";
 
-function OwnerDashBoard() {
+function OwnerDashboard() {
 
   var Token = sessionStorage.getItem("jwtToken");
 
@@ -117,4 +117,4 @@ function OwnerDashBoard() {
   );
 }
 
-export default OwnerDashBoard;
+export default OwnerDashboard;

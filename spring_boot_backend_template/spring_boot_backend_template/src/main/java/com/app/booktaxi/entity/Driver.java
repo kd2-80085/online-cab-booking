@@ -6,7 +6,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -41,7 +43,7 @@ public class Driver extends BaseEntity{
 	@Column(length = 50)
 	private String email;
 	
-	@Column(length = 50)
+	@Column(length = 80)
 	private String password;
 
 	@Column(name = "mobile", length = 10)
@@ -52,6 +54,10 @@ public class Driver extends BaseEntity{
 	
 	@Column(length = 15)
 	private String status;
+	
+	@ManyToOne
+	@JoinColumn(name = "owner_id",nullable = false)
+	private Owner owner;
 	
 	@OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
 	private List<Booking> bookings = new ArrayList<>();

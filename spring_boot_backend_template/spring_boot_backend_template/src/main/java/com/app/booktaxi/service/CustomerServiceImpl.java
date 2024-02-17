@@ -26,6 +26,7 @@ import com.app.booktaxi.dao.PaymentDao;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
+import com.app.booktaxi.dto.DistanceRespDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
 import com.app.booktaxi.dto.PaymentReqDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
@@ -45,6 +46,7 @@ import com.app.booktaxi.entity.Payment;
 import com.app.booktaxi.entity.UserEntity;
 import com.app.booktaxi.entity.UserRole;
 import com.app.booktaxi.entity.Driver;
+import com.app.booktaxi.entity.Payment;
 
 @Service
 @Transactional
@@ -58,6 +60,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private DriverDao driverDao;
+
+	@Autowired
+	private CustomerDao customerDao;
 	
 	@Autowired
 	private PaymentDao paymentDao;
@@ -265,5 +270,19 @@ public class CustomerServiceImpl implements CustomerService {
 			return "Password Updation Failed";
 		}
 		return "Invalid Password";
+	}
+
+	@Override
+	public List<DistanceRespDTO> getDistanceList() {
+		List<Distance> distanceList = distDao.findAll();
+		System.out.println(distanceList);
+		List<DistanceRespDTO> distanceRespDtoList = distanceList.stream().
+				map(distance -> {
+						DistanceRespDTO distRespDto = mapper.map(distance, DistanceRespDTO.class);
+						System.out.println(distRespDto);
+						return distRespDto;
+					}
+				).collect(Collectors.toList()); 
+		return distanceRespDtoList;
 	}
 }

@@ -8,11 +8,18 @@ import NotFound from "./NotFound";
 import Login from "./Login";
 import DefaultLayout from "./layout/DefaultLayout";
 import SignUp from "./register/SignUp";
+import BookingList from "./admin/BookingList";
+
+import CarList from "./owner/CarList";
+import OwnerDashBoard from "./owner/OwnerDashboard";
+import AddDriver from "./owner/AddDriver";
+import AddCar from "./owner/AddCar";
+
 
 function Launcher() {
   return (
     //    <div><h1>Hello</h1></div>
-    <div className="container">
+    <div className="container-fluid">
       {/* <img src="http://localhost:3000/logo.jpg" alt="logo" className="logo" />
       <hr></hr>
       <Link to="/home">Home</Link> {" | "}
@@ -26,8 +33,15 @@ function Launcher() {
         <Route exact path="/db" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
-
+        <Route path='/bookings' element={<BookingList />} />
+         
+        
+        <Route path='/carlist' element={<CarList />} />
+        <Route path='/ownerdash' element={<OwnerDashBoard />} />
+        <Route path='/adddriver' element={<AddDriver />} />
+        <Route path='/addcar' element={<AddCar />} />
         </Route>
+
         {/* <Route path='/employees/edit/:id' element={<AddEmployee />} /> */}
         <Route path="*/*" element={<NotFound />} />
       </Routes>

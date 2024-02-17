@@ -72,7 +72,7 @@ function CustomerSignUp() {
   };
 
     return (
-    <div className="container ">
+    <div className="container-fluid ">
         <div className="responsive">
             <div className="card-body">
                 <h3 className="card-title">Customer Sign Up</h3>

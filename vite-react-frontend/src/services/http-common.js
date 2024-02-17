@@ -1,9 +1,17 @@
 import axios from 'axios';
 
+<<<<<<< HEAD
 
 const httpClient = axios.create({
   baseURL: 'http://localhost:8080/',
 
+=======
+export default axios.create({
+  baseURL: 'http://localhost:8080/',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+>>>>>>> main
 });
 
 // Add an interceptor for all requests

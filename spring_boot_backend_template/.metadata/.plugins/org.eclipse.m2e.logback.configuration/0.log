@@ -2302,6 +2302,7 @@
 >>>>>>> main
 >>>>>>> main
 >>>>>>> main
+<<<<<<< HEAD
 2024-02-16 15:10:15,268 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
 2024-02-16 15:10:37,408 [Worker-9: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.example:spring_boot_backend_template:0.0.1 @ E:\CdacProject\day10\spring_boot_backend_template\spring_boot_backend_template\pom.xml.
 2024-02-16 15:10:40,244 [Worker-9: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /spring_boot_backend_template/src/main/java
@@ -2529,3 +2530,5 @@
 2024-02-17 23:43:46,285 [Worker-22: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2024-02-17 23:43:46,285 [Worker-22: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
 2024-02-17 23:43:46,285 [Worker-22: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\CdacProject\day10\spring_boot_backend_template\spring_boot_backend_template\src\test\resources
+=======
+>>>>>>> main

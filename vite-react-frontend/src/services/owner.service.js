@@ -1,23 +1,38 @@
 
-import httpClient from '../http-common';
+import httpClient from './http-common';
 
-const getAll = () => {
-  return httpClient.get('');
+const getCars = (ownerId) => {
+  return httpClient.get(`owner/cars/${ownerId}`);
 };
 
-const create = (data) => {
-  return httpClient.post('', data);
+const getDrivers = (ownerId) => {
+  return httpClient.get(`owner/drivers/${ownerId}`);
 };
 
-const get = (id) => {
-  return httpClient.get(`${id}`);
+const getProfile = (id) => {
+  return httpClient.get(`owner/profile/${id}`);
 };
 
-const update = (data) => {
-  return httpClient.put('', data);
+const ownerSignup = (data) => {
+  return httpClient.post('owner/signup', data);
 };
 
-const remove = (id) => {
-  return httpClient.delete(`/${id}`);
+const addCar = (ownerId,data) => {
+  return httpClient.post(`owner/addCar/${ownerId}`, data);
 };
-export default { getAll, create, get, update, remove };
+
+const addDriver = (ownerId,data) => {
+  return httpClient.post(`owner/addDriver/${ownerId}`, data);
+};
+
+const updateProfile = (ownerId,data) => {
+  return httpClient.put(`owner/profile/${ownerId}`,data);
+};
+
+const updatePassword = (ownerId,data) => {
+  return httpClient.put(`owner/password/${ownerId}`,data);
+};
+
+export default { getCars, getDrivers, getProfile, 
+                 ownerSignup, addCar, addDriver, 
+                 updateProfile, updatePassword };

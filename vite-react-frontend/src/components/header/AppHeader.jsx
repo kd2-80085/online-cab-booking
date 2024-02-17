@@ -36,7 +36,7 @@ const AppHeader = () => {
       </form> */}
       <ul className="nav navbar-nav navbar-right">
       <li> <Link to="/login">Login</Link></li>
-        <li> <Link to="/register">Register</Link></li>
+        <li> <Link to="/signup">Register</Link></li>
         {/* <li className="dropdown">
           <a href="#" className="dropdown-toggle" data-toggle="dropdown"
             >Dropdown <b className="caret"></b

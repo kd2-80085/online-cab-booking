@@ -30,7 +30,7 @@ public interface CustomerService {
 
 	FeedbackDTO addNewFeedback(@Valid FeedbackDTO fdto);
 
-	List<CustomerCarDTO> getCarsByLocation(int pageNumber, int pageSize, String location);
+	List<CustomerCarDTO> getCars(int pageNumber, int pageSize);
   
 	String bookCab(BookingReqDTO bookingReqDto);
 

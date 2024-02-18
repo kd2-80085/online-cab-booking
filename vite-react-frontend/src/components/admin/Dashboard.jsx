@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import '../../css/common.css';
 import { Link } from "react-router-dom";
 
-function Dashboard() {
+function AdminDashboard() {
 
     console.log("Admin token  " + sessionStorage.getItem("jwtToken"));
     return (
@@ -39,4 +39,4 @@ function Dashboard() {
     );
 }
 
-export default Dashboard;
+export default AdminDashboard;

@@ -5,7 +5,11 @@ import ownerService from "../../services/owner.service";
 import { Link } from "react-router-dom";
 
 function OwnerDashBoard() {
-
+  const owner = JSON.parse(sessionStorage.getItem("loginUser"));
+  console.log("owner object " + owner);
+  console.log("oid " + owner.id);
+  
+        const ownerId =owner.id;
   var Token = sessionStorage.getItem("jwtToken");
 
   const [drivers, setDrivers] = useState([]);
@@ -15,7 +19,7 @@ function OwnerDashBoard() {
   
 
   useEffect(() => {
-      const ownerId = 1;
+
   ownerService
           .getDrivers(ownerId)  
           .then(response => {
@@ -57,18 +61,21 @@ function OwnerDashBoard() {
 
   return (
     <div className="container">
+      <div>{`Welcome ${owner.firstName} ${owner.lastName}`}</div>
       <table className="table">
         <tbody>
           <tr>
             <td colSpan={-1}>
-            <Link to="/adddriver" className="btn btn-success" >Add Driver</Link> <br/> <br/>
+            <Link to={`/adddriver/${ownerId}`} className="btn btn-success" >Add Driver</Link> <br/> <br/>
               {/* <button className="btn btn-success" >
                 View Bookings
               </button> */}
-               <Link to="/addcar" className="btn btn-success" >Add Car</Link>
+               <Link to={`/addcar/${ownerId}`}  className="btn btn-success" >Add Car</Link>
+               <Link to={`/carlist/${ownerId}`}  className="btn btn-success" >View Cars</Link> <br/> <br/>
             </td> 
             <td>
-           
+                <Link to={`/updateownerprof/${ownerId}`}  className="btn btn-success" >Update Profile</Link> <br/> <br/>
+                <Link to={`/updateownerpass/${ownerId}`}  className="btn btn-success" >Change Password</Link>
             </td>
           </tr>
         </tbody>
@@ -117,4 +124,4 @@ function OwnerDashBoard() {
   );
 }
 
-export default OwnerDashBoard;
+export default OwnerDashBoard;

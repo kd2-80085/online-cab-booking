@@ -40,7 +40,7 @@ public class SecurityConfig {
 		csrf().disable()
 		.exceptionHandling().authenticationEntryPoint(authEntry)
 		.and().authorizeRequests()
-		.antMatchers("/home/signin","/owner/signup","/customer/signup","/admin/signup",
+		.antMatchers("/home/**","/owner/**","/customer/**","/admin/**",
 				"/v*/api-doc*/**","/swagger-ui/**").permitAll()
 		// only required for JS clnts (react / angular) : for the pre flight requests
 		.antMatchers(HttpMethod.OPTIONS).permitAll()

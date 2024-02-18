@@ -1,0 +1,117 @@
+/* CarDetailPage.css */
+
+/* Page container styles */
+.car-detail-container {
+  display: flex;
+  flex-direction: column; /* Align content in a column */
+  align-items: center;
+  min-height: 100vh; /* Use min-height instead of height for responsiveness */
+  background-color: #f9fafb; /* Lighter gray background */
+  padding: 20px;
+}
+
+/* Title styles */
+.car-details-title {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333; /* Dark gray */
+}
+
+/* Car list styles */
+.car-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Card styles */
+.car-card {
+  width: 300px;
+  background-color: #ffffff; /* White */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.car-card:hover {
+  transform: translateY(-3px) scale(1.02); /* Adjusted scale for smoother hover effect */
+}
+
+/* Car name styles */
+.car-name {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333; /* Dark gray */
+  margin-bottom: 10px;
+}
+
+/* Car details styles */
+.car-details {
+  margin-top: auto;
+}
+
+/* Car status styles */
+.car-status {
+  color: #4caf50; /* Green */
+  font-weight: bold;
+}
+
+/* Car location styles */
+.car-location {
+  color: #2196f3; /* Blue */
+  font-style: italic;
+  text-decoration: underline;
+}
+
+/* Car links styles */
+.car-links {
+  margin-top: 20px;
+}
+
+/* Button styles */
+.car-button,
+.car-button-delete,
+.pagination button,
+.pagination span {
+  padding: 8px 16px;
+  background-color: #2196f3; /* Primary color */
+  color: #fff; /* White */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.car-button:hover,
+.car-button-delete:hover,
+.pagination button:hover {
+  background-color: #0d8ae8; /* Darker shade of primary color */
+}
+
+/* Button disabled state */
+.pagination button:disabled {
+  background-color: #6c757d; /* Secondary color */
+  cursor: not-allowed;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Pagination span styles */
+.pagination span {
+  background-color: transparent;
+  color: #333; /* Dark gray */
+}

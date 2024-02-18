@@ -13,7 +13,6 @@ import BookingList from "./admin/BookingList";
 import CarDetailPage from "../components/admin/CarDetailPage";
 import DriverDetailPage from "./admin/DriverDetailPage";
 import DriverFeedbackPage from "./admin/DriverFeedbackPage";
-import AllDrivers from "./admin/AllDrivers";
 import BookTaxi2 from "./customer/BookTaxi2";
 import CarList from "./owner/CarList";
 import OwnerDashboard from "./owner/OwnerDashboard";
@@ -21,6 +20,7 @@ import AddDriver from "./owner/AddDriver";
 import AddCar from "./owner/AddCar";
 import UpdateProfile from "./owner/UpdateProfile";
 import UpdatePassword from "./owner/UpdatePassword";
+import GetOwnersDetails from "./admin/GetOwnersDetails";
 
 function Launcher() {
   return (
@@ -44,7 +44,7 @@ function Launcher() {
         <Route path='/cars' element={<CarDetailPage />} /> 
         <Route exact path="/drivers" element={<DriverDetailPage />} />
         <Route path="/drivers/:id" element={<DriverFeedbackPage />} />
-        <Route exact path="/allDriverList" element={<AllDrivers />} />
+        <Route exact path="/owners" element={<GetOwnersDetails />} />
         {/* Customer Routes */}
         <Route exact path="/customerdash" element={<CustomerDashboard />} />
         <Route path="/booktaxi/:taxiId/:driverId" element={<BookTaxi2 />} />       

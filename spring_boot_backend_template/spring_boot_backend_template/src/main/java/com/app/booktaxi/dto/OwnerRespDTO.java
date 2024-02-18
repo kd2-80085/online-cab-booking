@@ -26,4 +26,6 @@ public class OwnerRespDTO {
 	
 	private boolean isDriver;
 	
+	private String status;
+	
 }

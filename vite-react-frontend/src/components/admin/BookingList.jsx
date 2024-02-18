@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './BookingList.css'; // Import your custom CSS file
+import './css/BookingList.css'; // Import your custom CSS file
 import adminService from '../../services/admin.service';
 const BookingList = () => {
     const [bookings, setBookings] = useState([]);

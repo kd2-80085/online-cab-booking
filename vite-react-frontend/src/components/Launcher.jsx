@@ -19,6 +19,8 @@ import CarList from "./owner/CarList";
 import OwnerDashboard from "./owner/OwnerDashboard";
 import AddDriver from "./owner/AddDriver";
 import AddCar from "./owner/AddCar";
+import UpdateProfile from "./owner/UpdateProfile";
+import UpdatePassword from "./owner/UpdatePassword";
 
 function Launcher() {
   return (
@@ -51,6 +53,8 @@ function Launcher() {
         <Route path='/ownerdash' element={<OwnerDashboard />} />
         <Route path="/adddriver/:ownerId" element={<AddDriver />} />
         <Route path="/addcar/:ownerId" element={<AddCar />} />
+        <Route path="/updateownerprof/:ownerId" element={<UpdateProfile />} />
+        <Route path="/updateownerpass/:ownerId" element={<UpdatePassword />} />
 
 
         </Route>

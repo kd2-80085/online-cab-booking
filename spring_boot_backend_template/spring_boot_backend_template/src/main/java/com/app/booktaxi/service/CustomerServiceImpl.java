@@ -47,7 +47,6 @@ import com.app.booktaxi.entity.Payment;
 import com.app.booktaxi.entity.UserEntity;
 import com.app.booktaxi.entity.UserRole;
 import com.app.booktaxi.entity.Driver;
-import com.app.booktaxi.entity.Payment;
 
 @Service
 @Transactional
@@ -61,9 +60,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private DriverDao driverDao;
-
-	@Autowired
-	private CustomerDao customerDao;
 	
 	@Autowired
 	private PaymentDao paymentDao;

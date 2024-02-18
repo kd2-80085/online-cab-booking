@@ -1,0 +1,29 @@
+.table-custom {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+  }
+  
+  .table-custom th,
+  .table-custom td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  .table-custom th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .table-custom tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .table-custom tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+  

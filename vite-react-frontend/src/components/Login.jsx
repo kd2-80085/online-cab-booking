@@ -10,13 +10,6 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Check if there is a saved token in localStorage and update the state
-    const storedToken = localStorage.getItem("jwtToken");
-    if (storedToken) {
-      navigate("/db");
-    }
-  }, [navigate]);
 
   const signIn = (e) => {
     e.preventDefault();
@@ -49,8 +42,16 @@ function Login() {
        window.sessionStorage.setItem("jwtToken", result.jwt);
 
         // }
-
-        navigate("/db");
+        if (role.toLowerCase() === "admin") {
+          navigate("/admindash");
+      } else if (role.toLowerCase() === "customer") {
+          navigate("/customerdash");
+      } else if (role.toLowerCase() === "driver") {
+          navigate("/driverdash");
+      } else if (role.toLowerCase() === "owner") {
+          navigate("/ownerdash");
+      }
+      
       })
       .catch((error) => {
         console.log("something went wrong " + error.response);

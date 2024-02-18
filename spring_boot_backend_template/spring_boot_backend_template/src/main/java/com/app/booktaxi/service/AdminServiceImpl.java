@@ -21,6 +21,7 @@ import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.CustomerDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.FeedbackDao;
+import com.app.booktaxi.dao.OwnerDao;
 import com.app.booktaxi.dao.PaymentDao;
 import com.app.booktaxi.dao.UserEntityDao;
 import com.app.booktaxi.dto.AdminRespDTO;
@@ -30,7 +31,7 @@ import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
-import com.app.booktaxi.dto.OwnerSignupDTO;
+import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.entity.Admin;
 import com.app.booktaxi.entity.Booking;
@@ -76,6 +77,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private UserEntityDao userEntityDao;
+	
+	@Autowired
+	private OwnerDao ownerDao;
 	
 	@Override
 	public AdminRespDTO doLogin(@Valid AuthSignInDTO auth) {
@@ -215,6 +219,16 @@ public class AdminServiceImpl implements AdminService {
 		userEntityDao.save(user);
 
 		return mapper.map(adminDao.save(admin), AdminSignupDTO.class);
+	}
+
+	@Override
+	public List<OwnerRespDTO> getAllOwnersDetails(int pageNumber, int pageSize) {
+		
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		List<Owner> ownerList = ownerDao.findAll(pageable).getContent();
+		System.out.println("List of owners : " + ownerList);
+
+		return ownerList.stream().map(owner -> mapper.map(owner, OwnerRespDTO.class)).collect(Collectors.toList());
 	}
 
 }

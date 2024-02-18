@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import adminService from '../../services/admin.service';
 import { useParams, Link } from 'react-router-dom';
-import './DriverFeedbackPage.css'; // Import CSS file for styling
+import './css/DriverFeedbackPage.css'; // Import CSS file for styling
 
 function DriverFeedbackPage() {
   const { id } = useParams();
@@ -64,7 +64,7 @@ function DriverFeedbackPage() {
           </table>
         </div>
       )}
-      <Link to="/drivers">Back to Driver Details</Link>
+      <Link to="/allDriverList">Back to Driver Details</Link>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
-import com.app.booktaxi.dto.OwnerSignupDTO;
+import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.service.AdminService;
 import com.app.booktaxi.service.CarService;
@@ -32,6 +33,7 @@ import com.app.booktaxi.service.OwnerService;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
@@ -221,13 +223,13 @@ public class AdminController {
 		return new ResponseEntity<>(message, HttpStatus.OK);
 
 	}
-	
+
 	// get all bookings
-		// URL : http://localhost:8080/admin/bookings
-		// Method : GET
-		// req params : pageNumber , def val 0 , optional
-		// pageSize : def val 3 , optional
-		// resp : detached all bookings or exc
+	// URL : http://localhost:8080/admin/bookings
+	// Method : GET
+	// req params : pageNumber , def val 0 , optional
+	// pageSize : def val 3 , optional
+	// resp : detached all bookings or exc
 	@GetMapping("/bookings")
 	public ResponseEntity<?> getBookings(@RequestParam(defaultValue = "0", required = false) int pageNumber,
 			@RequestParam(defaultValue = "3", required = false) int pageSize) {
@@ -253,6 +255,25 @@ public class AdminController {
 		System.out.println(adminDto);
 		System.out.println("in add new admin");
 		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addNewAdmin(adminDto));
+	}
+
+	// get all owners
+	// URL : http://localhost:8080/admin/owners
+	// Method : GET
+	// req params : pageNumber : def val 0, optional
+	// pageSize : def val 3,, optional
+	// resp : datached owners or exc
+	@GetMapping("/owners")
+	public ResponseEntity<?> getOwners(@RequestParam(defaultValue = "0", required = false) int pageNumber,
+			@RequestParam(defaultValue = "3", required = false) int pageSize) {
+		System.out.println("in get all owners details " + pageNumber + " " + pageSize);
+
+		List<OwnerRespDTO> allOwners = adminService.getAllOwnersDetails(pageNumber, pageSize);
+		System.out.println("Admin Controller all owners \n");
+
+		if (allOwners.isEmpty())
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		return new ResponseEntity<>(allOwners, HttpStatus.OK);
 	}
 
 }

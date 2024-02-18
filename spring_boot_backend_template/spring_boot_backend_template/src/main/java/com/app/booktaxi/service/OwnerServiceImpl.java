@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.booktaxi.customexception.ResourceNotFoundException;
-import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.OwnerDao;
@@ -124,12 +123,14 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public DriverRespDTO addDriverDetails(DriverSignupDTO newDriver) {
-
+	public DriverRespDTO addDriverDetails(DriverSignupDTO newDriver,Long ownerId) {
+		Owner owner = ownerDao.findById(ownerId)
+				.orElseThrow(()-> new ResourceNotFoundException("Owner Not Found"));
 		Driver driver = mapper.map(newDriver, Driver.class);
 
 		driver.setPassword(encoder.encode(driver.getPassword()));
 		driver.setStatus("Pending");
+		driver.setOwner(owner);
 		Driver persistentDriver = driverDao.save(driver);// Since want to send generated driver id to the REST clnt :
 															// save it explicitly!
 		UserEntity user = mapper.map(persistentDriver, UserEntity.class);
@@ -189,17 +190,20 @@ public class OwnerServiceImpl implements OwnerService {
 
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Invalid OwnerId"));
 
-		List<Car> carList = carDao.findAllByOwner(owner, pageable)
-				.orElseThrow(() -> new ResourceNotFoundException("No car registered till now"));
-		// System.out.println("in carList values = "+carList);
-
-		List<DriverRespDTO> driverList = carList.stream().map(car -> {
-			DriverRespDTO driverDTO = mapper.map(car.getDriver(), DriverRespDTO.class);
-			driverDTO.setCarId(car.getDriver().getId());
+		List<Driver> driverList = driverDao.findByOwner(owner);
+		
+		
+		List<DriverRespDTO> driverRespList = driverList.stream().map(driver -> {
+			DriverRespDTO driverDTO = mapper.map(driver, DriverRespDTO.class);
+			Car car = driver.getCar();
+			if(car != null)
+			driverDTO.setCarId(car.getId());
 			return driverDTO;
 		}).collect(Collectors.toList());
-		// System.out.println("driverList values = "+driverList);
-		return driverList;
+		
+		System.out.println("driverList values = "+driverRespList);
+		
+		return driverRespList;
 	}
 
 	@Override
@@ -237,14 +241,27 @@ public class OwnerServiceImpl implements OwnerService {
 	public Object updatePassword(Long ownerId, OwnerUpdatePwdDTO passDTO) {
 		Owner owner = ownerDao.findById(ownerId)
 				.orElseThrow(() -> new ResourceNotFoundException("OwnerId doesn't exist"));
+		UserEntity user = userEntityDao.findByEmail(owner.getEmail())
+				.orElseThrow(() -> new ResourceNotFoundException("Email doesn't exist"));
 		if (encoder.matches(passDTO.getOldPassword(), owner.getPassword())) {
 			owner.setPassword(encoder.encode(passDTO.getNewPassword()));
+			user.setPassword(encoder.encode(passDTO.getNewPassword()));
+			userEntityDao.save(user);
 			OwnerRespDTO ownerRespDTO = mapper.map(ownerDao.save(owner), OwnerRespDTO.class);
 			if (ownerRespDTO != null)
 				return "Password Updated Successfully " + ownerRespDTO;
 			return "Password Updation Failed";
 		}
 		return "Invalid Password";
+	}
+
+	@Override
+	public Object getProfileDetails(Long ownerId) {
+		Owner owner = ownerDao.findById(ownerId)
+				.orElseThrow(()-> new ResourceNotFoundException("Id not found"));
+		System.out.println("customer values = "+owner);
+
+		return mapper.map(owner, OwnerRespDTO.class);
 	}
 
 }

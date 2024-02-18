@@ -33,7 +33,7 @@ public class Admin extends BaseEntity {
 	@Column(length = 50)
 	private String email;
 	
-	@Column(length = 50)
+	@Column(length = 80)
 	private String password;
 	
 	@Column(length = 10)

@@ -3,9 +3,8 @@ import "../css/common.css";
 import { Link, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
-import Dashboard from "../components/admin/Dashboard";
-import Dashboard from "./customer/Dashboard";
-
+import CustomerDashboard from "./customer/Dashboard";
+import AdminDashboard from "./admin/Dashboard";
 import NotFound from "./NotFound";
 import Login from "./Login";
 import DefaultLayout from "./layout/DefaultLayout";
@@ -14,12 +13,14 @@ import BookingList from "./admin/BookingList";
 import CarDetailPage from "../components/admin/CarDetailPage";
 import DriverDetailPage from "./admin/DriverDetailPage";
 import DriverFeedbackPage from "./admin/DriverFeedbackPage";
-import AllDrivers from "./admin/AllDrivers";
 import BookTaxi2 from "./customer/BookTaxi2";
 import CarList from "./owner/CarList";
-import OwnerDashBoard from "./owner/OwnerDashboard";
+import OwnerDashboard from "./owner/OwnerDashboard";
 import AddDriver from "./owner/AddDriver";
 import AddCar from "./owner/AddCar";
+import UpdateProfile from "./owner/UpdateProfile";
+import UpdatePassword from "./owner/UpdatePassword";
+import GetOwnersDetails from "./admin/GetOwnersDetails";
 
 function Launcher() {
   return (
@@ -35,23 +36,28 @@ function Launcher() {
         <Route path='/' element={<DefaultLayout />} >
         <Route index element={<Home />} />
         <Route exact path="/about" element={<About />} />
-        <Route exact path="/db" element={<Dashboard />} />
-          
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
+        {/* Admin Routes */}
+        <Route exact path="/admindash" element={<AdminDashboard />} />
         <Route path='/bookings' element={<BookingList />} />
         <Route path='/cars' element={<CarDetailPage />} /> 
         <Route exact path="/drivers" element={<DriverDetailPage />} />
         <Route path="/drivers/:id" element={<DriverFeedbackPage />} />
-        <Route exact path="/allDriverList" element={<AllDrivers />} />
+        <Route exact path="/owners" element={<GetOwnersDetails />} />
+        {/* Customer Routes */}
+        <Route exact path="/customerdash" element={<CustomerDashboard />} />
         <Route path="/booktaxi/:taxiId/:driverId" element={<BookTaxi2 />} />       
         <Route path='/carlist' element={<CarList />} />
-        <Route path='/ownerdash' element={<OwnerDashBoard />} />
-        <Route path='/adddriver' element={<AddDriver />} />
-        <Route path='/addcar' element={<AddCar />} />
-        <Route path='/booktaxi' element={<TaxiBooking />} />  
-        </Route>
+        {/* Owner Routes */}
+        <Route path='/ownerdash' element={<OwnerDashboard />} />
+        <Route path="/adddriver/:ownerId" element={<AddDriver />} />
+        <Route path="/addcar/:ownerId" element={<AddCar />} />
+        <Route path="/updateownerprof/:ownerId" element={<UpdateProfile />} />
+        <Route path="/updateownerpass/:ownerId" element={<UpdatePassword />} />
 
+
+        </Route>
         {/* <Route path='/employees/edit/:id' element={<AddEmployee />} /> */}
         <Route path="*/*" element={<NotFound />} />
       </Routes>

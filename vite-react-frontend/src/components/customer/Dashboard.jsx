@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import customerService from "../../services/customer.service";
 import { Link } from "react-router-dom";
 
-function Dashboard() {
+function CustomerDashboard() {
   var Token = sessionStorage.getItem("jwtToken");
   const [cars, setCars] = useState([]);
   const [searchLocation, setSearchLocation] = useState("");
@@ -157,4 +157,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default CustomerDashboard;

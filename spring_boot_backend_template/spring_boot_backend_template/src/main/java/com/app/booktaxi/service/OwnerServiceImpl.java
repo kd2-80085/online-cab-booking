@@ -257,8 +257,11 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public Object getProfileDetails(Long ownerId) {
-		// TODO Auto-generated method stub
-		return null;
+		Owner owner = ownerDao.findById(ownerId)
+				.orElseThrow(()-> new ResourceNotFoundException("Id not found"));
+		System.out.println("customer values = "+owner);
+
+		return mapper.map(owner, OwnerRespDTO.class);
 	}
 
 }

@@ -1,0 +1,43 @@
+/* Header.css */
+
+.faint-blue-background {
+  background-color: #cfe2ff; /* You can adjust the color code as per your preference */
+}
+
+.navbar-default {
+  background-color: #f8f9fa;
+  border-color: #e9ecef;
+}
+
+.navbar-default .navbar-brand {
+  color: #333;
+  font-weight: bold;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #333;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #007bff;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: #007bff;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: transparent;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #007bff;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #333;
+  }
+}

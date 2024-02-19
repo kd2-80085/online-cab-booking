@@ -25,8 +25,7 @@ import Payment from "./customer/Payment";
 import DriverDashboard from "./driver/DriverDashboard";
 import ViewAllBookings from "./driver/ViewAllBookings";
 import ViewAllFeedBacks from "./driver/ViewAllFeedBacks";
-import UpdateDriverProfile from "./driver/UpdateDriverDetails";
-
+import UpdateDriverProfile from "./driver/UpdateDriverProfile";
 
 
 function Launcher() {

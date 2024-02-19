@@ -21,6 +21,8 @@ import AddCar from "./owner/AddCar";
 import UpdateProfile from "./owner/UpdateProfile";
 import UpdatePassword from "./owner/UpdatePassword";
 import GetOwnersDetails from "./admin/GetOwnersDetails";
+import Payment from "./customer/Payment";
+
 
 function Launcher() {
   return (
@@ -49,6 +51,7 @@ function Launcher() {
         <Route exact path="/customerdash" element={<CustomerDashboard />} />
         <Route path="/booktaxi/:taxiId/:driverId" element={<BookTaxi2 />} />       
         <Route path='/carlist' element={<CarList />} />
+        <Route path="/payment/:bookingId/:amount/:orderId" element={<Payment/>}/>
         {/* Owner Routes */}
         <Route path='/ownerdash' element={<OwnerDashboard />} />
         <Route path="/adddriver/:ownerId" element={<AddDriver />} />

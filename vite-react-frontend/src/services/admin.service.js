@@ -10,6 +10,10 @@ const getPaymentDetails = (bookId,payId) => {
   return httpClient.get(`admin/bookings/payments/${bookId}/${payId}`);
 };
 
+const getOwners = (pageNumber = 0, pageSize = 3) => {
+  return httpClient.get(`admin/owners/?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+};
+
 const getDrivers = (pageNumber = 0, pageSize = 3) => {
   return httpClient.get(`admin/drivers/?pageNumber=${pageNumber}&pageSize=${pageSize}`);
 };
@@ -56,7 +60,7 @@ const deleteOwner  = (id) => {
   return httpClient.delete(`admin/owners/${id}`);
 };
 
-export default { getCars, getPaymentDetails, getDrivers, getFeedback,
+export default { getCars, getPaymentDetails, getOwners , getDrivers, getFeedback,
                 getTrips,getBookings, adminSignup, updateCarStatus, updateOwnerStatus,
                 updateDriverStatus, deleteCar, deleteDriver, deleteOwner } ;
 

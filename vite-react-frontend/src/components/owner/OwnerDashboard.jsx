@@ -61,6 +61,7 @@ function OwnerDashBoard() {
 
   return (
     <div className="container">
+      <div>{`Welcome ${owner.firstName} ${owner.lastName}`}</div>
       <table className="table">
         <tbody>
           <tr>
@@ -70,9 +71,11 @@ function OwnerDashBoard() {
                 View Bookings
               </button> */}
                <Link to={`/addcar/${ownerId}`}  className="btn btn-success" >Add Car</Link>
+               <Link to={`/carlist/${ownerId}`}  className="btn btn-success" >View Cars</Link> <br/> <br/>
             </td> 
             <td>
-           
+                <Link to={`/updateownerprof/${ownerId}`}  className="btn btn-success" >Update Profile</Link> <br/> <br/>
+                <Link to={`/updateownerpass/${ownerId}`}  className="btn btn-success" >Change Password</Link>
             </td>
           </tr>
         </tbody>

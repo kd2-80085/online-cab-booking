@@ -52,11 +52,48 @@ const bookCar = (token, booking) => {
     'Content-Type': 'application/json',
   };
 
-  return httpClient.post('customer/cars/payment/bookcar', booking, { headers });
+  return httpClient.post('customer/cabs/bookcab', booking, { headers });
+};
+
+// const  razorPayment = (token, razorpaymentobj) => {
+//   const headers = {
+//     Authorization: `Bearer ${token}`,
+//     'Content-Type': 'application/json',
+//   };
+//   console.log("razorpaymentobj in service"+razorpaymentobj);
+//   var razorpaymentobj1=razorpaymentobj;
+//   const [payment, setPayment] = useState({
+//     razorpayPaymentId: razorpaymentobj1.razorpayPaymentId,
+//     razorpayOrderId: razorpaymentobj1.razorpayOrderId,
+//     razorpaySignature: razorpaymentobj1.razorpaySignature,
+//   });
+// console.log("razorpaymentobj in service"+razorpaymentobj1);
+//   return httpClient.post('customer/cabs/bookcar/razorpayment', razorpaymentobj1,{ headers });
+// };
+
+const razorPayment = (token, razorpaymentobj) => {
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  };
+
+  console.log("razorpaymentobj in service", razorpaymentobj);
+
+  // var razorpaymentobj1 = razorpaymentobj;
+
+  // const [payment, setPayment] = useState({
+  //   razorpayPaymentId: razorpaymentobj1.razorpayPaymentId,
+  //   razorpayOrderId: razorpaymentobj1.razorpayOrderId,
+  //   razorpaySignature: razorpaymentobj1.razorpaySignature,
+  // });
+
+  console.log("razorpaymentobj1 in service", razorpaymentobj);
+
+  return httpClient.post('customer/cabs/bookcar/razorpayment', razorpaymentobj, { headers });
 };
 
 const savePayment = (data) => {
-  return httpClient.post(`/cars/payment/bookcar/payment`, data);
+  return httpClient.post(`customer/cars/payment/bookcar/payment`, data);
 };
 
 //PUT methods
@@ -77,5 +114,5 @@ const getDistances = () => {
 };
 
 export default {getAllbBookings,  getPaymentDetails, getProfile, getCabs,
-                custSignup, giveFeedback, bookCar, savePayment,
+                custSignup, giveFeedback, bookCar, savePayment,razorPayment,
                 cancelBooking, updateProfile, updatePassword ,getDistances} ;

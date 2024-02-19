@@ -1,0 +1,56 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f6f6f6; /* Light Gray */
+    color: #333; /* Dark Gray */
+    margin: 0;
+    padding: 0;
+  }
+  
+  .admin-dashboard {
+    background-color: #194bc0; /* White */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 20px;
+  }
+  
+  .welcome-text {
+    color: #ffffff; /* Blue */
+    font-size: 28px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: oblique;
+    margin-bottom: 20px;
+  }
+  
+  .list-group {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .list-group-item {
+    background-color: #a5e1e7; /* Lighter Gray */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: #333; /* Dark Gray */
+    transition: all 0.3s ease;
+    padding: 15px;
+  }
+  
+  .list-group-item:hover {
+    background-color: #e9ecef; /* Light Gray */
+    color: #007bff; /* Blue */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .list-group-item b {
+    font-weight: bold;
+  }
+  
+  .list-group-item i {
+    font-style: italic;
+  }
+  
+  .list-group-item:hover i {
+    color: #007bff; /* Blue */
+  }
+  

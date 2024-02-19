@@ -3,6 +3,7 @@ package com.app.booktaxi.service;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.PaymentReqDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
+import com.app.booktaxi.dto.RazorPayReqDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.DistanceRespDTO;
@@ -30,9 +31,9 @@ public interface CustomerService {
 
 	FeedbackDTO addNewFeedback(@Valid FeedbackDTO fdto);
 
-	List<CustomerCarDTO> getCarsByLocation(int pageNumber, int pageSize, String location);
+	List<CustomerCarDTO> getCars(int pageNumber, int pageSize);
   
-	String bookCab(BookingReqDTO bookingReqDto);
+	BookingReqDTO bookCab(BookingReqDTO bookingReqDto);
 
 	PaymentRespDTO saveNewPayment(@Valid PaymentReqDTO paymentReqDTO);
 
@@ -47,5 +48,7 @@ public interface CustomerService {
 	Object updatePassword(Long customerId, CustomerUpdatePwdDTO passDTO);
 
 	List<DistanceRespDTO> getDistanceList();
+
+	String saveRazorPayPayment(@Valid RazorPayReqDTO razorPayReqDTO);
 
 }

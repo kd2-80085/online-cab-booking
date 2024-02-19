@@ -34,6 +34,8 @@ public class DriverUpdateProfileDTO {
 	@Pattern(regexp = "^[0-9]{10}$", message = "Mobile no. should be digits only")
 	private String mobile;
 
-	@NotBlank
+	@NotBlank(message = "Licence no. is Required")
+	@Size (min = 16 ,max = 16, message = "Licence no. should be of 16 digits")
+	@Pattern(regexp = "^[A-Z]{2}\\d{0,14}$", message = "Please Enter Valid Licence No.")
 	private String licenceNo;
 }

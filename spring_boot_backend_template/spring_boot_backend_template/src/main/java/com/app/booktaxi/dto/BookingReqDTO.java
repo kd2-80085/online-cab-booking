@@ -15,7 +15,7 @@ import lombok.ToString;
 public class BookingReqDTO 
 {
 	
-	@JsonProperty(access = Access.WRITE_ONLY)
+	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 
 	private LocalDateTime bookingDateTime;
@@ -38,5 +38,14 @@ public class BookingReqDTO
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	private double amount;
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	private String paymentOrderStaus;
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	private String paymentOrderId;
+	
+	
+	
 	
 }

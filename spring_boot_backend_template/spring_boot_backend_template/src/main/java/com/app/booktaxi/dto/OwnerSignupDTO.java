@@ -39,7 +39,7 @@ public class OwnerSignupDTO {
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@NotBlank(message = "Password is required")
-	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{8,20})",message = "Invalid password")
+	@Pattern(regexp="((?=.\\d)(?=.[a-z])(?=.[#@$]).{8,20})",message = "Invalid password")	
 	private String password;
 	
 	@NotBlank(message = "Mobile no. is Required")

@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import CustomerSignUp from "./CustomerSignUp";
 import OwnerSignUp from "./OwnerSignUp";
 import AdminSignUp from "./AdminSignUp";
+import './css/SignUp.css';
 
 function SignUp() {
 

@@ -13,10 +13,10 @@ import lombok.ToString;
 public class CustomerUpdatePwdDTO {
 
 	@NotBlank(message = "Password is Required")
-	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{8,20})",message = "Invalid password")
+	@Pattern(regexp="((?=.\\d)(?=.[a-z])(?=.[#@$]).{8,20})",message = "Invalid password")	
 	private String oldPassword;
 	
 	@NotBlank(message = "Password is Required")
-	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{8,20})",message = "Invalid password")
+	@Pattern(regexp="((?=.\\d)(?=.[a-z])(?=.[#@$]).{8,20})",message = "Invalid password")	
 	private String newPassword;
 }

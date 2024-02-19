@@ -12,11 +12,11 @@ import lombok.ToString;
 @ToString
 public class OwnerUpdatePwdDTO {
 	@NotEmpty(message = "Password id Required")
-	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{8,20})",message = "Invalid password")
+	@Pattern(regexp="((?=.\\d)(?=.[a-z])(?=.[#@$]).{8,20})",message = "Invalid password")	
 	private String oldPassword;
 	
 	@NotEmpty(message = "Password id Required")
-	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{8,20})",message = "Invalid password")
+	@Pattern(regexp="((?=.\\d)(?=.[a-z])(?=.[#@$]).{8,20})",message = "Invalid password")	
 	private String newPassword;
 
 }

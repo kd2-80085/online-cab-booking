@@ -1,22 +1,42 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import userService from "../services/user.service";
+import '../css/Login.css';
 
 function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [userNameError, setUserNameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [roleError, setRoleError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-
   const signIn = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submission behavior
 
-    console.log("Current state:", { userName, password, role });
+    let newUserNameError = "";
+    let newPasswordError = "";
+    let newRoleError = "";
 
-    if (!userName || !password || !role) {
+    if (!userName) {
+      newUserNameError = "Email is required";
+    }
+
+    if (!password) {
+      newPasswordError = "Password is required";
+    }
+
+    if (!role) {
+      newRoleError = "Role is required";
+    }
+
+    setUserNameError(newUserNameError);
+    setPasswordError(newPasswordError);
+    setRoleError(newRoleError);
+
+    if (newUserNameError || newPasswordError || newRoleError) {
       setErrorMessage("All fields are required");
       return;
     }
@@ -29,29 +49,27 @@ function Login() {
       role: role,
     };
 
+    // Example service call
     userService
       .create(credentials)
       .then((response) => {
         console.log("User logged in successfully", response.data);
         var result = response.data;
         console.log(result.jwt);
-        // Log the actual content of mesg
         console.log("mesg object:", result.mesg);
-       // localStorage.setItem("jwtToken", result.jwt);
-       window.sessionStorage.setItem("loginUser",JSON.stringify(result.mesg) );
-       window.sessionStorage.setItem("jwtToken", result.jwt);
+        window.sessionStorage.setItem("loginUser", JSON.stringify(result.mesg));
+        window.sessionStorage.setItem("jwtToken", result.jwt);
 
-        // }
+        // Example navigation based on role
         if (role.toLowerCase() === "admin") {
           navigate("/admindash");
-      } else if (role.toLowerCase() === "customer") {
+        } else if (role.toLowerCase() === "customer") {
           navigate("/customerdash");
-      } else if (role.toLowerCase() === "driver") {
+        } else if (role.toLowerCase() === "driver") {
           navigate("/driverdash");
-      } else if (role.toLowerCase() === "owner") {
+        } else if (role.toLowerCase() === "owner") {
           navigate("/ownerdash");
-      }
-      
+        }
       })
       .catch((error) => {
         console.log("something went wrong " + error.response);
@@ -60,106 +78,79 @@ function Login() {
 
   return (
     <>
-      <div className="container mt-5">
-        <div className="row justify-content-center">
-          <div className="col-md-6">
-            <div className="card">
-              <div className="card-body">
-                <h2 className="text-center mb-4">Sign In</h2>
-                <form onSubmit={(e) => signIn(e)}>
-                  <div className="mb-4">
-                    <label htmlFor="txtUserName" className="form-label">
-                      Email
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="txtUserName"
-                      placeholder="Enter your email"
-                      onChange={(e) => setUserName(e.target.value)}
-                      required
-                    />
-                    <div className="text-danger">
-                      {errorMessage && !userName && "Email is required"}
+      <div className="bgcolor">
+        <div className="container mt-5">
+          <div className="row justify-content-center">
+            <div className="col-md-6">
+              <div className="card">
+                <div className="card-body">
+                  <h2 className="text-center mb-4">Sign In</h2>
+                  <form onSubmit={(e) => signIn(e)}>
+                    <div className="mb-4">
+                      <label htmlFor="txtUserName" className="form-label">
+                        Email
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="txtUserName"
+                        placeholder="Enter your email"
+                        onChange={(e) => setUserName(e.target.value)}
+                        required
+                      />
+                      <div className="text-danger">{userNameError}</div>
                     </div>
-                  </div>
-                  <br />
-                  <div className="mb-4">
-                    <label htmlFor="txtPassword" className="form-label">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="txtPassword"
-                      placeholder="Enter your password"
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                    <div className="text-danger">
-                      {errorMessage && !password && "Password is required"}
+                    <br />
+                    <div className="mb-4">
+                      <label htmlFor="txtPassword" className="form-label">
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        id="txtPassword"
+                        placeholder="Enter your password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
+                      <div className="text-danger">{passwordError}</div>
                     </div>
-                  </div>
-                  <br />
-                  <div className="mb-4">
-                    <label htmlFor="selectRole" className="form-label">
-                      Select Role
-                    </label>
-                    <select
-                      className="form-select form-control"
-                      id="selectRole"
-                      onChange={(e) => setRole(e.target.value)}
-                      required
-                    >
-                      <option value="" disabled>
-                        Select role
-                      </option>
-                      <option value="customer">Customer</option>
-                      <option value="admin">Admin</option>
-                      <option value="driver">Driver</option>
-                      <option value="owner">Owner</option>
-                    </select>
-                    <div className="text-danger">
-                      {errorMessage && !role && "Role is required"}
+                    <br />
+                    <div className="mb-4">
+                      <label htmlFor="selectRole" className="form-label">
+                        Select Role
+                      </label>
+                      <select
+                        className="form-select form-control"
+                        id="selectRole"
+                        onChange={(e) => setRole(e.target.value)}
+                        required
+                      >
+                        <option value="" disabled>
+                          Select role
+                        </option>
+                        <option value="customer">Customer</option>
+                        <option value="admin">Admin</option>
+                        <option value="driver">Driver</option>
+                        <option value="owner">Owner</option>
+                      </select>
+                      <div className="text-danger">{roleError}</div>
                     </div>
-                  </div>
-                  <br />
-                  {/* <div className="mb-4 form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="rememberMe"
-                    />
-                    <label className="form-check-label" htmlFor="rememberMe">
-                      Remember Me
-                    </label>
-                  </div> */}
+                    <br />
+                    <div className="mb-4 text-center">
+                      <button type="submit" className="btn btn-primary">
+                        Sign In
+                      </button>
+                    </div>
+                  </form>
+                  {errorMessage && (
+                    <p className="text-center text-danger">{errorMessage}</p>
+                  )}
 
-                  {/* <div className="mb-4 form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="rememberMe"
-          checked={rememberMe}
-          onChange={() => setRememberMe(!rememberMe)}
-        />
-        <label className="form-check-label" htmlFor="rememberMe">
-          Remember Me
-        </label>
-      </div> */}
-                  <div className="mb-4 text-center">
-                    <button type="submit" className="btn btn-primary">
-                      Sign In
-                    </button>
-                  </div>
-                </form>
-                {errorMessage && (
-                  <p className="text-center text-danger">{errorMessage}</p>
-                )}
-
-                <p className="text-center">
-                  Don't have an account? <Link to="/signup">Sign Up</Link>
-                </p>
+                  <p className="text-center">
+                    Don't have an account? <Link to="/signup">Sign Up</Link>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -170,3 +161,4 @@ function Login() {
 }
 
 export default Login;
+

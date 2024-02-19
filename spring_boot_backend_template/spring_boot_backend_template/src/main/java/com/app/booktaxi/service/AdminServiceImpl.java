@@ -32,6 +32,7 @@ import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
 import com.app.booktaxi.dto.OwnerRespDTO;
+import com.app.booktaxi.dto.OwnerSignupDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
 import com.app.booktaxi.entity.Admin;
 import com.app.booktaxi.entity.Booking;
@@ -39,6 +40,7 @@ import com.app.booktaxi.entity.Car;
 import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Driver;
 import com.app.booktaxi.entity.Feedback;
+import com.app.booktaxi.entity.Owner;
 import com.app.booktaxi.entity.Payment;
 import com.app.booktaxi.entity.UserEntity;
 import com.app.booktaxi.entity.UserRole;
@@ -219,7 +221,7 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.map(adminDao.save(admin), AdminSignupDTO.class);
 	}
-
+	
 	@Override
 	public List<OwnerRespDTO> getAllOwnersDetails(int pageNumber, int pageSize) {
 		

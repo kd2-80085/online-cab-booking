@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +24,7 @@ import com.app.booktaxi.dao.CustomerDao;
 import com.app.booktaxi.dao.UserEntityDao;
 import com.app.booktaxi.dao.DistanceDao;
 import com.app.booktaxi.dao.FeedbackDao;
+import com.app.booktaxi.dao.Payment2Dao;
 import com.app.booktaxi.dao.PaymentDao;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
@@ -31,6 +33,7 @@ import com.app.booktaxi.dto.DistanceRespDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
 import com.app.booktaxi.dto.PaymentReqDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
+import com.app.booktaxi.dto.RazorPayReqDTO;
 import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
 import com.app.booktaxi.dto.CustomerPaymentRespDTO;
@@ -44,9 +47,14 @@ import com.app.booktaxi.entity.Customer;
 import com.app.booktaxi.entity.Distance;
 import com.app.booktaxi.entity.Feedback;
 import com.app.booktaxi.entity.Payment;
+import com.app.booktaxi.entity.Payment2;
 import com.app.booktaxi.entity.UserEntity;
 import com.app.booktaxi.entity.UserRole;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 import com.app.booktaxi.entity.Driver;
+import com.app.booktaxi.entity.Payment;
 
 @Service
 @Transactional
@@ -60,6 +68,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private DriverDao driverDao;
+
+	@Autowired
+	private CustomerDao customerDao;
 	
 	@Autowired
 	private PaymentDao paymentDao;
@@ -73,6 +84,9 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private PaymentDao payDao;
 
+	@Autowired
+	private Payment2Dao pay2Dao;
+	
 	@Autowired
 	private DistanceDao distDao;
 	
@@ -162,7 +176,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public String bookCab(BookingReqDTO bookingReqDto) {
+	public BookingReqDTO bookCab(BookingReqDTO bookingReqDto) {
 
 		Car car = carDao.findById(bookingReqDto.getCarId())
 				.orElseThrow(() -> new ResourceNotFoundException("Car not found"));
@@ -188,11 +202,54 @@ public class CustomerServiceImpl implements CustomerService {
 			bookDTO.setCarId(car.getId());
 			bookDTO.setCustomerId(customer.getId());
 			bookDTO.setDriverId(driver.getId());
-			System.out.println("bookDTO values = " + bookDTO);
-			return "Booking details added Successfully & Payment Pending" + bookDTO;
+			System.out.println("before Payment order creation bookDTO values = " + bookDTO);
+			Order order =createOrder(bookDTO.getAmount());
+	          // Order generated from razorpay {"amount":4000,"amount_paid":0,"notes":[],"created_at":1708259817,"amount_due":4000,"currency":"INR","receipt":"txn_123456","id":"order_NcLRHAECnJgEHv","entity":"order","offer_id":null,"status":"created","attempts":0}
+			Payment2 newPayment=new Payment2();
+			newPayment.setAmount((bookDTO.getAmount())/100);
+			newPayment.setBooking(savedBooking);
+			newPayment.setRazor_order_id(order.get("id"));
+			newPayment.setPaymentStatus("Pending");
+			Payment2 savedPendingPaymentDetails= pay2Dao.save(newPayment);
+			System.out.println("Saved pending payment "+savedPendingPaymentDetails);
+			bookDTO.setPaymentOrderStaus("created");
+			bookDTO.setPaymentOrderId(order.get("id"));
+
+			return bookDTO;
 		}
-		return "Sorry adding booking details unsuccessfull";
+		return null;
 	}
+
+		
+	public Order createOrder(double amount) {
+		 RazorpayClient razorpayClient = null;
+		 String key=null;
+		 String secret=null;
+        try {
+            razorpayClient = new RazorpayClient("rzp_test_x3KOSVgdGrp9K5", "LDjufgMbewOXdgaz5WRtF5Mt");
+        } catch (RazorpayException e) {
+            e.printStackTrace();
+        }
+
+        if (razorpayClient != null) {
+            JSONObject options = new JSONObject();
+            options.put("amount",amount );
+            options.put("currency", "INR");
+            options.put("receipt", "txn_123456");
+
+            try {
+                Order order = razorpayClient.Orders.create(options);
+               System.out.println("Order generated from razorpay "+order);
+               return order;
+            } catch (RazorpayException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+		
+	}
+
+
 
 	@Override
 	public CustomerPaymentRespDTO getPaymentDetails(Long bookingId) {
@@ -225,6 +282,8 @@ public class CustomerServiceImpl implements CustomerService {
 		System.out.println(booking);
 		payment.setBooking(booking);
 		Payment savedPayment= paymentDao.save(payment);
+		booking.addPayments(savedPayment);
+		
 		PaymentRespDTO paymentRespDTO=mapper.map(savedPayment, PaymentRespDTO.class);
 		if (paymentRespDTO != null)
 			return  paymentRespDTO;
@@ -284,5 +343,25 @@ public class CustomerServiceImpl implements CustomerService {
 					}
 				).collect(Collectors.toList()); 
 		return distanceRespDtoList;
+	}
+
+	@Override
+	public String saveRazorPayPayment(@Valid RazorPayReqDTO razorPayReqDTO) {
+		Payment2 initialPayment= pay2Dao.findByRazorOrderId(razorPayReqDTO.getRazorpay_order_id());
+		if(initialPayment != null)
+		{
+			Booking booking= bookingDao.findById(initialPayment.getBooking().getId()).orElseThrow(() -> new ResourceNotFoundException("Booking doesn't exist"));
+			booking.setBookingStatus("success");
+			bookingDao.save(booking);
+			//payment is successful
+			initialPayment.setPaymentDateAndTime(LocalDateTime.now());
+			initialPayment.setPaymentStatus("success");
+			initialPayment.setPaymentType("card");
+			initialPayment.setRazor_payment_id(razorPayReqDTO.getRazorpay_payment_id());
+			initialPayment.setRazor_signature(razorPayReqDTO.getRazorpay_signature());
+			Payment2 successfulPay=pay2Dao.save(initialPayment);
+			return "Payment successfully done and save";
+		}
+		return null;
 	}
 }

@@ -1,0 +1,21 @@
+.CFooter {
+  background-color: #343a40;
+  color: #fff;
+  padding: 15px 0;
+}
+
+.CFooter a {
+  color: #fff;
+}
+
+.CFooter a:hover {
+  color: #ccc;
+}
+
+.CFooter .ms-1 {
+  margin-left: 5px;
+}
+
+.CFooter .me-1 {
+  margin-right: 5px;
+}

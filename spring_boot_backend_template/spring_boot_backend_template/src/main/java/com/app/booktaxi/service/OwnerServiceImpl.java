@@ -226,11 +226,17 @@ public class OwnerServiceImpl implements OwnerService {
 	public Object updateProfileDetails(Long ownerId, OwnerUpdateProfileDTO ownerDto) {
 		Owner owner = ownerDao.findById(ownerId)
 				.orElseThrow(() -> new ResourceNotFoundException("Owner doesn't exist"));
+		UserEntity secure_user=userEntityDao.findByEmail(owner.getEmail())
+				.orElseThrow(() -> new ResourceNotFoundException("Owner doesn't exist"));
 		System.out.println("Owner values = " + owner);
 		owner.setFirstName(ownerDto.getFirstName());
 		owner.setLastName(ownerDto.getLastName());
 		owner.setEmail(ownerDto.getEmail());
 		owner.setMobile(ownerDto.getMobile());
+		secure_user.setEmail(ownerDto.getEmail());
+		secure_user.setFirstName(ownerDto.getFirstName());
+		secure_user.setLastName(ownerDto.getLastName());
+		userEntityDao.save(secure_user);
 		OwnerRespDTO ownerRespDTO = mapper.map(ownerDao.save(owner), OwnerRespDTO.class);
 		if (ownerRespDTO != null)
 			return "Profile updated Successfully " + ownerRespDTO;
@@ -254,7 +260,7 @@ public class OwnerServiceImpl implements OwnerService {
 		}
 		return "Invalid Password";
 	}
-
+	
 	@Override
 	public Object getProfileDetails(Long ownerId) {
 		Owner owner = ownerDao.findById(ownerId)
@@ -263,5 +269,5 @@ public class OwnerServiceImpl implements OwnerService {
 
 		return mapper.map(owner, OwnerRespDTO.class);
 	}
-
+	
 }

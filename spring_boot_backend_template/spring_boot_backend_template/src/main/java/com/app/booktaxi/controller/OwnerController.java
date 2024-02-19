@@ -144,13 +144,13 @@ public class OwnerController {
 	}
 	
 	// URL : http://localhost:8080/owner/profile/{ownerId}
-			// Method : GET
-			// req params : in Head - (ownerId)      
-			// resp : (id,fname,lname,email,mobile)
-		@GetMapping("/profile/{ownerId}")
-		public ResponseEntity<?> getProfile(@PathVariable Long ownerId){
-			return ResponseEntity.status(HttpStatus.OK).body(ownerService.getProfileDetails(ownerId));	
+				// Method : GET
+				// req params : in Head - (ownerId)      
+				// resp : (id,fname,lname,email,mobile)
+			@GetMapping("/profile/{ownerId}")
+			public ResponseEntity<?> getProfile(@PathVariable Long ownerId){
+				return ResponseEntity.status(HttpStatus.OK).body(ownerService.getProfileDetails(ownerId));	
+				
+			}
 			
-		}
-		
 }

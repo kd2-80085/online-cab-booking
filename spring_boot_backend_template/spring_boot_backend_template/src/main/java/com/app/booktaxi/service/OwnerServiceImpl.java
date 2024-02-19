@@ -124,14 +124,12 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public DriverRespDTO addDriverDetails(DriverSignupDTO newDriver,Long ownerId) {
-		Owner owner = ownerDao.findById(ownerId)
-				.orElseThrow(()-> new ResourceNotFoundException("Owner Not Found"));
+	public DriverRespDTO addDriverDetails(DriverSignupDTO newDriver) {
+
 		Driver driver = mapper.map(newDriver, Driver.class);
 
 		driver.setPassword(encoder.encode(driver.getPassword()));
 		driver.setStatus("Pending");
-		driver.setOwner(owner);
 		Driver persistentDriver = driverDao.save(driver);// Since want to send generated driver id to the REST clnt :
 															// save it explicitly!
 		UserEntity user = mapper.map(persistentDriver, UserEntity.class);
@@ -191,20 +189,17 @@ public class OwnerServiceImpl implements OwnerService {
 
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Invalid OwnerId"));
 
-		List<Driver> driverList = driverDao.findByOwner(owner);
-		
-		
-		List<DriverRespDTO> driverRespList = driverList.stream().map(driver -> {
-			DriverRespDTO driverDTO = mapper.map(driver, DriverRespDTO.class);
-			Car car = driver.getCar();
-			if(car != null)
-			driverDTO.setCarId(car.getId());
+		List<Car> carList = carDao.findAllByOwner(owner, pageable)
+				.orElseThrow(() -> new ResourceNotFoundException("No car registered till now"));
+		// System.out.println("in carList values = "+carList);
+
+		List<DriverRespDTO> driverList = carList.stream().map(car -> {
+			DriverRespDTO driverDTO = mapper.map(car.getDriver(), DriverRespDTO.class);
+			driverDTO.setCarId(car.getDriver().getId());
 			return driverDTO;
 		}).collect(Collectors.toList());
-		
-		System.out.println("driverList values = "+driverRespList);
-		
-		return driverRespList;
+		// System.out.println("driverList values = "+driverList);
+		return driverList;
 	}
 
 	@Override

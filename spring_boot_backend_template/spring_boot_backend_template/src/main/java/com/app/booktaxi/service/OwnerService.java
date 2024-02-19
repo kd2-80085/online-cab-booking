@@ -26,7 +26,7 @@ public interface OwnerService {
   
 	String deleteOwner(@NotNull Long ownerId);
   
-	DriverRespDTO addDriverDetails(DriverSignupDTO newDriver,Long ownerId);
+	DriverRespDTO addDriverDetails(DriverSignupDTO newDriver);
 
 	CarRespDTO addCarDetails(AddCarDTO newCar, Long ownerId);
 

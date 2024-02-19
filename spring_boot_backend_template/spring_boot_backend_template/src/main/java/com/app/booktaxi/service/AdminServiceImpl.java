@@ -221,7 +221,7 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.map(adminDao.save(admin), AdminSignupDTO.class);
 	}
-	
+
 	@Override
 	public List<OwnerRespDTO> getAllOwnersDetails(int pageNumber, int pageSize) {
 		

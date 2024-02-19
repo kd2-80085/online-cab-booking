@@ -40,6 +40,4 @@ public interface OwnerService {
 
 	Object updatePassword(Long ownerId, OwnerUpdatePwdDTO passDTO);
 
-	Object getProfileDetails(Long ownerId);
-
 }

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.booktaxi.customexception.ResourceNotFoundException;
+import com.app.booktaxi.dao.BookingDao;
 import com.app.booktaxi.dao.CarDao;
 import com.app.booktaxi.dao.DriverDao;
 import com.app.booktaxi.dao.OwnerDao;
@@ -112,10 +113,10 @@ public class OwnerServiceImpl implements OwnerService {
 		Owner owner = ownerDao.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("Owner Not found"));
 		List<Car> ocars = carDao.findAllByOwner(owner);
 		for (Car car : ocars) {
-			car.setServiceStatus("inactive");
+			car.setStatus("inactive");
 			carDao.save(car);
 		}
-		owner.setServiceStatus("inactive");
+		owner.setStatus("inactive");
 		Owner updatedOwner = ownerDao.save(owner);
 		if (updatedOwner.getStatus().equalsIgnoreCase("inactive"))
 			return "Owner deletion successful";
@@ -226,17 +227,11 @@ public class OwnerServiceImpl implements OwnerService {
 	public Object updateProfileDetails(Long ownerId, OwnerUpdateProfileDTO ownerDto) {
 		Owner owner = ownerDao.findById(ownerId)
 				.orElseThrow(() -> new ResourceNotFoundException("Owner doesn't exist"));
-		UserEntity secure_user=userEntityDao.findByEmail(owner.getEmail())
-				.orElseThrow(() -> new ResourceNotFoundException("Owner doesn't exist"));
 		System.out.println("Owner values = " + owner);
 		owner.setFirstName(ownerDto.getFirstName());
 		owner.setLastName(ownerDto.getLastName());
 		owner.setEmail(ownerDto.getEmail());
 		owner.setMobile(ownerDto.getMobile());
-		secure_user.setEmail(ownerDto.getEmail());
-		secure_user.setFirstName(ownerDto.getFirstName());
-		secure_user.setLastName(ownerDto.getLastName());
-		userEntityDao.save(secure_user);
 		OwnerRespDTO ownerRespDTO = mapper.map(ownerDao.save(owner), OwnerRespDTO.class);
 		if (ownerRespDTO != null)
 			return "Profile updated Successfully " + ownerRespDTO;
@@ -247,12 +242,8 @@ public class OwnerServiceImpl implements OwnerService {
 	public Object updatePassword(Long ownerId, OwnerUpdatePwdDTO passDTO) {
 		Owner owner = ownerDao.findById(ownerId)
 				.orElseThrow(() -> new ResourceNotFoundException("OwnerId doesn't exist"));
-		UserEntity user = userEntityDao.findByEmail(owner.getEmail())
-				.orElseThrow(() -> new ResourceNotFoundException("Email doesn't exist"));
 		if (encoder.matches(passDTO.getOldPassword(), owner.getPassword())) {
 			owner.setPassword(encoder.encode(passDTO.getNewPassword()));
-			user.setPassword(encoder.encode(passDTO.getNewPassword()));
-			userEntityDao.save(user);
 			OwnerRespDTO ownerRespDTO = mapper.map(ownerDao.save(owner), OwnerRespDTO.class);
 			if (ownerRespDTO != null)
 				return "Password Updated Successfully " + ownerRespDTO;
@@ -260,14 +251,5 @@ public class OwnerServiceImpl implements OwnerService {
 		}
 		return "Invalid Password";
 	}
-	
-	@Override
-	public Object getProfileDetails(Long ownerId) {
-		Owner owner = ownerDao.findById(ownerId)
-				.orElseThrow(()-> new ResourceNotFoundException("Id not found"));
-		System.out.println("customer values = "+owner);
 
-		return mapper.map(owner, OwnerRespDTO.class);
-	}
-	
 }

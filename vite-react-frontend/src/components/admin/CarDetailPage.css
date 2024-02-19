@@ -1,0 +1,76 @@
+.car-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f3f4f6; /* Light gray background */
+}
+
+.car-details-title {
+  text-align: center; /* Center text horizontally */
+  margin-top: 20px; /* Adjust top margin as needed */
+}
+
+.car-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the cards horizontally */
+  gap: 20px;
+  max-width: 100%; /* Ensure cards don't overflow on smaller screens */
+  overflow-x: auto; /* Enable horizontal scrolling on smaller screens */
+}
+
+.car-card {
+  width: 300px;
+  background-color: #ffffff; /* White background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+}
+
+.car-name {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333; /* Dark text color */
+  margin-bottom: 10px; /* Add some spacing between the name and details */
+}
+
+.car-details {
+  margin-top: auto; /* Push details to the bottom */
+}
+
+.car-status {
+  color: #4caf50; /* Green color for available */
+  font-weight: bold;
+}
+
+.car-location {
+  color: #2196f3; /* Blue color for location */
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.car-links {
+  margin-top: 20px;
+}
+
+.car-link {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #2196f3; /* Blue color for links */
+  color: #ffffff; /* White text color */
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.car-link:hover {
+  background-color: #0d8ae8; /* Darker blue on hover */
+}

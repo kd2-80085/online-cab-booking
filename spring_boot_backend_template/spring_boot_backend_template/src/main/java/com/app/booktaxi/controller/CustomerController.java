@@ -84,24 +84,22 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(custService.addNewFeedback(fdto));
 	}
 	
-	// URL  : http://localhost:8080/customer/cabs/?pageNumber=0&pageSize=5
+	// URL : http://localhost:8080/customer/bookings/{location}
 			// Method : GET
+			// req params : in Head - (location)      
 			// resp : (id, model, company, image, seatingCapacity, driverName,
 	        //          driverMobile, registrationNumber, taxiType )
-	@GetMapping("/cabs")
+	@GetMapping("/bookings/cars/{location}")
 	public ResponseEntity<?> getCars(@RequestParam (defaultValue = "0",required = false) int pageNumber,
-			                         @RequestParam (defaultValue = "5",required = false) int pageSize
-			                         )
+			                         @RequestParam (defaultValue = "5",required = false) int pageSize,
+			                         @PathVariable String location)
 	{
-		String location="pune";
 		System.out.println("In getCars = "+location+" ,"+pageNumber+" ,"+pageSize);
-		List<CustomerCarDTO> carList = custService.getCars(pageNumber,pageSize);
+		List<CustomerCarDTO> carList = custService.getCarsByLocation(pageNumber,pageSize,location);
 		if(carList.isEmpty())
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		else {
-			System.out.println("carList "+carList);
+		else
 		return new ResponseEntity<>(carList, HttpStatus.OK);
-		}
 	}
 
 	// URL : http://localhost:8080/customer/cars/bookcar
@@ -112,7 +110,7 @@ public class CustomerController {
 	// resp : (booking id with other details)
 	@PostMapping("/cars/payment/bookcar")
 	public ResponseEntity<?> bookCab(@RequestBody @Valid BookingReqDTO bookingReqDto) {
-		System.out.println("bookingReqDto "+bookingReqDto);
+		System.out.println(bookingReqDto);
 		System.out.println("in book cab");
 		return ResponseEntity.status(HttpStatus.CREATED).body(custService.bookCab(bookingReqDto));
 	}

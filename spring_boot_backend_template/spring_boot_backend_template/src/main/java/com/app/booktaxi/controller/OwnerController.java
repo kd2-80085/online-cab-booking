@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +28,6 @@ import com.app.booktaxi.service.OwnerService;
 
 @RestController
 @RequestMapping("/owner")
-@CrossOrigin(origins = "http://localhost:5173")
 public class OwnerController {
 
 	@Autowired
@@ -51,10 +49,10 @@ public class OwnerController {
 	// URL : http://localhost:8080/owner/addDriver
 	// Method : post
 	// resp : successful driverRespDTO or exc
-	@PostMapping("/addDriver/{ownerId}")
-	public ResponseEntity<?> addDriverDetails(@RequestBody @Valid DriverSignupDTO dto, @PathVariable @NotNull Long ownerId) {
+	@PostMapping("/addDriver")
+	public ResponseEntity<?> addDriverDetails(@RequestBody @Valid DriverSignupDTO dto) {
 		System.out.println("in add driver Owner Controller" + dto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.addDriverDetails(dto,ownerId));
+		return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.addDriverDetails(dto));
 	}
 
 	// add car
@@ -83,7 +81,7 @@ public class OwnerController {
 	// resp : successful carRespDTO or exc
 	@GetMapping("/cars/{ownerId}")
 	public ResponseEntity<?> getCars(@RequestParam(defaultValue = "0", required = false) int pageNumber,
-			@RequestParam(defaultValue = "10", required = false) int pageSize, @PathVariable Long ownerId) {
+			@RequestParam(defaultValue = "3", required = false) int pageSize, @PathVariable Long ownerId) {
 		System.out.println("in getCars " + ownerId);
 		List<OwnerCarRespDTO> carList = ownerService.getAllCars(pageNumber, pageSize, ownerId);
 		if (carList.isEmpty())
@@ -100,7 +98,7 @@ public class OwnerController {
 	// resp : successful DriverRespDTO or exc
 	@GetMapping("/drivers/{ownerId}")
 	public ResponseEntity<?> getDrivers(@RequestParam(defaultValue = "0", required = false) int pageNumber,
-			@RequestParam(defaultValue = "10", required = false) int pageSize, @PathVariable Long ownerId) {
+			@RequestParam(defaultValue = "3", required = false) int pageSize, @PathVariable Long ownerId) {
 		System.out.println("in getDrivers " + ownerId);
 		List<DriverRespDTO> driverList = ownerService.getAllDrivers(pageNumber, pageSize, ownerId);
 		if (driverList.isEmpty())
@@ -140,17 +138,6 @@ public class OwnerController {
 	@PutMapping("/password/{ownerId}")
 	public ResponseEntity<?> updatePassword(@PathVariable Long ownerId, @RequestBody OwnerUpdatePwdDTO passDTO) {
 		System.out.println("In updatePassword : " + ownerId + " " + passDTO);
-		return ResponseEntity.status(HttpStatus.OK).body(ownerService.updatePassword(ownerId,passDTO));
+		return ResponseEntity.status(HttpStatus.OK).body(ownerService.updatePassword(ownerId, passDTO));
 	}
-	
-	// URL : http://localhost:8080/owner/profile/{ownerId}
-			// Method : GET
-			// req params : in Head - (ownerId)      
-			// resp : (id,fname,lname,email,mobile)
-		@GetMapping("/profile/{ownerId}")
-		public ResponseEntity<?> getProfile(@PathVariable Long ownerId){
-			return ResponseEntity.status(HttpStatus.OK).body(ownerService.getProfileDetails(ownerId));	
-			
-		}
-		
 }

@@ -27,7 +27,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"cars","drivers"},callSuper = true)
+@ToString(exclude = "cars",callSuper = true)
 public class Owner extends BaseEntity{
 	
 	@Column(length = 30)
@@ -39,7 +39,7 @@ public class Owner extends BaseEntity{
 	@Column(length = 50)
 	private String email;
 	
-	@Column(length = 80)
+	@Column(length = 50)
 	private String password;
 	
 	@Column(name = "mobile",length = 10)
@@ -53,9 +53,6 @@ public class Owner extends BaseEntity{
   
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
 	private List<Car> cars = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-	private List<Driver> drivers = new ArrayList<Driver>();
 	
 	@Column(length = 15)
 	private String serviceStatus;
@@ -79,15 +76,5 @@ public class Owner extends BaseEntity{
 	
 	public void setIsDriver(boolean isDriver) {
 		this.isDriver = isDriver;
-	}
-	
-	public void addDriver(Driver d) {
-		this.drivers.add(d);
-		d.setOwner(this);
-	}
-	
-	public void removeDriver(Driver d) {
-		this.drivers.remove(d);
-		d.setOwner(null);
 	}
 }

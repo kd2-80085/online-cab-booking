@@ -11,7 +11,6 @@ import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;
-import com.app.booktaxi.dto.OwnerRespDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
 
 public interface AdminService {
@@ -30,7 +29,5 @@ public interface AdminService {
 	List<BookingRespDTO> getAllBookings(int pageNumber, int pageSize);
 
 	AdminSignupDTO addNewAdmin( AdminSignupDTO adminDto);
-
-	List<OwnerRespDTO> getAllOwnersDetails(int pageNumber, int pageSize);
 
 }

@@ -2,7 +2,6 @@ package com.app.booktaxi.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +46,7 @@ import com.app.booktaxi.entity.Payment;
 import com.app.booktaxi.entity.UserEntity;
 import com.app.booktaxi.entity.UserRole;
 import com.app.booktaxi.entity.Driver;
+import com.app.booktaxi.entity.Payment;
 
 @Service
 @Transactional
@@ -60,6 +60,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private DriverDao driverDao;
+
+	@Autowired
+	private CustomerDao customerDao;
 	
 	@Autowired
 	private PaymentDao paymentDao;
@@ -144,15 +147,14 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<CustomerCarDTO> getCars(int pageNumber, int pageSize) {
+	public List<CustomerCarDTO> getCarsByLocation(int pageNumber, int pageSize, String location) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		List<Car> carList1 = carDao.findAll( );
 
-		List<CustomerCarDTO> customerCarDTOList = carList1.stream()
+		List<Car> carList = carDao.findByLocation(location, pageable);
+		List<CustomerCarDTO> customerCarDTOList = carList.stream()
 				.filter(car -> car.getStatus().equalsIgnoreCase("available")).map(cars -> {
 					System.out.println(" in cars" + cars);
 					CustomerCarDTO carDTO = mapper.map(cars, CustomerCarDTO.class);
-					carDTO.setDriverId(cars.getDriver().getId());
 					carDTO.setDriverName(cars.getDriver().getFirstName().concat(" " + cars.getDriver().getLastName()));
 					carDTO.setDriverMobile(cars.getDriver().getMobile());
 					return carDTO;
@@ -179,11 +181,9 @@ public class CustomerServiceImpl implements CustomerService {
 		newBooking.setDriver(driver);
 		newBooking.setCustomer(customer);
 		newBooking.setBookingStatus("pending");
-		newBooking.setBookingDateTime(LocalDateTime.now());
 		Booking savedBooking = bookingDao.save(newBooking);
 		if (savedBooking != null) {
 			BookingReqDTO bookDTO = mapper.map(savedBooking, BookingReqDTO.class);
-			System.out.println("Distance    **** "+ distance.getDistance() );
 			bookDTO.setAmount(distance.getDistance() * 20);
 			bookDTO.setCarId(car.getId());
 			bookDTO.setCustomerId(customer.getId());

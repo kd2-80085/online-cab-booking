@@ -25,7 +25,7 @@ public class DriverSignupDTO {
 	private String email;
   
 	@NotBlank(message = "Password is Required")
-	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{8,20})",message = "Invalid password")
+	@Size(min=8,max = 20,message = "Password Length Must be Between 8 to 20")
 	private String password;
 	
 	@NotBlank(message = "Mobile no. is Required")
@@ -34,7 +34,5 @@ public class DriverSignupDTO {
 	private String mobile;
 	
 	@NotBlank(message = "Licence No. required")
-	@Size  (min = 16 ,max = 16, message = "Licence no. should be of 16 digits")
-	@Pattern(regexp = "^[A-Z]{2}\\d{0,14}$", message = "Please Enter Valid Licence No.")
 	private String licenceNo;
 }

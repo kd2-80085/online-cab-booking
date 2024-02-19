@@ -9,11 +9,7 @@ import lombok.ToString;
 @ToString
 public class FeedbackRespDTO {
 	
-	private Long id;
-	
-	private String firstName;
-	
-	private String lastName;
+	private int id;
 	
 	private Long driverId;
 		

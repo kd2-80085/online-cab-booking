@@ -40,7 +40,7 @@ public class CustomerSignupDTO {
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@NotBlank(message = "Password is Required")
-	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{8,20})",message = "Invalid password")
+	@Size(min=8,max = 20,message = "Password Length Must be Between 8 to 20")
 	private String password;
 	
 	@NotBlank(message = "Mobile no. is Required")

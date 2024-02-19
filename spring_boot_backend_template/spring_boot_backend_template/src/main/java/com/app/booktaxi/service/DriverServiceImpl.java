@@ -20,7 +20,6 @@ import com.app.booktaxi.dao.FeedbackDao;
 import com.app.booktaxi.dto.AuthSignInDTO;
 import com.app.booktaxi.dto.BookingRespDTO;
 import com.app.booktaxi.dto.CarRespDTO;
-import com.app.booktaxi.dto.CustomerRespDTO;
 import com.app.booktaxi.dto.DriverRespDTO;
 import com.app.booktaxi.dto.DriverUpdateProfileDTO;
 import com.app.booktaxi.dto.FeedbackRespDTO;

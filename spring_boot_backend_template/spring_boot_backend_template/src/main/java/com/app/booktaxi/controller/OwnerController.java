@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ import com.app.booktaxi.service.OwnerService;
 
 @RestController
 @RequestMapping("/owner")
+@CrossOrigin(origins = "http://localhost:5173")
 public class OwnerController {
 
 	@Autowired
@@ -140,4 +142,15 @@ public class OwnerController {
 		System.out.println("In updatePassword : " + ownerId + " " + passDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(ownerService.updatePassword(ownerId,passDTO));
 	}
+	
+	// URL : http://localhost:8080/owner/profile/{ownerId}
+			// Method : GET
+			// req params : in Head - (ownerId)      
+			// resp : (id,fname,lname,email,mobile)
+		@GetMapping("/profile/{ownerId}")
+		public ResponseEntity<?> getProfile(@PathVariable Long ownerId){
+			return ResponseEntity.status(HttpStatus.OK).body(ownerService.getProfileDetails(ownerId));	
+			
+		}
+		
 }

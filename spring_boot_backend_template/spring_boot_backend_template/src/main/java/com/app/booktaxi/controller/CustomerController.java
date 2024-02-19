@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.booktaxi.dto.CustomerBookingRespDTO;
 import com.app.booktaxi.dto.CustomerCarDTO;
 import com.app.booktaxi.dto.BookingReqDTO;
-import com.app.booktaxi.dto.BookingResponseStatusDTO;
 import com.app.booktaxi.dto.CustomerSignupDTO;
 import com.app.booktaxi.dto.PaymentReqDTO;
 import com.app.booktaxi.dto.PaymentRespDTO;
-import com.app.booktaxi.dto.RazorPayReqDTO;
-import com.app.booktaxi.dto.SigninResponseDTO;
 import com.app.booktaxi.dto.CustomerUpdateProfileDTO;
 import com.app.booktaxi.dto.CustomerUpdatePwdDTO;
 import com.app.booktaxi.dto.FeedbackDTO;
 import com.app.booktaxi.service.CustomerService;
-import com.razorpay.Order;
-import com.razorpay.RazorpayClient;
-import com.razorpay.RazorpayException;
 
 @RestController
 @RequestMapping("/customer")
@@ -117,38 +110,27 @@ public class CustomerController {
 	// bookingDateTime,customerId, carId, driverId, bookingType,taxiType, distance,
 	// pickupTime, pickUpLocation,dropLocation
 	// resp : (booking id with other details)
-	@PostMapping("/cabs/bookcab")
+	@PostMapping("/cars/payment/bookcar")
 	public ResponseEntity<?> bookCab(@RequestBody @Valid BookingReqDTO bookingReqDto) {
 		System.out.println("bookingReqDto "+bookingReqDto);
 		System.out.println("in book cab");
-		//.ok(new SigninResponseDTO(utils.generateJwtToken(verifiedAuth), responseDto));
-        BookingReqDTO bookingReq=custService.bookCab(bookingReqDto);
-//		if(bookingReq != null)
-//		return ResponseEntity.status(HttpStatus.CREATED).body(bookingReq);
-        if (bookingReq != null) {
-            String successMessage = "Booking details added successfully";
-            return ResponseEntity.status(HttpStatus.CREATED).body(new BookingResponseStatusDTO(bookingReq, successMessage));
-        } else {
-   // Handle the case where bookingReq is null
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( "Failed to add booking details");
-        }
+		return ResponseEntity.status(HttpStatus.CREATED).body(custService.bookCab(bookingReqDto));
 	}
-	
-	
-	
-	//URL : http://localhost:8080/customer/bookcar/savepayment, razorpayment
+
+	// URL : http://localhost:8080/customer/cars/bookcar/payment
 	// Method : POST
-	// req params : in Body   razorpayPaymentId,razorpayOrderId,razorpaySignature
+	// req params : in Body
 	// paymentId,amount, bookingId, transaction_id,paymentStatus,paymentDateAndTime,
-	// resp : 
-	@PostMapping("/cabs/bookcar/razorpayment")
-	public ResponseEntity<?> saveRazorPayPayment(@RequestBody @Valid RazorPayReqDTO razorPayReqDTO) {
-		System.out.println(razorPayReqDTO);
+	// paymentType;
+	// resp : (booking id with other details)
+	@PostMapping("/cars/payment/bookcar/payment")
+	public ResponseEntity<?> saveNewPayment(@RequestBody @Valid PaymentReqDTO paymentReqDTO) {
+		System.out.println(paymentReqDTO);
 		System.out.println("in saveNewPayment");
-		String response= custService.saveRazorPayPayment(razorPayReqDTO);
-		if (response != null)
+		PaymentRespDTO paymentRespDTO = custService.saveNewPayment(paymentReqDTO);
+		if (paymentRespDTO != null)
 			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(response);
+					.body("Payment saved successfully: " + paymentReqDTO);
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save payment");
 	}
 	

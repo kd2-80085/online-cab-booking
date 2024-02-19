@@ -30,7 +30,7 @@ public interface AdminService {
 	List<BookingRespDTO> getAllBookings(int pageNumber, int pageSize);
 
 	AdminSignupDTO addNewAdmin( AdminSignupDTO adminDto);
-	
+
 	List<OwnerRespDTO> getAllOwnersDetails(int pageNumber, int pageSize);
 
 }

@@ -84,6 +84,25 @@ public class AdminController {
 		return new ResponseEntity<>(allDrivers, HttpStatus.OK);
 	}
 
+	// get all drivers
+		// URL : http://localhost:8080/admin/owners
+		// Method : GET
+		// req params : pageNumber : def val 0, optional
+		// pageSize : def val 3,, optional
+		// resp : datached owners or exc
+		@GetMapping("/owners")
+	public ResponseEntity<?> getOwners(@RequestParam(defaultValue = "0", required = false) int pageNumber,
+			@RequestParam(defaultValue = "3", required = false) int pageSize) {
+		System.out.println("in get all owners details " + pageNumber + " " + pageSize);
+
+		List<OwnerRespDTO> allOwners = adminService.getAllOwnersDetails(pageNumber, pageSize);
+		System.out.println("Admin Controller all owners \n");
+
+		if (allOwners.isEmpty())
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		return new ResponseEntity<>(allOwners, HttpStatus.OK);
+	}
+	
 	// get payments of bookings
 	// URL : http://localhost:8080//bookings/payments/{bookingId}/{paymentId}
 	// Method : GET
@@ -256,24 +275,5 @@ public class AdminController {
 		System.out.println("in add new admin");
 		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addNewAdmin(adminDto));
 	}
-	
-	// get all owners
-		// URL : http://localhost:8080/admin/owners
-		// Method : GET
-		// req params : pageNumber : def val 0, optional
-		// pageSize : def val 3,, optional
-		// resp : datached owners or exc
-		@GetMapping("/owners")
-		public ResponseEntity<?> getOwners(@RequestParam(defaultValue = "0", required = false) int pageNumber,
-				@RequestParam(defaultValue = "3", required = false) int pageSize) {
-			System.out.println("in get all owners details " + pageNumber + " " + pageSize);
-
-			List<OwnerRespDTO> allOwners = adminService.getAllOwnersDetails(pageNumber, pageSize);
-			System.out.println("Admin Controller all owners \n");
-
-			if (allOwners.isEmpty())
-				return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-			return new ResponseEntity<>(allOwners, HttpStatus.OK);
-		}
 
 }
